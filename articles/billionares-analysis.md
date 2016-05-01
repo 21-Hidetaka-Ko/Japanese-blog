@@ -97,7 +97,7 @@ yearカラムは、2014年、2000年、1996年の3つのデータが含まれて
 
 citizenship(どの国）とgender（男女）の関係について知る必要があるので両者をグルーピングします。グルーピングするには、group_byという関数を使うとできます。
 
-![](images/grouping-gender.png)
+![](images/group_by-gender.png)
 
 citizenshipとgenderがグルーピングされていることを確認できますね。
 
