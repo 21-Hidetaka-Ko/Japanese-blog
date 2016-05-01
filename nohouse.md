@@ -22,8 +22,6 @@ meetup.com
 
 先生に言われたこと
 
-本田圭佑
-魚　Progate　アメリカ
 
 
 
