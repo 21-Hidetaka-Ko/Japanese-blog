@@ -1,7 +1,7 @@
 
 家賃３万
 meetup.com
-![](images/nohouse.png)
+![](Japasnese-blog/images/nohouse.png)
 ![](images/survival1.png)
 ![](images/survival2.png)
 
@@ -15,7 +15,7 @@ meetup.com
 ##お金より信頼
 
 文章
-![](images/tobitate-siliconvalley.png)
+![](Japasnese-blog/images/tobitate-siliconvalley.png)
 
 ##真面目より交渉力
 
