@@ -1,8 +1,8 @@
 
 家賃３万
-meetup.com
-![](images/nohouse.png)
-![](images/survival1.png)
+meetup.com<br>
+![](images/nohouse.png)<br>
+![](images/survival1.png)<br>
 ![](images/survival2.png)
 
 
@@ -11,10 +11,11 @@ meetup.com
 ##旅行より拠点
 
 旅をしながら暮らすこと
+学生結婚の話
 
 ##お金より信頼
 
-文章
+文章<br>
 ![](images/tobitate-siliconvalley.png)
 
 ##真面目より交渉力
@@ -28,6 +29,7 @@ meetup.com
 
 
 ##最後に
+仲間がいるよ
 
 生意気さより謙虚
 
