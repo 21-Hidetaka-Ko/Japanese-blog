@@ -66,11 +66,11 @@ yearカラムは、2014年、2000年、1996年の3つのデータが含まれて
 ![](images/command-builder.png)
 
 
-2014年のデータだけにフィルタリングして見たいわけなので、カラムの矢印の部分を押して出てきたfilterを押します。
+2014年のデータだけにフィルタリングして見たいわけなので、カラムの矢印の部分を押して出てきたFilterを押します。
 
 ![](images/filter-20140.png)
 
-すると自動的にfilter(year ==　と打ち込まれます。そして、2014と指定してRunボタンを押します。
+すると自動的にfilter(year ==　)と打ち込まれます。そして、2014と指定してRunボタンを押します。
 
 ![](images/filter-2014.png)
 
@@ -103,7 +103,16 @@ yearカラムは、2014年、2000年、1996年の3つのデータが含まれて
 ![](images/table-billionaire.png)
 
 
-citizenship(どの国）とgender（男女）の関係について知る必要があるので両者をグルーピングします。グルーピングするには、group_byという関数を使うとできます。
+citizenship(どの国）とgender（男女）の関係について知る必要があるので両者をグルーピングします。グルーピングするには、Group_byを使うとできます。
+先ほどと同じように、citizenshipの矢印の部分を押します。
+
+![](images/command-builder2.png)
+
+Group_byをクリックします。
+
+![](images/command-builder3.png)
+
+すると、group_by(citizenship)と自動的に入力されます。これにgender（男女）を加えます。
 
 ![](images/group_by-gender.png)
 
