@@ -225,7 +225,6 @@ Pinというボタンを押すと、一番最後にfilterした部分が青く�
 この発見を記録したり、シェアしたいと思いませんか？　Noteというボタンを押してみましょう。
 
 ![](images/note-billionaire.png)
-![](images/note-billionaire2.png)
 ![](images/note-publish_before.png)
 ![](images/note-publish.png)
 
@@ -274,6 +273,8 @@ Exploratoryでは、どんどん分析のためのステップ足していくこ
 ![](images/several-database2.png)
 
 - 今回は使いませんでしたが、このソフトウェアはプログラミング言語「R」の上に開発されているので、使うコマンドや関数はRとほとんど同じになります。Rでできることは全てできます。Rは数学系のライブラリが充実しているので、クラスタリングやコホート分析や決定木分析などのような高度な統計や数学を応用してデータを分析していくことも可能です。
+
+##興味を持っていただいた方、実際に触ってみたい方へ
 
 Exploratoryは[こちら](http://docs.exploratory.io/tutorials/flight4.html
 )からダウンロードできます。
