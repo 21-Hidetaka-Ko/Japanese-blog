@@ -225,6 +225,7 @@ Pinというボタンを押すと、一番最後にfilterした部分が青く�
 この発見を記録したり、シェアしたいと思いませんか？　Noteというボタンを押してみましょう。
 
 ![](images/note-billionaire.png)
+![](images/note.png)
 ![](images/note-publish_before.png)
 ![](images/note-publish.png)
 
