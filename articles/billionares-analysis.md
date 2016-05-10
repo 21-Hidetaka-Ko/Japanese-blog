@@ -1,7 +1,4 @@
 
-まだExcelで消耗してるの？
-RのフロントエンドにNW.js  (WebKitベースのデスクトップアプリSDK)とplotly.js (D3.jsベースの可視化ライブラリ)を用いた対話的で再現性重視のデータ分析環境でヨーロッパは女性が活躍しやすい社会かどうか分析してみた
-
 Rのフロントエンドということで話題になっている、Exploratoryの対話的なデータ分析環境で「ヨーロッパはほんとに女性が活躍しやすい社会か」どうか分析してみた
 
 
@@ -20,10 +17,29 @@ Rのフロントエンドということで話題になっている、Explorator
 ![](images/europe-female.png)
 
 
-こんな疑問を、データ分析によって簡単に解決することができるプロダクトがあります。それが、ぼくが今、留学先であるシリコンバレーで関わっているExploratoryというプロジェクトです。簡単に説明すると、コマンドラインインターフェイスで、データ解析とビジュアライズが同時に、柔軟にできるソフトウェアです。
+こんな疑問を、データ分析によって簡単に解決することができるプロダクトがあります。それが、ぼくが今、留学先であるシリコンバレーで関わっているExploratoryというプロジェクトです。簡単に説明すると、コマンドラインインターフェイスで、データ解析とビジュアライズが同時に、柔軟にできるソフトウェアです。技術的に書くと、RのフロントエンドにNW.js (WebKitベースのデスクトップアプリSDK)とplotly.js (D3.jsベースの可視化ライブラリ)を用いた対話的で再現性重視のデータ分析環境を提供します。
 
 
 ![](images/exploratory.lp.png)
+
+ちなみに、つい最近B版を正式にリリースしたばかり。世界中の反応はこんな感じです。
+Rの世界で１番影響力のあるHadley Wickhamさん（通称、羽鳥）がリツイートしてくれたり
+
+
+![](images/Exploratory-tweet.png)
+
+![](images/Exploratory-tweet2.png)
+
+![](images/Exploratory-tweet3.png)
+
+![](images/Exploratory-tweet4.png)
+
+世界中からアクセスが！
+
+
+![](images/Exploratory-access.png)
+
+![](images/Exploratory-access2.png)
 
 ##ヨーロッパだと、女性の億万長者が多いのか？
 
@@ -291,10 +307,11 @@ Exploratoryでは、どんどん分析のためのステップ足していくこ
 
 - 今回は、ローカルのファイルをインポートしてきて分析しましたが、以下のように、GitHub、Google Analytics、Google Spread sheet、Mongo DB、MySQL、JSON REST APIなどのたくさんのデータベースから本当に簡単にデータをインポートしてきて分析することも可能です。
 
-![](images/several-database.png)
+![](images/several-importdatabase.png)
 
-また、データがWeb上にある場合は、リンクを貼っていただけると簡単にスクレイピングして取得することも可能です。
-![](images/several-database2.png)
+![](images/several-importdatabase2.png)
+
+
 
 - 今回は使いませんでしたが、このソフトウェアはプログラミング言語「R」の上に開発されているので、使うコマンドや関数はRとほとんど同じになります。Rでできることは全てできます。Rは数学系のライブラリが充実しているので、クラスタリングやコホート分析や決定木分析などのような高度な統計や数学を応用してデータを分析していくことも可能です。
 
@@ -304,7 +321,12 @@ Exploratoryでは、どんどん分析のためのステップ足していくこ
 ##興味を持っていただいた方、実際に触ってみたい方へ
 
 Exploratoryは[こちら](http://docs.exploratory.io/tutorials/flight4.html
-)からダウンロードできます。
+)からβ版の登録ができます。こちらがinviteを完了すると、ダウンロードできるようになります。
 
 チュートリアルは[こちら](http://docs.exploratory.io/tutorials/intro.html
 )から見ることができます。
+
+英語が読める方は[Introducing Exploratory Desktop — UI for R](https://blog.exploratory.io/introducing-exploratory-desktop-ui-for-r-895d94ef3b7b#.4dncgv1rt
+)もどうぞ
+
+
