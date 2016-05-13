@@ -191,11 +191,6 @@ DHH氏はRuby on Railsの生みの親で、Basecampという会社のCTOでも�
 
 しかし、だれが彼らを責めることができるというのでしょうか？この一連の夢物語はたえず強まっているのです。
 
-問題の根底から始めましょう。将来有望なユニコーンになることを期待して、少額の投資を多く行う人のことをエンジェルと呼びます。エンジェル？と不思議に思う人もいるかもしれません。実はこれは、キリストが両替商を聖堂から追い出して、「金持ちが天国へ行くよりもラクダが針の穴を通り抜ける方が簡単だ」と言い放ったという聖書の話に由来しています。
-
-
-“金持ちが神の国へ入るより、ラクダが針の目を通り抜ける方が簡単である” （小さなものは不利であることのたとえであると同時に金銭は諸悪の元凶であることのたとえでもあります）。
-
 （中略）
 
 ユニコーンの象徴は、雑誌の表紙を飾るモデルの顔と同じ感じです。何倍にも加工され、細心を払って配置され、何時間にもわたって働かされます。
@@ -210,3 +205,16 @@ DHH氏はRuby on Railsの生みの親で、Basecampという会社のCTOでも�
 
 元の[英語記事](https://m.signalvnoise.com/reconsider-41adf356857f#.yw9dbjqgt
 )もどうぞ。
+
+##興味を持っていただいた方、実際に触ってみたい方へ
+
+Exploratoryは[こちら](http://docs.exploratory.io/tutorials/flight4.html
+)からβ版の登録ができます。こちらがinviteを完了すると、ダウンロードできるようになります。
+
+チュートリアルは[こちら](http://docs.exploratory.io/tutorials/intro.html
+)から見ることができます。
+
+英語が読める方は[Introducing Exploratory Desktop — UI for R](https://blog.exploratory.io/introducing-exploratory-desktop-ui-for-r-895d94ef3b7b#.4dncgv1rt
+)もどうぞ
+
+
