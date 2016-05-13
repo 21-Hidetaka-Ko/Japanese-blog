@@ -1,7 +1,7 @@
 RのフロントエンドExploratoryで簡単にユニコーン企業のデータをスクレイピングしてきて、分析してみた
 
 
-##0. 簡単にスクレイピング
+##0. はじめに
 
 ![](images/unicorn-webpage.png)
 ![](images/unicorn-webpage2.png)
