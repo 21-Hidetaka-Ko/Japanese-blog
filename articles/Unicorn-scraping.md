@@ -46,7 +46,7 @@ RのフロントエンドExploratoryで簡単にユニコーン企業のデー�
 
 ![](images/unicorn-table.png)
 
-レコメンドされている候補からJapanを選びます。
+すると、自動的にfilter(Country ==　）が入力されます。次に、レコメンドされている候補からJapanを選びます。
 ![](images/unicorn-japan3.png)
 
 実は、メルカリだけなんですよね。
