@@ -17,15 +17,21 @@ RのフロントエンドExploratoryで簡単にユニコーン企業のデー�
 
 ![](images/unicorn-webpage3.png)
 
+Data Framesの横の＋アイコンをクリックして、import Remote Dateを選んでください。
+
 ![](images/unicorn-scraping.png)
+
+Webからデータをとってきたいので、Scrape Web Pageを選びます。
 
 ![](images/unicorn-scraping2.png)
 
+さっきのページのリンクを貼ります。
+
 ![](images/unicorn-scraping3.png)
 
-![](images/unicorn-scraping4.png)
-
 リンクを貼るだけでデータをスクレイピングしてこれました。
+
+![](images/unicorn-scraping4.png)
 
 ![](images/unicorn.png)
 
