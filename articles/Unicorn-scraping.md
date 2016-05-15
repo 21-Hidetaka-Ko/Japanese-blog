@@ -97,7 +97,7 @@ Webからデータをとってきたいので、Scrape Web Pageを選びます�
 
 ##4.  ユニコーン企業になって、どれくらいたっているか
 
-Date.Joinefは、ユニコーン企業にいつなったか、で、そこから何年たっているかを表しています。ユニコーン企業になって、どれくらいたっているかとそこから今日までのValuationを比べてどういう関係性があるのかちょっと見てみたいと思いませんか？
+Date.Joinedは、ユニコーン企業にいつなったか、で、そこから何年たっているかを表しています。ユニコーン企業になって、どれくらいたっているかとそこから今日までのValuationを比べてどういう関係性があるのかちょっと見てみたいと思いませんか？
 
 そのために、まずこのDate.JoinedのカラムがcharacterになっているのでDateに変えてみましょう。
 ここが、4/8/2015となっているのでMonth Day Yearを選びます。
@@ -161,10 +161,14 @@ Labelにcompanyを指定すると、いくつかのdotが出てきましたよ�
 
 ##6. Note
 
+この発見を記録したり、シェアしたいと思いませんか？　Noteというボタンを押してみましょう。
+
 ![](images/unicorn-note.png)
 ![](images/unicorn-note2.png)
 ![](images/unicorn-note3.png)
 ![](images/unicorn-note4.png)
+
+こんなふうにブログを書く感覚で簡単にデータ分析のレポートを書くことができます。データ分析するだけじゃなくて、他の仲間にも簡単にシェアすることもできます。
 
 
 ##最後に
@@ -216,4 +220,6 @@ Exploratoryは[こちら](http://docs.exploratory.io/tutorials/flight4.html
 英語が読める方は[Introducing Exploratory Desktop — UI for R](https://blog.exploratory.io/introducing-exploratory-desktop-ui-for-r-895d94ef3b7b#.4dncgv1rt
 )もどうぞ
 
+Exploratoryの日本ユーザー向けの[Facebookグループ](https://www.facebook.com/groups/1087437647994959/members/
+)を作ったのでよろしかったらどうぞ
 
