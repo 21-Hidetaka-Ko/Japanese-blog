@@ -44,6 +44,8 @@ RのフロントエンドExploratorynのcommand builder機能で簡単にデー�
 
 次に、Select Investorsカラムのところに\n\tであったり、空白という余計な文字が入っていますね。
 
+![](images/unicorn-dirty.png)
+
 これもまた、command builder機能を使うとすぐ取り除くことができます。カラムのヘッダーをクリックします。
 
 ![](images/clean-text.png)
