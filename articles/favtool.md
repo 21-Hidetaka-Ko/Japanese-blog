@@ -8,44 +8,48 @@
 
 こういったデータって結構データ分析をやっていると普通だったりするのですが、Exploratoryを使うと簡単にクリーン・アップすることができます。クリーン・アップした最後にはトップ５のデータ分析ツールを出してみたいと思います。
 
+##1. カンマ区切りなので、単純にツールごとに集計できない
+
 str_spritします。
 ![](images/favtool2.png)
 
-str_spritできた。
+str_spritによってデータタイプをlistに変えることができました。
 ![](images/favtool3.png)
 
-Unnestしないと。
+でも、今のままだと1行にR, Excel, tabeleau, pythonが入っていて、それぞれのツールごとの個数を計算することができます。なので、この入れ子構造になっているのを、一回ブレイクして、R, Excel, tabeleau, python をそれぞれの行に落としこむ必要があります。unnestコマンドを使うとそれをすることができます
 
 ![](images/favtool4.png)
 
-Unnestします。
+カラムのヘッダーからunnestをクリックします。
 
 ![](images/favtool5.png)
 
-Unnestできた。
+これで、unnestコマンドによって入れ子構造じゃなくなりましたね。
 
 ![](images/favtool6.png)
 
-str_titleしないと。
+##2.スペースがいろんなとこに入ってたり、英語の大文字、小文字が混じってて、実は同じ名前であるのに同じ名前としてカウントできない。
+
+データを見ていくと、同じPythonでもpythonになっていたり、Pythonになっていたり、PYTHONになっていたりして、同じPythonを表しているのに、表示形態が違うために同じものとして計算できなくなっています。なので、str_title関数を使って、タイトルを統一したいと思います。
 
 ![](images/favtool7.png)
 
-str_titleします。
+これは、textに対するコマンドなので、Working with Text functionを選び、そこから、str_titleを選びます。
 
 ![](images/favtool8.png)
 
-str_titleできた。
+str_titleによって、Pythonに統一されましたね。
 ![](images/favtool9.png)
 
-str_trimしないと。
+次に、このようにスペースがいろんなとこにはいっていますね。このままだと、実は同じ名前であるのに同じ名前としてカウントできません。str_trim関数を使って、スペースを取り除きたいと思います。
 
 ![](images/favtool10.png)
 
-str_trimします。
+これは、textに対するコマンドなので、Working with Text functionを選び、そこから、str_trimを選びます。
 
 ![](images/favtool11.png)
 
-str_trimできた。
+str_trimによって、スペースが取り除かれましたね。
 ![](images/favtool12.png)
 
 
