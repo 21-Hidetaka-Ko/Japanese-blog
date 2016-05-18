@@ -18,7 +18,7 @@
 ![](images/favtool2.png)
 
 str_spritによって一つの文字列になってるものを複数の文字列に変換することができ、データタイプもlistになりました。
-![](images/gi)
+![](images/favtool3.png)
 
 でも、今のままだと1行にR, Excel, tabeleau, pythonが入っていて、それぞれのツールごとの個数を計算することができます。なので、この入れ子構造になっているのを、一回ブレイクして、R, Excel, tabeleau, python をそれぞれの行に落としこむ必要があります。unnestコマンドを使うとそれをすることができます
 
