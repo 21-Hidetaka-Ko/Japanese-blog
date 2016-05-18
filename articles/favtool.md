@@ -18,7 +18,7 @@
 ![](images/favtool2.png)
 
 str_spritによって一つの文字列になってるものを複数の文字列に変換することができ、データタイプもlistになりました。
-![](images/favtool3.png)
+![](images/gi)
 
 でも、今のままだと1行にR, Excel, tabeleau, pythonが入っていて、それぞれのツールごとの個数を計算することができます。なので、この入れ子構造になっているのを、一回ブレイクして、R, Excel, tabeleau, python をそれぞれの行に落としこむ必要があります。unnestコマンドを使うとそれをすることができます
 
@@ -59,27 +59,25 @@ str_trimによって、スペースが取り除かれましたね。
 
 ##3.トップ５のデータ分析ツールを出す
 
-これで、Exploratoryを使うと簡単にクリーン・アップすることができたので、ユーザーのトップ５のデータ分析ツールを出してみたいと思います。
+これから、ユーザーのトップ５のデータ分析ツールを出してみたいと思います。
 
-まず、上位を計算して出すために、ツールそれぞれの個数を計算したいと思います。そのために、favoriteToolsカラムをgroup_byします。
+Exploratoryを使って簡単にクリーン・アップすることができました。しかし、それでも、NA値と呼ばれるような、空の値などの計算することができないデータがあります。トップ５のデータ分析ツールだけを出したいので、そういう場合は、NA値を排除しましょう。
 
-![](images/favtool13.png)
+![](images/favtool20.png)
 
-count関数を使って、ツールそれぞれの個数を計算します。
+これは、NA値に対するコマンドなので、Working with NAを選び、そこから、Remove NAを選びます。
 
-![](images/favtool14.png)
+![](images/favtool21.png)
 
-ツールそれぞれの個数を計算することができましたね。
+Remove NAによって、NA値が取り除かれましたね。
+![](images/favtool22.png)
 
-![](images/favtool15.png)
+これで、ビジュアライズしてみます。
+![](images/favtool23.png)
 
-ツールそれぞれの個数を計算することができたので、top_n関数によって、上位を計算します。
+数が多いので、上位だけにズームしてみます。上位から順に、R、Python, Excel, Tableau, Sqlであることがわかりました。
+![](images/favtool25.png)
 
-![](images/favtool16.png)
-
-ユーザーのトップ５のデータ分析ツールを出すことができました。
-
-![](images/favtool17.png)
 
 
 
