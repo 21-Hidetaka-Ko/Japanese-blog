@@ -35,12 +35,8 @@ Safe City（安全な街）
 
 ![](images/sekuhara-save.png)
 
-![](images/sekuhara-import.png)
-
 すると、さっきはエクセルでなんのことかわからなかったデータが、インポートしただけでわかりやすくなりましたね。
-例えば、この赤矢印のDAYというカラムを見てみると、金曜日にセクハラが多いことがわかったりしますね。
-
-また、経度を表すLatitudeカラムなどを利用すれば、場所をビジュアライズしていくこともできそうです。
+例えば、経度を表すLatitudeカラムなどを利用すれば、場所をビジュアライズしていくこともできそうです。
 
 ![](images/sekuhara-latitude.png)
 
@@ -57,9 +53,27 @@ LongitudeにLongitudeカラムを、LatitudeにLatitudeカラムを当てはま�
 
 ##3. いつ多いか？
 
+いつ多いかを見ていきたいので、曜日を表すカラムであるDATEに着目します。
 
+いつ多いかを見たいときに、NA値があってもしょうがないので、消去します。
+
+![](images/sekuhara-removena1.png)
+
+![](images/sekuhara-removena2.png)
+
+このままだと、セクハラが起きた日付がわかっても、何曜日なのかがわかりません。もしかしたら、日付より曜日に何らかの規則性があるかもしれません。Exploratoryだと、直感的に日付から曜日を計算することができるのでやってみます。
+
+DATEカラムのヘッダーメニューからDay of weekを選びます。
+
+![](images/sekuhara-day.png)
+
+すると、コマンドが自動的に入力されて、日付から曜日を出すことができました。
+
+![](images/sekuhara-week.png)
 
 ![](images/when-sekuhara.png)
+
+金曜日の午後にセクハラがダントツで起きていることがわかりました。
 
 
 ####結論
