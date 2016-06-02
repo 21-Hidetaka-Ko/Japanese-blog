@@ -13,7 +13,7 @@ Progateとは、オンラインプログラミング学習サイトです。特�
 
 ![](images/progate-story.jp.png)
 
-なので、Rのフロントエンド、RのためのUIと話題のExploratoryを使って、Twitter上でのProgateというツイートについて分析してみました。
+なので、「Rのフロントエンド、RのためのUI」と話題のExploratoryを使って、Twitter上でのProgateというツイートについて分析してみました。
 
 
 ##1. Twitterのデータをインポート
@@ -29,20 +29,60 @@ Twitterを選びます。
 
 ![](images/twitter-import3.png)
 
+Search Textの部分にExploratoryで分析したい文字を入れます。そしてGET DATAボタンを押します。
+
+![](images/progate-search.png)
+
+これで、データを取得することができました。
+
+![](images/progate-main.png)
+
+screenName列などを使うと、だれが一番ツイートしているのかを見て、ランキングを出したりしていけそうです。やっぱりProgateの開発者のアカウントはランキングに入っていたりするのでしょうか？
+
 ##2. だれが一番ツイートしているか？
 
+これから、screenNameの数を出していくために、screenNameグルーピングします。screenName列のヘッダーからGroup_byを選択します。
 
+![](images/screenName-groupby.png)
 
+すると、自動的にグルーピングを意味する関数が入力されグルーピングされました。
 
+![](images/screenName-groupby.png)
 
-##3. なんで１週間分のツイートしか取得できないの？
+次に、Summarize関数を使って、screenNameの数を計算します。screenName列のヘッダーからSummarize, Count(n)を選択します。
 
-![](images/.png)
+![](images/progate-summarize.png)
+
+すると、自動的にSummarize関数が入力され、「アカウントが何回Progateとツイートしているか」を計算することができました。
+
+![](images/progate-summarize2.png)
+
+ぜんぶ見ていても、仕方ないので、Top N関数をつかって、簡単にトップ１０ランキングを出してみたいと思います。
+
+![](images/progate-topn.png)
+
+すると、自動的にTop N関数が入力され、簡単にトップ１０ランキングを出すことができました。
+
+![](images/progate-topn2.png)
+
+次に、順番がバラバラなので、arrange関数を使ってソートしてみます。screenName列のヘッダーからSort by, Descendingを選択します。
+
+![](images/progate-arrange.png)
+
+すると、自動的にarrange関数が入力され、簡単に順番にソートしてくれました。
+
+![](images/progate-arrange2.png)
+
+##3. 検証
+
+##4. なんで１週間分のツイートしか取得できないの？
+
+![](images/progate-created.png)
 
 Progateとツイートされた日付を表すcreated_atカラムを見るとわかるように、1週間分のツイートしか取得できていません。
 これは、Twitterの検索APIの仕様の問題でそうなっているようです。もしどうしても、すべてのツイートを読み込みたい場合は、Twitterはstreaming apiってのが提供しているはずなので、それをdbに入れておいてそれを解析するか、seleniumとか使ってすべてスクレイプするしかなさそうです。めんどくさそうですね笑。
 
-##4. なんでTwitterのアナリティクス機能を使った分析はできないの？
+##5. なんでTwitterのアナリティクス機能を使った分析はできないの？
 
 画像を見てわかるように、Twitterではアナリティクス機能が実装されており、だれでも自分のツイートの分析について詳しく見ていくことができます。
 Exploratoryでは、現在はまだアナリティクスデータのインポート機能は実装されていませんが、将来的にサポートする予定です。
