@@ -1,5 +1,20 @@
 世界一わかりやすいと話題のプログラミング学習サイトProgateについて「だれが一番ツイートしているか」をRのフロントエンドExploratoryを使って分析してみた
 
+Progateとは、オンラインプログラミング学習サイトです。特徴は以下の３つです。
+
+
+シリコンバレーで活躍している日本人エンジニアの方も、Progateのユーザーフレンドリーさには太鼓判を押しています。少なくとも日本人初心者にとっては、現時点で最もプログラミングを効率よく楽しく学べるサイトだと思います。
+
+<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">みっちぇるとよーすけ君で<a href="https://twitter.com/EdSurge">@EdSurge</a> 遊びに行ってきた！自己紹介の時、周さんが、Edsurgeエンジニアに、ProgateのほうがCodeacademyよりユーザーフレンドリーて言ってくれた笑 Thanks <a href="https://twitter.com/chibicode">@chibicode</a> <a href="https://t.co/v746ZSqm9I">pic.twitter.com/v746ZSqm9I</a></p>&mdash; Hidetaka Ko (@SoccerKinki) <a href="https://twitter.com/SoccerKinki/status/736379978950922240">2016年5月28日</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+ぼくは、Progateで５ヶ月間ほどソフトウェアエンジニアとして有給インターンしていました。詳しく知りたい方は、[文系初心者が東大理系エンジニア集団Progateで、エンジニアとしてインターンするまで気付かなかった「１人・教材・海外留学」より大切なこと](http://storys.jp/story/20856?to=story&referral=pc_story_sidebar&context=author_other
+)をどうぞ。何と、１万人以上の人に読まれました。本当にたくさんのことを学ばせて頂きました。そのProgateですが、ぼくの肌感ですが、ぼくがいたときに比べて、最近知名度が急激に上がってきたように思われます。
+
+![](images/progate-story.jp.png)
+
+なので、Rのフロントエンド、RのためのUIと話題のExploratoryを使って、Twitter上でのProgateというツイートについて分析してみました。
+
 
 ##1. Twitterのデータをインポート
 
@@ -29,16 +44,11 @@ Progateとツイートされた日付を表すcreated_atカラムを見るとわ
 
 ##4. なんでTwitterのアナリティクス機能を使った分析はできないの？
 
+画像を見てわかるように、Twitterではアナリティクス機能が実装されており、だれでも自分のツイートの分析について詳しく見ていくことができます。
+Exploratoryでは、現在はまだアナリティクスデータのインポート機能は実装されていませんが、将来的にサポートする予定です。
+
 ![](images/twitter-analytics.png)
 
-現在はまだ実装されていませんが、将来的にサポートする予定です。
-
-##5. 余談
-
-余談ですが、ぼくは、Progateで５ヶ月間ほどソフトウェアエンジニアとして有給インターンしていました。本当にたくさんのことを学ばせて頂きました。詳しく知りたい方は、[文系初心者が東大理系エンジニア集団Progateで、エンジニアとしてインターンするまで気付かなかった「１人・教材・海外留学」より大切なこと](http://storys.jp/story/20856?to=story&referral=pc_story_sidebar&context=author_other
-)をどうぞ。何と、１万人以上の人に読まれました。
-
-![](images/progate-story.jp.png)
 
 ##興味を持っていただいた方、実際に触ってみたい方へ
 
