@@ -75,6 +75,16 @@ screenName列などを使うと、だれが一番ツイートしているのか�
 
 ##3. 検証
 
+![](images/progate-account.png)
+
+この８位と１０位のアカウントはProgateの社長とインターン生のTwitterアカウントです。
+
+![](images/progate-masa.png)
+
+![](images/progate-kaito.png)
+
+フォローしておくとなにかいいことがあるかもしれません笑
+
 ##4. なんで１週間分のツイートしか取得できないの？
 
 ![](images/progate-created.png)
