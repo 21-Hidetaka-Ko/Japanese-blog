@@ -45,11 +45,7 @@ screenName列などを使うと、だれが一番ツイートしているのか�
 
 ![](images/screenName-groupby.png)
 
-すると、自動的にグルーピングを意味する関数が入力されグルーピングされました。
-
-![](images/screenName-groupby.png)
-
-次に、Summarize関数を使って、screenNameの数を計算します。screenName列のヘッダーからSummarize, Count(n)を選択します。
+すると、自動的にグルーピングを意味する関数が入力されグルーピングされました。次に、Summarize関数を使って、screenNameの数を計算します。screenName列のヘッダーからSummarize, Count(n)を選択します。
 
 ![](images/progate-summarize.png)
 
@@ -92,12 +88,6 @@ screenName列などを使うと、だれが一番ツイートしているのか�
 Progateとツイートされた日付を表すcreated_atカラムを見るとわかるように、1週間分のツイートしか取得できていません。
 これは、Twitterの検索APIの仕様の問題でそうなっているようです。もしどうしても、すべてのツイートを読み込みたい場合は、Twitterはstreaming apiってのが提供しているはずなので、それをdbに入れておいてそれを解析するか、seleniumとか使ってすべてスクレイプするしかなさそうです。めんどくさそうですね笑。
 
-##5. なんでTwitterのアナリティクス機能を使った分析はできないの？
-
-画像を見てわかるように、Twitterではアナリティクス機能が実装されており、だれでも自分のツイートの分析について詳しく見ていくことができます。
-Exploratoryでは、現在はまだアナリティクスデータのインポート機能は実装されていませんが、将来的にサポートする予定です。
-
-![](images/twitter-analytics.png)
 
 
 ##興味を持っていただいた方、実際に触ってみたい方へ
