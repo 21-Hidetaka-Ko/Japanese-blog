@@ -13,7 +13,7 @@
 正解は、1500ドル（約16万円）です。なぜ、そんなに家賃が高騰しているかについては詳しくは[こちら](https://speakerdeck.com/chibicode/shang-shan-zhou-zuo)から見ることができます。
 
 
-ぼくの家の近くに、最近、日本でお馴染みのやよい軒ができました。
+ぼくの家の近くに、最近、日本でお馴染みの庶民向けレストラン「やよい軒」ができました。
 
 <!-- <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-version="7" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:8px;"> <div style=" background:#F8F8F8; line-height:0; margin-top:40px; padding:50.0% 0; text-align:center; width:100%;"> <div style=" background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAMUExURczMzPf399fX1+bm5mzY9AMAAADiSURBVDjLvZXbEsMgCES5/P8/t9FuRVCRmU73JWlzosgSIIZURCjo/ad+EQJJB4Hv8BFt+IDpQoCx1wjOSBFhh2XssxEIYn3ulI/6MNReE07UIWJEv8UEOWDS88LY97kqyTliJKKtuYBbruAyVh5wOHiXmpi5we58Ek028czwyuQdLKPG1Bkb4NnM+VeAnfHqn1k4+GPT6uGQcvu2h2OVuIf/gWUFyy8OWEpdyZSa3aVCqpVoVvzZZ2VTnn2wU8qzVjDDetO90GSy9mVLqtgYSy231MxrY6I2gGqjrTY0L8fxCxfCBbhWrsYYAAAAAElFTkSuQmCC); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;"></div></div> <p style=" margin:8px 0 0 0; padding:0 4px;"> <a href="https://www.instagram.com/p/BEb6iGTylvZ/" style=" color:#000; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none; word-wrap:break-word;" target="_blank">ついにパロアルトのやよい軒に来た！ おいしかったけど、高すぎる笑 日本では、庶民向けだけど、こっちでは完全にパロアルトの金持ち向けだ</a></p> <p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;">Hidetaka Koさん(@hidetakadesu)が投稿した写真 - <time style=" font-family:Arial,sans-serif; font-size:14px; line-height:17px;" datetime="2016-04-20T20:52:47+00:00">2016 4月 20 1:52午後 PDT</time></p></div></blockquote> <script async defer src="//platform.instagram.com/en_US/embeds.js"></script>
  -->
@@ -27,7 +27,7 @@
 
 
 
-##あなたが試したことがない、よい子はマネをしてはいけない、3つの節約術
+##あなたが試したことがない、マネをしてはいけない3つの節約術
 
 せっかくなので、この期間に、ぼくが実践していた「あなたが試したことがないであろう具体的な節約術」をいくつか紹介しましょう。
 
@@ -39,6 +39,8 @@
 
 ①Meetup.com<br>
 
+Meetup.comという〜
+
 ![](images/survival1.png)
 
 ![](images/survival2.png)
@@ -46,7 +48,7 @@
 
 ②Soylent.com
 
-シリコンバレーで活躍するエンジニア兼炎上系ブロガーさんに相談する機会があったので、聞いてみました。彼なら、きっと目から鱗の解決策を提示してくれるに違いない。ぼくは、起死回生の策を授けてくれるであろう彼のアドバイスに胸を踊らせていました。彼は、毎日パンダエクスプレス（アメリカの超安いレストラン）でご飯は食べていたぼくにこう言い放ちました。
+シリコンバレーで活躍するエンジニア兼炎上系ブロガーさんに相談する機会があったので、聞いてみました。彼なら、きっと目から鱗の解決策を提示してくれるに違いない。ぼくは、起死回生の策を授けてくれるであろう彼のアドバイスに胸を踊らせていました。彼は、毎日パンダエクスプレス（アメリカの超安いレストラン）でご飯を食べていたぼくにこう言い放ちました。
 
 
 >若者は、パンダエクスプレスで消耗するべきではない。Soylentで満たすべき。（圧倒的意訳）
@@ -55,7 +57,7 @@
 
 >ソイレント（英: soylent）とは、Rosa Labs, LLC. が販売している栄養機能食品の飲み物。生存に必要な栄養素がすべて含まれ、従来の食事が不要となるという[1][2]。味はほんのり甘く、この粉末を水などに溶かして飲む[1][2]。
 
-ソイレントのレビューに関しては、@yokichiさんの連続ツイートが面白い。
+ソイレントのレビューに関しては、@yokichiさんの連続ツイートが面白いです。
 
 <blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">まず、この不思議な粉が入った袋を用意します。 <a href="http://t.co/hwzCoRpOMS">pic.twitter.com/hwzCoRpOMS</a></p>&mdash; 古賀 洋吉 / Yo Koga (@yokichi) <a href="https://twitter.com/yokichi/status/596089635542970368">2015年5月6日</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
