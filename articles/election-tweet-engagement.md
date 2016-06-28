@@ -1,4 +1,4 @@
-# Explore Trump, Clinton Tweets data and find their engagement effectiveness
+# トランプ氏とクリントン氏、アメリカ大統領選を制するのはどちらか？　RのフロントエンドExploratoryを使ってTwitterデータを分析してみた。
 
 
 
