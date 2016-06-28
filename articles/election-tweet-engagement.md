@@ -78,11 +78,11 @@ Authorize appをクリックしてください。
 
 ![](images/bind_rows2.png)
 
-カンマで区切って、‘twitter_clinton’と‘twitter_trump’を選んでください。Runするときのコマンドはこのような感じです。
+カンマで区切って、‘twitter_clinton’を選んでください。Runするときのコマンドはこのような感じです。
 
 `bind_rows(twitter_clinton)`
 
-すると、‘screenName’列の下に3者のTwitterアカウント名が表示されたのを確認することができます。
+すると、‘screenName’列の下に両者のTwitterアカウント名が表示されたのを確認することができます。
 
 ![](images/screenName.png)
 
@@ -95,83 +95,72 @@ Authorize appをクリックしてください。
 
 ![](images/tweet_chart.png)
 
-トランプ氏が、6月2日と3日から急激にツイートが増えた一方、クリントン氏は、5月31日から活発になっているのがわかりますね。
+
 
 ##誰が最も、注目を集めているか?
 
 もし、あなたが彼らのように立候補者だったとしたら、あなたは、選挙のために自分のツイートを拡散したいだけでなく、他の立候補者より注目を得たいですよね？　注目を測るためには、Twitterには2つの指標があると思います。１つは、Twitterのファボ数です。
 
 
-![](images/screenName.png)
+![](images/favorite_count.png)
 
 もう１つは、リツイート数です。
 
-![](images/screenName.png)
+![](images/retweetCount.png)
 
 
 この２つの指標を使うことによって、わたしたちは、誰が最もキャンペーンに成功しているのかがわかります。例えば、‘retweetCount’をX軸に、‘favoriteCount’をY軸に、‘screenName’をColorに指定してみましょう。
 
-![](images/screenName.png)
+![](images/scatter_tweet.png)
 
 
-We can see that Trump’s tweets tend to be more liked than retweeted in a comparison to the other two candidates while Clinton’s tweets tended to be more retweened than liked compared to the other two. However, when we look closer we notice visually that the amount of the ‘liked’ and ‘retweeted’ tweets by Trumps are significantly a lot more than the other two.
-
-![](images/screenName.png)
-
-This goes to show how Trump has been successfully promoting his messages by reaching out a lot bigger audience through Twitter for the last 10 days.
-We can actually see this with a simple bar chart by assigning ‘created’ date to X-Axis, ‘retweetCount’ to Y-Axis, and ‘screenName’ to Color, like below.
-
-![](images/screenName.png)
-
-We can see how consistently Trump has been succeeding for spreading his tweets for the last 10 days.
-Another way to look at this is to label each tweet based on whether the tweet was retweeted (or liked) more than a certain times like, for example, three thousand times.
-You can create such label simply by running a command like below.
-mutate(retweetCounts_threshold = retweetCount > 3000)
-This will test the condition (retweetCount > 3000) and return TRUE if it satisfies the test, otherwise FALSE.
-Then, we can assign ‘screenName’ to X-Axis and this new column ‘retweenCounts_threshold’ to Color like below.
-
-![](images/screenName.png)
+これを見ると、トランプ氏のツイートが、クリントン氏に比べると圧倒的にファボが多いことがわかりますね。これは、トランプ氏が、直近の１０日間において、Twitterを通して、たくさんの聴衆に向けて彼のメッセージを届けることに成功していることがわかります。
 
 
-Wow! This simple chart actually contrasts the difference between Trump and the other two candidates so significantly. The majority of Trump’s tweets got retweeted at least three thousand times while such tweets are rather rare rewards for Clinton and Sanders. Trump’s tweets are much more contagious.
+次に、このコマンドは、リツイート数が3000以上かどうかを振り分けます。もし、条件を満たしていたらTRUEを返し、そうでなければ、FALSEを返します。‘screenName’をX軸に、‘retweenCounts_threshold’をColorに指定してみましょう。
+
+`mutate(retweetCounts_threshold = retweetCount > 3000)`
+
+ファボ数も同様にしてみましょう。
+
+`mutate(favoriteCounts_threshold = favoriteCount > 3000)`
+
+![](images/retweetCounts_threshold.png)
+![](images/favoriteCounts_threshold.png)
 
 
-##Trend for Retweeted and Liked Counts for each Candidates
-
-Lastly, let’s look at the trend by comparing the distribution of each ‘favoriteCount’ and ‘retweetCount’ values among the candidates.
-If we want to bring the two metrics into the chart together we can gather those two columns into Key and Value columns so that the Key column will have the information to identify whether the values presented there are ‘favoriteCount’ or ‘retweetCount. We can use ‘gather’ command from dplyr package like below.
-
-gather(engagement_type, counts, favoriteCount, retweetCount)
-
-The first argument value is the name of the new Key column and the second is the name of the new Value column this command will create. The third and the forth are the names of the columns that we want to gather and assign them to the new Key and Value columns.
-After running the command we can see the new ‘engagement_type’ and ‘counts’ columns being added.
-
-![](images/screenName.png)
+これはすごいですね（笑）この簡単なチャートの違いは、トランプ氏とクリントン氏の違いを決定的に表わしています。トランプ氏のほとんどのツイートは、少なくとも3000回以上をリツイートとファボを記録しています。
 
 
-Now we can go to Chart and quickly assign ‘engagement_type’ to X-Axis, ‘counts’ to Y-Axis, and ‘screenName’ to Color.
-
-![](images/screenName.png)
+##候補者のリツイート数とファボ数のトレンドを分析する
 
 
-It excludes the outliers as default. We can include them by clicking ‘Include Outlier’ checkbox next to Y-Axis.
+最後に、候補者のファボ数とリツイート数の分布を比べて、トレンドを分布してみましょう。ファボ数とリツイート数のデータを一緒にひとつのチャートに持ってきたいときは、Key列が、値が、ファボ数かリツイート数を表しているのかを区別するための情報を持つために、２つの列をKeyとValue列に持ってくる必要があります。そうするときは、gatherコマンドが便利です。
 
-![](images/screenName.png)
+`gather(engagement_type, counts, favoriteCount, retweetCount)`
+
+最初の引数は、新しいKey列の名前で、2番目の引数は、新しいValue列の名前です。3番目と4番目の引数は、新しいKeyとValue列に持ってきたいデータの名前です。
+
+Runボタンを押すと、新たに‘engagement_type’と‘counts’が加えられたのを確認することができます。
+
+![](images/gather_tweet.png)
 
 
-Either way, it looks that Trump is completely playing a different game than the other two here. This could be because the Democrats are split to two candidates currently, once they will have picked one single candidate then we might see more effective engagement for the Democrats. Or, maybe not. The Trump’s masterful capability of influencing through social media is something that has been proved through the Republican primary race already, and that is something I’m sure the strategy and PR folks at the Democrats are super worried about.
+チャート画面に行って、‘engagement_type’をX軸に、‘counts’をY軸に、‘screenName’をColorに指定してみましょう。
+
+![](images/gather-chart1.png)
 
 
-Bringing Twitter Search data quickly into Exploratory means that we can explore the data quickly and iteratively by employing our usual grammar of data wrangling — dplyr and tidyr — and the visualization to find something we didn’t even know before. And this is what thrills me the most every time I get to work with a new data set and hope it will do for you, too!
+これを見ると、ソーシャルメディアにおけるトランプ氏の圧倒的な影響力を理解することができますね。
 
 
 ##最後に、
 
 -わたしたちが言いたかったことは、ある問題に直面してそれが解決できる単純な問題に見えても、実際にはその問題の複雑さが分かっていないことが多いということなのです。単純化しすぎるのです。byスティーブ・ジョブズ
 
-国民投票といえば、イギリスが〜、記憶に新しいですね。
+国民投票といえば、イギリスがEUが離脱することに決まったニュースが記憶に新しいですね。
 
-国民投票では表面的な「わかりやすさ」や感情論に操作されていることが多く、個人的に本当にもったいないなと思ってしまいます。
+国民投票では、表面的な「わかりやすさ」や感情論に操作されていることが多く、個人的に本当にもったいないなと思ってしまいます。
 
 基本的に外交戦略や政治戦略って一般人からすると複雑すぎて直感的にわからない事が多いので、国民投票向きじゃないですよね。そもそもシンプルにできない論点を、無理やりシンプルにした人が勝ちという本質的じゃない勝負になっている気がします。
 
@@ -179,7 +168,7 @@ Bringing Twitter Search data quickly into Exploratory means that we can explore 
 
 つまり、多くの人がデータを読めないこと、もっというと、データを読むには、高いリテラシーが必要と認識されていることが１つの問題点なのだと思います。
 
-Exploratoryのビジョンは、data is everywhere for everyoneです。
+Exploratoryのビジョンは、data is everywhere for everyoneです。今回のような、Twitterのインポート機能も、そのビジョンを実現するための1つの実装にすぎません。Exploratoryがあれば、そんな問題もなくなる。いつかそんな日がきっと来るのではないでしょうか？
 
 
 
