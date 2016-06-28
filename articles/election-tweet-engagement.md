@@ -1,6 +1,5 @@
-# Explore Trump, Clinton, and Sanders Tweets data and find their engagement effectiveness
+# Explore Trump, Clinton Tweets data and find their engagement effectiveness
 
-![](images/engagement_type.png)
 
 
 Exploratoryのすごいところは、Rを使って、とても簡単に、様々なデータ・ソースからデータをインポートすることができることです。Twitterもその１つです。技術的には、Jeff Gentryさんが開発した[twitteR](https://github.com/geoffjentry/twitteR)というパッケージを使っています。
@@ -168,7 +167,7 @@ Runボタンを押すと、新たに‘engagement_type’と‘counts’が加�
 
 つまり、多くの人がデータを読めないこと、もっというと、データを読むには、高いリテラシーが必要と認識されていることが１つの問題点なのだと思います。
 
-Exploratoryのビジョンは、data is everywhere for everyoneです。今回のような、Twitterのインポート機能も、そのビジョンを実現するための1つの実装にすぎません。Exploratoryがあれば、そんな問題もなくなる。いつかそんな日がきっと来るのではないでしょうか？
+Exploratoryのビジョンは、data is everywhere for everyoneです。今回のような、Twitterのインポート機能も、そのビジョンを実現するための1つの実装にすぎません。Exploratoryがあれば、「データを全く見ずに、表面的なわかりやすさや感情論に操作される国民投票」なんてなくなる。いつかそんな日がきっと来ることをExploratoryは、信じています。
 
 
 
