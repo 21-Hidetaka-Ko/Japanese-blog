@@ -1,4 +1,4 @@
-#Introducing Branch for Running Multiple Experiments Quickly
+#RのフロントエンドExploratoryでは、分析のフローをGitのようにブランチ化できる
 
 ![](images/branch-tutorial.png)
 
