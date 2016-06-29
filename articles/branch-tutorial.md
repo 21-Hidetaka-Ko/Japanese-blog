@@ -2,12 +2,11 @@
 
 ![](images/branch-tutorial.png)
 
-データを探っていくときに、何か発見して、たくさんの質問が思いついたりした経験はありませんか？　今までだと、そのような試行錯誤を繰り返すためには、同じデータに対して、たくさんの異なるデータ分析のやり方を試さないとだめでしたよね。
+データを探っていくときに、何か発見して、たくさんの質問が思いついたりした経験はありませんか？　今までだと、そのような試行錯誤を繰り返すためには、たくさんの異なるデータ分析のやり方を試さないとだめでしたよね。
 
-One of the common things you might want to do is to build different models that are differentiated by algorithms, parameter settings, or the subset of the data. Or, another typical thing would be to aggregate data at some grouping levels like Countries, Years, Status, etc, and try to understand the summary level information. After the aggregation though, you have just lost the detail level of the data, which means you can’t query against the detail level data or you can’t filter the detail data by the result of the aggregated data.
+また、アルゴリズムやパラメータの設定で区別された異なるモデルを作ることだったり、CountriesやYearsやStatusなどでグルーピングされたデータをaggregateして、それぞれの違いを素早く確認したかったりしませんか？　でも、データがaggregateされた後だと、データの大部分が失われているので、失われたデータに対してクエリできなかったり、フィルタリングできなかったりしますよね。
 
-
-You can address these challenges by simply copying the data set multiple times. But that means you need to repeat the same data wrangling steps over the same data again and again. Or, you can copy or save the intermediate data output that is the result of such data wrangling. But this will create bunch of the data sets that look kind of similar but somewhat different. Not only this makes it harder to understand how each of the data is prepared, but also some of the data sets will easily end up being staled as you would continue wrangling with data through your data exploration phase.
+今までなら、そういう場合は、同じデータに対して、いくつもデータフレームを新しく作り、途中まで全く同じデータ分析ステップを入力する必要がありめんどくさくありませんでしたか？
 
 
 この問題を解決するために、Exploratoryは、‘Branch’機能を実装しました。
@@ -46,64 +45,76 @@ K-meansクラスタリングモデルを作ることもできますが、今回�
 
 ![](images/K-means_Clustering_branch.png)
 
-メインブランチでは、どのステップからどのブランチが枝分かれしているのかを見ることが一目瞭然です。
+メインブランチでは、どのステップからどのブランチが枝分かれしているのか一目瞭然です。
 
 ![](images/main_branch.png)
 
 ##DAGエンジンによって、データ依存性を管理する
 
-Branch feature is built on top of our organically and locally made Exploratory DAG (Directed acyclic graph) engine. This means, not only you can create a branch off of any step of the data wrangling step but also you can count on all the data dependency you would expect among the steps and among the branches.
 
-ブランチ機能は、
-What will happen when the data wrangling steps in Main changed?
-Creating a new branch off from one of the steps in the main is actually the easiest part. As some of you probably know, each step of the data wrangling has corresponding data cache to make the performance better and to make the command syntax suggestion appropriate. So, what will happen to the child branches when you update one of the data wrangling steps in the main? Well, it will take care of managing such data dependency automatically behind the scene. This means that any change in the data wrangling chain in the main, including the step for extracting the original data, will be reflected automatically in the child branches when necessary.
-Let’s take a look a few scenarios to see how this really works. We will use the previous example where we had one main branch and two branches of ‘Regression Experiment’ and ‘Clustering Experiment’.
+ブランチ機能は、Exploratoryが独自に開発しているExploratory DAG (Directed acyclic graph)エンジンの上で実装されています。これは、つまり、どれかのステップからブランチを作ることができるだけでなく、データの中のデータ依存性も期待できるといいことなのです。どういうことかと説明すると、
 
-![](images/note-publish.png)
 
-Reloaded the source data from local or remote data
-Let’s say we have re-loaded the data from a remote database by clicking on ‘Refresh’ button at the top of the data transformation step. This will refresh all the steps in the main and the branches and regenerate the data cache for each step.
+###メインブランチのデータ分析ステップに変更があったときに何が起こるか？
 
-![](images/note-publish.png)
+メインブランチのデータ分析ステップに変更があったときに何が起こると思いますか？
 
-The green background colored box indicates a step that has been updated by the user. The green color bordered boxes indicate that they are the steps that will be refreshed automatically.
-Updated a step in the middle in the main
-Let’s say you have updated one of the steps called ‘Extract Day of Week’ to ‘Extract Day of Month’ in the main. It depends on where this step is in the main, but basically this will refresh all the steps after ‘Extract Day of Month’ step in the main and only the steps in the branches that have the data dependency to ‘Extract Day of Month’ step.
+Exploratoryは、バックエンドでデータ依存性を自動的に管理しています。だから、オリジナルのデータをインポートしてくるステップを含め、メインブランチのデータ分析ステップの変更は、すべて自動的に子ブランチに反映されます。
 
-![](images/note-publish.png)
+‘Regression Experiment’と‘Clustering Experiment’ブランチの例を使って、具体的に確認していきましょう。
 
-In the above scenario, ‘Clustering Experiment’ branch won’t get updated at all because it doesn’t have any data dependency to the updated step ‘Extract Day of Month’.
-Now, if we updated ‘Grouping’ step of the main, then both ‘Regression Experiment’ and ‘Clustering Experiment’ branches will have no impact.
+![](images/main_branch_change.png)
 
-![](images/note-publish.png)
+###ローカルやリモートデータのデータをリロードする。
 
-What happens when a step, from which branches are branched off, is removed?
-Once the step is deleted in the main then any branch that was depending on the step will be automatically re-mapped to the previous step of the deleted step. Consider the following case.
+例えば、‘Refresh’ボタンをクリックしてリモートのデータベースからデータをリロードしてみましょう。すると、メインブランチと子ブランチすべてのステップのステップのデータが更新され、それぞれのステップのデータをキャッシュします。
 
-![](images/note-publish.png)
+![](images/cache_for_each_step.png)
 
-We removed ‘Extract Day of Week’ step which ‘Regression Experiment’ branch was directly branched off from. This would make ‘Regression Experiment’ branch an ‘orphan’ branch, but Exploratory DAG engine will automatically re-connect it to the step before the deleted step, that is ‘Remove NAs’ step as you see in the picture below.
 
-![](images/note-publish.png)
+背景色が緑のBOXは、ユーザによってデータが更新されるステップです。枠が緑のBOXは、自動的にデータが更新されるステップです。
 
-And, it will refresh the data cache for all the steps after in the main and the steps in ‘Regression Experiment’ branch.
-What if some data is coming from another data frame?
-You might be joining or merging with data that is coming from a different data frame like below.
 
-![](images/note-publish.png)
+###メインブランチのステップを変更する
 
-In the above picture, the red background box ‘Aiport — Main’ is a different data frame with which we are joining ‘Flight Main’ data frame at the third step in the main of ‘Flight’ data frame.
-Let’s say we have re-loaded the ‘Airport’ data from the original website. This will refresh ‘Clean up Data’ step in the main of ‘Airport’ data frame. And this means that the ‘Left Join’ step will be refreshed and all steps after will be refreshed as well. And since one of the steps in the main of ‘Flight’ data frame called ‘Grouping’ gets refreshed, this will make all the steps of ‘Regression Experiment’ refreshed. However, ‘Clustering Experiment’ will have no impact because it doesn’t have any dependency on all the steps that are refreshed this time.
+例えば、メインブランチで、‘Extract Day of Week’ステップを‘Extract Day of Month’に変えてみましょう。このステップは、メインブランチにありますが、メインブランチで‘Extract Day of Month’ステップをした後に、自動的に、メインブランチの全てのステップに、変更を反映させ、‘Extract Day of Month’に対して、データ依存性を持っているブランチだけにも変更を反映させます。
 
-![](images/note-publish.png)
+![](images/Updated_a_step.png)
 
-##Lazy data caching
+上記の例だと、‘Clustering Experiment’ブランチのデータは、全く更新されません。なぜなら、‘Extract Day of Month’.ステップの更新に依存性がないからです。今、もし、メインブランチの‘Grouping’を更新しても、‘Regression Experiment’と‘Clustering Experiment’ブランチの両方は全く影響を受けません。
 
-The refreshing or regenerating of the data cache for each data wrangling step happens only when it is required. Which means, nothing really happens in the branches when the underlying steps in the main gets updated, until you go to the branches to see the data.
-There is much more, but the most important thing is that we wanted to make this experience as intuitively smooth as possible so that you as users should see what you would expect to see with these data wrangling steps. Yes, just works! ;)
-We are creative human being, we are curious and have a lot of questions of the world. Our goal is to provide a fast, interactive, iterative, and inprovised data exploration experience against any type of data so that you can explore the data and ask more questions with confidence and excitement.
-With this Branch feature taking care of the data dependency behind the scene, you can quickly wrangle with your data in a very flexible way without spending too much time worrying about how to manage your data analysis experiments or relationship between the intermediate outputs. This means, there will be more time for analyzing data, forming your questions, and exploring data to find answers.
-If you are already Exploratory Desktop users please download the latest. If your are not and want to try this out please sign up for the beta access at our website.
+![](images/grouping-no-impact.png)
+
+###ブランチが除去されたときは、ステップも除去されるのか？
+
+メインブランチでステップが除去されると、そのステップに依存性のあるブランチは自動的に、削除される前のステップにマッピングされます。次のケースを考えてみてください
+
+![](images/consider_following.png)
+
+‘Regression Experiment’ブランチが直接枝分かれしている‘Extract Day of Week’ステップを削除したとしましょう。すると、‘Regression Experiment’ブランチは、親のいないブランチになってしまいますね。しかし、ExploratoryDAGエンジンが自動的に、削除される1つの前のステップ、つまり、‘Remove NAs’ステップに接続し直します。
+
+![](images/reconnect_step.png)
+
+そして、メインブランチと‘Regression Experiment’ブランチの全てのステップのキャッシュを更新します。
+
+###もし、いくつかのデータフレームが別のデータフレームから来ていたら？
+
+Exploratoryでは、下記のように、異なるデータフレームからデータをジョインしたり、マージすることができます。
+
+![](images/another_data_frame.png)
+
+上の写真だと、背景色が赤色の‘Aiport — Main’BOXは、‘Flight’データフレームのメインブランチの3番目のステップでジョインしたデータフレームと異なっています。
+
+例えば、元のウェブサイトから‘Airport’データをリロードしたとしましょう。すると、‘Airport’データフレームのメインブランチの‘Clean up Data’は更新されます。つまり、‘Left Join’ステップが更新され、全てのステップもその後に同じように更新されます。‘Flight’データフレームのメインブランチにある‘Grouping’ステップが更新されると、‘Regression Experiment’ブランチのステップも全て更新されます。しかし、データ依存性のあるステップのない‘Clustering Experiment’ブランチは全く影響を受けません。
+
+![](images/another_data_frame2.png)
+
+##Exploratoryが大切にしていること
+
+最も大切なことは、ユーザが思い通りにデータ分析をすることができるように、操作をできるだけ直感的にしているということです。
+私たちは、人間です。たくさんのことに好奇心を持つので、たくさんの疑問を持ちます。Exploratoryのビジョンは、どんなデータに対しても、早く、直感的で、インテラクティブな、データ分析を可能にすることです。
+
+
 
 ##興味を持っていただいた方、実際に触ってみたい方へ
 
