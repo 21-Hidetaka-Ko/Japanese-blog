@@ -1,4 +1,4 @@
-#Introducing Interactive Chart Sharing and Embedding
+#RのフロントエンドExploratoryを使って、チャートをSlackやSNSやブログに埋め込んでみた
 
 ![](images/chart_share.png)
 
@@ -31,10 +31,6 @@
 ##チャートの変更を更新する
 
 例えば、公開しているチャートのデータやチャートの形に、変更があった場合、変更を反映させたいですよね。その場合は、公開された、チャートを更新するために、‘Update’ボタンを押してください。
-
-
-When you update though, the generated URL will produce an updated key as part of the base URL. This is to refresh the cached chart thumbnail images that some of the mediums like Slack, Facebook, Twitter, etc, preserve in their feed streams. So you want to re-copy the generated URL with a new cache key and paste it to those mediums to refresh the cache.
-
 
 ##チャートの公開をやめる
 
