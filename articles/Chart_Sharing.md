@@ -93,3 +93,6 @@ Exploratoryは[こちら](https://exploratory.io/
 
 Exploratoryの日本ユーザー向けの[Facebookグループ](https://www.facebook.com/groups/1087437647994959/members/
 )を作ったのでよろしかったらどうぞ
+
+ExploratoryのTwitterアカウントは、[こちら](https://twitter.com/ExploratoryData
+)です。
