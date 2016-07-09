@@ -7,24 +7,26 @@
 例えば、ここに、カリフォルニアにある会社がどんなことをしているかを明らかにするために、公開している‘California Transparency in Supply Chain Act’というデータがあります。これは、会社に、会社のビジネスに関わっているサプライチェーンにおいて、違法に労働搾取をしていたりするのを根絶する権限を与えます。このデータは、[Eddie Bauer](http://www.eddiebauer.com/static/pdf/California_Transparency_Supply_Chain.pdf
 )からダウンロードしました。
 
-サプライチェーンとは、企業の経営・管理で使用する用語で、原材料・部品の調達から、製造、在庫管理、販売、配送までの製品の全体的な流れのこと。 それぞれの工程が別個にあるのではなく、鎖としてつながっているという意味で、特に物流の仕組みや上流・下流を含めた複数企業間の連携を強調していう場合もある。
+サプライチェーンとは、企業の経営・管理で使用する用語で、原材料・部品の調達から、製造、在庫管理、販売、配送までの製品の全体的な流れのこと。 それぞれの工程が別個にあるのではなく、鎖としてつながっているという意味で、特に物流の仕組みや上流・下流を含めた複数企業間の連携を強調していう場合もあります。
 
 
 このデータを分析していて出てきた質問は、「A会社のドキュメントと比べて、類似性はあるのか？」や「その会社が毎日なにをしているかに関係なく、同じテンプレートを使ったり、模範的なドキュメントのコピペをしているのを見破れるかどうか」ということです。
 
-We can work with this type of text data and apply some algorithms in R to answer these types of questions, but it has never been straightforward and clear for most of us unless you are the expert.
-Today, I’m super excited to announce that we have introduced a set of R functions with the latest release of ‘exploratory’ R package to make this type of text analytics more accessible, easier, and quicker for more people.
-I’m going to walk you through how you can use these functions in Exploratory Desktop. Also, at the end you will find an R script to reproduce all the steps in your R environment.
+Exploratoryでは、そんな問題を解決するために、テキスト分析を行うことができます。
+
+専門家ではない限り、理解するのは簡単ではないですが、１つづつ説明していきたいと思います。また、すべてのステップをRstudioなどで再現することもできます。
 
 
-##Import Data
+##データをインポートする
 
-Here is a sample data that we have created based on the data about ‘California Transparency in Supply Chain Act’. It has company names and the text of the disclosure documents that the companies published.
 If you are working with R console or R Studio, you can run a command like below.
 
+まず、[こちら](https://www.dropbox.com/s/w1sy4u8j71m3vlq/CA_Trans_Supply_Chain.csv?dl=0
+)から、‘California Transparency in Supply Chain Act’というデータをダウンロードします。もし、R consoleやR Studioで同じことをするなら、以下のコードを走らせてください。
 
-library(readr)
-read_delim("/Users/kannishida/Downloads/CA_Trans_Supply_Chain.csv" , ",", quote = "\"", )
+
+`library(readr)
+read_delim("/Users/kannishida/Downloads/CA_Trans_Supply_Chain.csv" , ",", quote = "\"", )`
 
 
 If you are working with Exploratory then you can select ‘CSV’ from ‘Import Local Data’ dialog and select the downloaded data.
