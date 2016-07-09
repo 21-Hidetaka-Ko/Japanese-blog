@@ -1,7 +1,7 @@
 
-# サルでもわかるテキスト分析入門その１ — Preparing Document and Term Data for Text Mining in R
+# サルでもわかるテキスト分析入門その１ — Rによるテキスト分析のためのドキュメントとデータを準備する
 
-![](images/branch-tutorial.png)
+![](images/text-begin.png)
 
 もし、たくさんのドキュメントを持っていたら、そのドキュメント同士の類似性を調べてみたいと思いませんか？
 例えば、ここに、カリフォルニアにある会社がどんなことをしているかを明らかにするために、公開している‘California Transparency in Supply Chain Act’というデータがあります。これは、会社に、会社のビジネスに関わっているサプライチェーンにおいて、違法に労働搾取をしていたりするのを根絶する権限を与えます。このデータは、[Eddie Bauer](http://www.eddiebauer.com/static/pdf/California_Transparency_Supply_Chain.pdf
@@ -19,7 +19,6 @@ Exploratoryでは、そんな問題を解決するために、テキスト分析
 
 ##データをインポートする
 
-If you are working with R console or R Studio, you can run a command like below.
 
 まず、[こちら](https://www.dropbox.com/s/w1sy4u8j71m3vlq/CA_Trans_Supply_Chain.csv?dl=0
 )から、‘California Transparency in Supply Chain Act’というデータをダウンロードします。もし、R consoleやR Studioで同じことをするなら、以下のコードを走らせてください。
@@ -30,186 +29,198 @@ If you are working with R console or R Studio, you can run a command like below.
 `read_delim("/Users/kannishida/Downloads/CA_Trans_Supply_Chain.csv" , ",", quote = "\"", )`
 
 
-If you are working with Exploratory then you can select ‘CSV’ from ‘Import Local Data’ dialog and select the downloaded data.
+Exploratoryなら、‘Import Local Data’ダイアログから、‘CSV’を選んで、ダウンロードしたデータを選んでください。
 
-![](images/branch-tutorial.png)
+![](images/import-text.png)
 
-And it looks something like below after you import this CSV file.
+ダウンロードした後は、こんな感じになります。
 
-![](images/branch-tutorial.png)
+![](images/downloaded.png)
 
-Since some of the company names are super long and hard to read, we can use ‘str_sub’ function from ‘stringr’ package to strip them down to the first 50 characters.
+いくつかの会社の名前が長すぎて、読むのが難しいので、‘str_sub’関数を使って、最初の50文字に減らします。
 
+`mutate(name = str_sub(name, 1, 50))`
 
-mutate(name = str_sub(name, 1, 50))
-
-![](images/branch-tutorial.png)
-
-
-Given that we are interested in the text of the disclosure document data itself to find the similarity among the documents, we will keep this ‘mutate’ step.
+![](images/str_sub.png)
 
 
-##Tokenize Text
+##テキストをトークン化する
 
-We can tokenize the text into words by using ‘do_tokenize’ command from ‘exploratory’ package, which internally utilizes ‘unnest_token’ from ‘tidytext’ package.
+これから、Exploratory独自の関数である、‘do_tokenize’関数を使って、テキストを単語にトークン化かします。
 
-
-do_tokenize(text)
-
-
-You can construct this command from the column header menu like below.
-
-![](images/branch-tutorial.png)
+`do_tokenize(text)`
 
 
-After you run the command you get the result like below.
+以下のように、列のヘッダーメニューからコマンドを選ぶことができます。
 
-![](images/branch-tutorial.png)
-
-
-There are three new columns.
-
-- document_id — it has an unique ID per document or group, in this case that happens to be the name of the company who owns the document.
-- sentence_id —it has an unique ID per sentence within each group. For example, the document for ‘Dollar Tree’ has twelve sentences so you will see the IDs starting from 1 to 12.
-- token— It has the tokenized words, each of which is presented in each row.
+![](images/command-text.png)
 
 
-You can quickly see how many words are in each document and compare among the documents in Chart view by assinging ‘name’ column to X-Axis with Bar chart type.
+Runボタンを押すと、結果はこんな感じになります。
 
-![](images/branch-tutorial.png)
-
-
-We can see there are 356 words in ‘Dollar Tree’ document. And the document with the most words award goes to ‘Pepsico, Inc.’, they have a lot to say about this topic, I assume.
-
-![](images/branch-tutorial.png)
+![](images/after-command-text.png)
 
 
-##Remove Stop Words
+3つの列ができました。
+
+- document_id — ドキュメントやグループにつきユニークなIDをひとつ持っています。
+
+- sentence_id — それぞれのグループの中のセンテンスにつきユニークなIDをひとつ持っています。例えば、‘Dollar Tree’というドキュメントは、12センテンス持っています。
+
+- token— トークン化された単語のことです。
 
 
-When we go to Summary view we can quickly see that the most frequent words are “and”, “the”, “to”, “of”, etc.
+簡単に、いくつの単語が、それぞれのドキュメントにあるのかを見たり、チャート画面で、Barチャートを使って、name列をX軸に指定することによって、ドキュメントを比較することができます。
 
-![](images/branch-tutorial.png)
+![](images/bar-chart-text.png)
 
-These words are so generic that they wouldn’t really help to identify each document. What we are essentially looking for here are the words that would help characterizing each document.
-Let’s consider we have these two documents.
+
+‘Dollar Tree’ドキュメントには、356文字あることがわかりました。また、最も多くの単語を記録しているドキュメントは、‘Pepsico, Inc.’のようですね。
+
+![](images/most-award-text.png)
+
+
+##Stop Wordsを除去する
+
+
+サマリー画面に行くと、“and”, “the”, “to”, “of”などの単語が頻繁に記録されていることを確認できます。
+
+![](images/summary-stop-words.png)
+
+これらの単語は、一般的なものなので、ドキュメントを比較したり、特定したりするのを助けるのに役立たったりはしませんよね。ここで、本当に探したいものは、ドキュメントを特定するのを助ける単語ですね。
+
+
+例えば、この2つのドキュメントの例で考えてみましょう。
 
 Document A:
 This is an apple.
+
 Document B:
 This is a banana.
 
-And we know intuitively that in order to differentiate these two documents we just need only ‘apple’ from Document A and ‘banana’ from Document B, and we don’t really need the other words, not because they are exactly the same between Document A and B, but because they are very common words in general. And these words are called ‘stop words’.
-By the way, this is a super simplified example, and defining ‘stop words’ itself would involve a lot more, but that is for a different topic later.
-We can quickly remove these ‘stop words’ by using ‘is_stopword’ function from ‘exploratory’ package inside ‘filter’ command like below.
+
+直感的に、この2つのドキュメントを見分けるためには、ドキュメントAからは、‘apple’、ドキュメントBからは、‘banana’という単語だけが必要ですよね。他の単語は必要ではありません。ドキュメントAとBは、ほとんど同じだからだけではなく、Thisなどの、一般的な共通した単語を使っているからです。これらの単語は、‘stop words’と呼ばれています。
+
+Exploratoryの独自関数である、‘is_stopword’関数を使って、‘stop words’を除去しましょう。
 
 
-filter(!is_stopword(token))
+`filter(!is_stopword(token))`
 
 
-This function evaluates each word if it matches with a list of the registered ‘stop words’ and returns TRUE if matches. Note that the ‘stop words’ list is provided through ‘tidytext’ package and based on the three lexicons of “onix”, “SMART”, and “snowball”.
-
-You can construct this command from the header menu.
-
-![](images/branch-tutorial.png)
-![](images/branch-tutorial.png)
+この関数は、単語が、‘stop words’に登録されている一連のリストと一致したら、TRUEを返します。
 
 
-Now we can see that the most frequent words are “supply”, “suppliers”, “human”, “trafficking”, etc, in Summary view. This intuitively makes sense because these are the documents about the labor condition in the supply chains at the end of the day.
+ヘッダーメニューから、このコマンドを使うことができます。
+
+![](images/is_stopword1.png)
+![](images/is_stopword2.png)
 
 
-##Keep only alphabetical characters
+
+今回は、最も頻繁に記録されている単語は、“supply”, “suppliers”, “human”, “trafficking”などになりましたね。このドキュメントは、サプライチェーンにおける労働条件についてなので、納得の結果ですね。
 
 
-When you look at the data closer by sorting with ‘token’ column alphabetically, you would notice that there are bunch of numbers (or digits) in the data.
+##アルファベットだけ抜き出す
 
 
-arrange(token)
-
-![](images/branch-tutorial.png)
+‘token’列をアルファベット順にソートしてみると、データの中にたくさんの数字があることがわかります。
 
 
-While these ‘text’ information might help to find some patterns among the documents, most of the times they actually don’t really help characterizing the documents. For example, when we have ‘1’ as data we don’t really know what this ‘1’ means, it could be an unit, position, class, chapter, etc. So it could be more noisy than useful.
-We can keep only the alphabet letters by using ‘is_alphabet’ function in ‘filter’ command to keep only the data that has only the alphabet letters. This function evaluates each word presented in each row and returns TRUE when a given word contains only alphabet letters. We can add this additional condition in the existing ‘filter’ command like below.
+`arrange(token)`
+
+![](images/arrange-token.png)
 
 
-filter(!is_stopword(token) & is_alphabet(token))
-
-![](images/branch-tutorial.png)
+このテキストの情報は、ドキュメントの中にパターンを見出すのに少しは役立つかもしれませんが、ほとんどの場合は、大して役に立ちません。例えば、データを示す1というデータを持っていても、1が何を意味するのかがわからないと意味がありません。それは、単位であり、位置であり、クラスなのです。いまのままだと、便利というよりむしろ邪魔です。
 
 
-After we run the command we no longer see those number ‘text’ data in ‘token’ column.
+‘is_alphabet’という関数を使うと、アルファベットのままにしておくことができます。この関数は、指定した単語が、アルファベットだけを含んでいるときだけ、TRUEを返します。下記のように、追加で条件を加えることもできます。
+
+`filter(!is_stopword(token) & is_alphabet(token))`
+
+![](images/is_alphabet.png)
 
 
-##Stem Words into their basic form
-
-As you can see in Summary view, two words of “suppliers” and “supplyr” are very popular words among the documents.
-
-![](images/branch-tutorial.png)
-
-But given that “suppliers” is just a plural form of “supplier” we might not want to make these two words as completely different entries, rather we want to treat these as same so that we can identify the documents better.
-For example, if one document contains a word “supplier network” and another document contain “suppliers network“, probably these two are talking about similar subject as compared to the difference between “supplier network“ and “Internet network” or “social network”.
-Luckily, there is a technique called ‘word stem’ or ‘stemming’ for dealing with situations like this. It is a technique to reduce the inflected words to their base or root forms. So the word like ‘play’, ‘plays’, ‘playing’, ‘played’ will all become ‘play’ after the ‘stemming’.
-We can use a function ‘stem_word’ from the exploratory package that wraps ‘wordstem’ function from ‘quanteda’ package to do the ‘stemming’. You can use it inside ‘mutate’ command like below.
+Runボタンを押すと、トークン列に文字のテキストデータが見れなくなりましたね。
 
 
-mutate(token_stem = stem_word(token))
-
-![](images/branch-tutorial.png)
+##複数の派生語を語幹に基いて計算する
 
 
-We can see that ‘supplier’ is the most frequent word now.
-When we go to Table view we can easily compare the words before the stemming and after the stemming.
+サマリー画面を見るとわかるように、“suppliers”と“supplyr”の2単語がドキュメントの中にとても多いですね。
 
-![](images/branch-tutorial.png)
-
-
-##Construct n-grams
-
-Now, speaking of “supply” word, as we know these are the documents about ‘supply chain’, which means there must be many documents are using ‘supply chain’ as a term. And ‘supply chain’ and ‘supply carrots’ are two different things especially in this context and we want to take advantage of such difference in order to identify the documents.
-In Natural Language Processing, we call this ‘n-gram’, which is nothing but concatenating the words that are next to each other. For example, mono-gram (1-gram) is a single word. Bi-gram (2-gram) means two words next to each other such as ‘Supply Chain’. And Tri-gram (3-gram) means three words together such as ‘Supply Chain Act’.
-We can use ‘do_ngram’ function from the exploratory package, which uses ‘skipgram’ function from ‘quanteda’ package, like below.
+![](images/Stem-Words-into-their-basic.png)
 
 
-do_ngram(token_stem, n=1:2)
+“suppliers”が、“supplier”の複数形であることを考慮にいれると、この2単語を全くの別物として区別するべきではありませんよね。むしろ、ドキュメントをより正確に特定するためには、このような2単語を同一のものとして扱う必要があります。
 
 
-We can use ’n’ argument to set what types of ‘n-gram’ we want. In the above example, we are trying to get both mono-gram and bi-gram. If you like to include ‘tri-gram’ also, then you can set the ’n’ argument to including from 1 to 3 like below.
+幸運にも、この問題を解決するための、‘word stem’や‘stemming’と呼ばれるような技術があります。これは、それぞれの単語の語幹に基いて、派生した単語を減らすことができる技術です。例えば、‘play’, ‘plays’, ‘playing’, ‘played’のような一連の単語は、‘stemming’した後だと、全て‘play’として扱われます。Exploratoryの独自関数である、‘stem_word’関数を使って複数の派生語を語幹に基いて計算しましょう。
 
 
-do_ngram(token_stem, n=1:3)
+`mutate(token_stem = stem_word(token))`
+
+![](images/token_stem.png)
 
 
-Before you run this command though, there is an important thing you need to consider, which is a ‘boundary’. The ‘do_ngram’ function will simply concatenate the words that are next to each other. More precisely, it is going to grab the next word and concatenate it with the current word for every single row to create ‘bi-gram’, for example. But intuitively you would know that concateanting the words across the sentences would not make much sense. So the ‘n-gram’ should be done only within the same sentence.
-In order to have ‘do_ngram’ function do the ‘n-gram’ operation only within a sentence we can use ‘group_by’ command to set the sentence as the boundary. Given ‘name’ represents each document and ‘sentence_id’ represents each sentence within each document we can use these two columns to set the boundary like below.
+すると、‘supplier’が最も頻繁に記録されている単語になりましたね。テーブル画面を見ると、stemmingされた後と前とを簡単に比較することができます。
+
+![](images/compare-steming.png)
 
 
-group_by(name, sentence_id)
-
-![](images/branch-tutorial.png)
+##n-gramsを作る
 
 
-You can see that there are 2172 groups now, this is basically equivalent to the number of the sentences.
-And now we can run the ‘do_ngram’ function.
+今、“supply”といえば、‘supply chain’についてのドキュメントだとわかります。しかし、‘supply chain’と‘supply carrots’は、このコンテキストにおいて、全くの別物なので、ドキュメントを特定するために、区別する必要があります。
 
 
-do_ngram(token_stem, n=1:2)
-
-![](images/branch-tutorial.png)
+自然言語処理の分野においては、これを‘n-gram’と呼んでいます。‘n-gram’とは、隣り合う単語を連結することです。例えば、mono-gram (1-gram)は1単語、Bi-gram (2-gram)は、‘Supply Chain’のような隣り合う2単語を、Tri-gram (3-gram)は、‘Supply Chain Act’のような隣り合う3単語をいっしょに連結することを意味します。Exploratoryの独自関数である、‘do_ngram’関数を使ってみましょう。
 
 
-You can see ‘bi-gram’ terms are added now.
-Additionally, you can use ‘skip’ argument inside ‘do_ngram’ command to skip words to construct the n-grams. Also, you can simply use ‘filter’ command to exclude some words that you don’t see any value or see as ‘noise’.
-Anyway, these are the main steps of the ‘data preparation’ part of the text analytics we are performing in this series. As a next step, we can start quantifying each document by giving a score to each term per document by using something called TF-IDF. But, this post has already gone super long, I’m going to separate that part to the next post. Stay tuned!
+`do_ngram(token_stem, n=1:2)`
 
 
-##eReproduce it in R
-You can reproduce all the steps we went through above in R by generating an R script in Exploratory Desktop.
 
-![](images/branch-tutorial.png)
+自分がほしいn-gramのタイプをnの引数で設定します。例えば、上の例では、mono-gramとbi-gramの両方を得ようとしています。もし、tri-gramも得たいなら、以下のように、1から3までnの引数で設定する必要があります。
 
 
-The generated R script would look like below. (Note that the library commands are not correctly generated with this feature yet. We are working on to fix it soon!)
+`do_ngram(token_stem, n=1:3)`
+
+Runボタンを押す前に、ひとつ大切なことを思い出す必要があります。それは、境界についてです。‘do_ngram’関数は、単に隣り合う単語を連結します。しかし、センテンスをまたいで、単語を連結することは意味を成しません。だから、‘n-gram’は、同じセンテンス内だけで行れる必要があります。
+
+
+そうするために、‘group_by’コマンドを使いましょう。‘name’はそれぞれのドキュメントを表し、‘sentence_id’は、それぞれのドキュメント内のセンテンスを表します。この2つの列を使って、以下のように境界を設定することができます。
+
+
+`group_by(name, sentence_id)`
+
+![](images/boundary.png)
+
+
+すると、2172グループになっているのが確認できますね。これは、基本的にセンテンスの数と同じです。Runボタンを押してください。
+
+
+`do_ngram(token_stem, n=1:2)`
+
+![](images/ngram-boundary.png)
+
+
+
+‘bi-gram’が加えられたのがわかりますね。
+
+このシリーズでは、テキスト分析の一部である、「データの準備」について主に書きました。次のシリーズでは、それぞれのドキュメントをTF-IDFと呼ばれる指標を使って、ドキュメントにおけるそれぞれの単語の数を定量化します。
+
+##Rで再現する
+
+
+ExploratoryでRスクリプトを生成することによって、これらのステップをすべてRで再現することができます。
+
+![](images/reproduce_in_r.png)
+
+
+生成されたRスクリプトは、こんな感じになります。(ただし、libraryコマンドは、まだうまく生成できていません。すぐに改善される予定です。)
+
+
 library(readr)
 library(dplyr)
 library(stringr)
@@ -226,19 +237,15 @@ read_delim("/Users/kannishida/Download/CA_Trans_Supply_Chain.csv" , ",", quote =
   do_ngram(token_stem, n=1:2)
 
 
-The exploratory package is not on CRAN, but on Github, so you want to install it with the devtools package from Github.
+
+exploratoryパッケージは、CRANにではなく、GitHub上にあります。興味がある方は、GutHubからdevtoolsパッケージといっしょにインストールすることができます。
 
 
-install.packages("devtools")
-devtools::install_github("exploratory-io/exploratory_func")
-library(exploratory)
+`install.packages("devtools")`
 
+`devtools::install_github("exploratory-io/exploratory_func")`
 
-You will also need the following R packages to be installed before running the above script.
-
-tidytext
-Matrix
-quanteda
+`library(exploratory)`
 
 
 
@@ -247,8 +254,6 @@ quanteda
 Exploratoryは[こちら](https://exploratory.io/
 )からβ版の登録ができます。こちらがinviteを完了すると、ダウンロードできるようになります。
 
-チュートリアルは[こちら](http://docs.exploratory.io/tutorials/intro.html
-)から見ることができます。
 
 Exploratoryの日本ユーザー向けの[Facebookグループ](https://www.facebook.com/groups/1087437647994959/members/
 )を作ったのでよろしかったらどうぞ
