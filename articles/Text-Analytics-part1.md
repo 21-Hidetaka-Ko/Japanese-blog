@@ -26,6 +26,7 @@ If you are working with R console or R Studio, you can run a command like below.
 
 
 `library(readr)`
+
 `read_delim("/Users/kannishida/Downloads/CA_Trans_Supply_Chain.csv" , ",", quote = "\"", )`
 
 
