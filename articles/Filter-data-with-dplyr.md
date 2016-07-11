@@ -54,48 +54,39 @@ Selectコマンドを使うことで、分析したい列だけを選ぶこと�
 ![](images/filter-!=.png)
 
 
-##Filtering with multiple values
+##複数の値をフィルタリングする
 
 
-What if you want to see only the data for the flights that are of either United Airline (UA) or American Airline (AA) ? You can use ‘%in%’ for this, just like the IN operator in SQL.
+United Airline (UA)とAmerican Airline (AA)の両方のフライトのデータだけを見たい場合は、SQLにおけるINにあたる%in%を使うと見ることができます。
 
-![](images/.png)
-
-
-We can’t really tell if it’s working or not by looking at the first 10 rows. Let’s run count() function to summarize this quickly.
-
-![](images/.png)
+![](images/filter-in.png)
 
 
-We can see only AA and UA as we expected. And yes, I know, this ‘count()’ function is amazing. It literally does what you would intuitively imagine. It returns the number of the rows for each specified group, in this case that is CARRIER. We could have done this by using ‘group_by()’ and ‘summarize()’ functions, but for something like this simple ‘count()’ function alone does the job in such a quick way.
+本当にうまくいってるのかを確認するために、count()関数を使って、簡単にデータを集計してみましょう。
+
+![](images/count-filter.png)
 
 
-##Reverse the condition logic
-
-What if you want to see the flight that are not United Airline (UA) and American Airline (AA) this time ? It’s actually very simple with R and dplyr. Here’s a magic one letter you can use with any condition to reverse the effect. It’s ‘!’ (exclamation mark). And, it goes like this.
-
-![](images/.png)
-
-Notice that there is the exclamation mark at the beginning of the condition inside the filter() function. This is a very handy ‘function’ that basically flips the effect of the condition that is after the exclamation mark. This is why the result above doesn’t include ‘UA’ nor ‘AA’. It might look a bit weird until you get used to it especially if you’re coming from outside of R world, but you are going to see this a lot and will appreciate its power and convenience.
+思ったとおり、AAとUAだけでしたね。ご覧のとおりcount関数は、とても直感的で便利です。この関数は、指定したグループの行の数を返します。この場合なら、CARRIERですね。
 
 
-##Filtering out NA values
-
-Now, let’s go back to the original data again.
+##NA値をフィルタリングする
 
 
-When you look closer you’d notice that there are some NA values in ARR_DELAY column. You can get rid of them easily with ‘is.na()’ function, which would return TRUE if the value is NA and FALSE otherwise.
+データを見ていくと、ARR_DELAY列にいくつかNA値があることが確認できますね。
 
-![](images/.png)
+![](images/arr-delay-na.png)
+
+値が、NA値だったら、TRUEを返して、そうでなければFALSEを返すis.na()関数を使うと、それらを簡単に取り除くことができます。
+
+![](images/arr_delay-all.png)
+
+おっと、ARR_DELAYの値がすべてNA値になってしまいましたね。ぼくたちが知りたいデータは全く逆のことなので、条件文に!を足しましょう。
+
+![](images/filter-all.png)
 
 
-Oops, it looks like all the values in ARR_DELAY are now NA, which is opposite of what I hoped. Well, as you saw already we can now try the ‘!’ (exclamation mark) function again like below.
-
-
-
-
-This is how you can work with NA values in terms of filtering the data.
-This is the basic of how ‘filter’ works with dplyr. But this is just the beginning. You can do a lot more by combining with aggregate, window, string/text, and date functions, which I’m going to cover at the next post. Stay tuned!
+これが、dplyrの基本的な文法です。しかし、これはほんの一例で、dplyrでは、データをaggregateしたり、window関数を使ったり、文字列を整形したり、date関数を使ったり、まだまだいろんなことができます。
 
 
 ##興味を持っていただいた方、実際に触ってみたい方へ
