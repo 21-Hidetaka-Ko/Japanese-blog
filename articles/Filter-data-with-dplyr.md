@@ -34,7 +34,7 @@ SQLと比較するとわかりやすいです。主要なdplyrの機能とSQLの
 
 次に、ここからデータをインポートできます。
 
-![](images/import.png)
+![](images/flight-import.png)
 
 データをインポートすると、データのサマリー画面を見ることができます。
 
@@ -50,8 +50,13 @@ Selectコマンドを使うことで、分析したい列だけを選ぶこと�
 
 ##知りたいデータだけをフィルタリングする
 
+例えば、United Airline (UA)会社のフライトのデータだけを見てみましょう。
 
-例えば、United Airline (UA)会社のフライトのデータだけを見たい場合は、下図のようにするとみることができます。
+列のヘッダーをクリックしてfilterコマンドを選びます。
+
+![](images/filter-header.png)
+
+すると、自動的にfilter(CARRIER == )が入力されます。次に、レコメンドされている候補からUAを選びます。
 
 ![](images/filter-flight.png)
 
@@ -72,10 +77,22 @@ Selectコマンドを使うことで、分析したい列だけを選ぶこと�
 
 United Airline (UA)とAmerican Airline (AA)の両方のフライトのデータだけを見たい場合は、SQLにおけるINにあたる%in%を使うと見ることができます。
 
+列のヘッダーをクリックしてfilterコマンドを選びます。
+
+![](images/filter-header2.png)
+
+すると、自動的にfilter(CARRIER %in% c())が入力されます。次に、レコメンドされている候補からUAとAAを選びます。
+
 ![](images/filter-in.png)
 
 
 本当にうまくいってるのかを確認するために、count()関数を使って、簡単にデータを集計してみましょう。
+
+列のヘッダーをクリックしてcountを選びます。
+
+![](images/count-column.png)
+
+すると、自動的にcount(CARRIER)が入力されます。
 
 ![](images/count-filter.png)
 
@@ -85,12 +102,17 @@ United Airline (UA)とAmerican Airline (AA)の両方のフライトのデータ�
 
 ##NA値をフィルタリングする
 
-
 データを見ていくと、ARR_DELAY列にいくつかNA値があることが確認できますね。
 
 ![](images/arr-delay-na.png)
 
 値が、NA値だったら、TRUEを返して、そうでなければFALSEを返すis.na()関数を使うと、それらを簡単に取り除くことができます。
+
+列のヘッダーをクリックしてWorking with NAからDrop NAを選びます。
+
+![](images/drop-Na-with.png)
+
+すると、自動的にfilter(!is.na(ARR_DELAY))が入力されます。
 
 ![](images/arr_delay-all.png)
 
