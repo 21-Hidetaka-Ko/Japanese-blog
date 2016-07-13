@@ -78,11 +78,11 @@ ARR_DELAY列のヘッダーをクリックしてfilterコマンドを選びま�
 
 例えば、「平均到着遅延時間以上のフライトだけを見る」と言った質問に対して、ぼくは、filter(ARR_DELAY > mean(ARR_DELAY, na.rm = TRUE))と書きました。これをSQLで書くと
 
-SELECT *
- FROM flight
-WHERE ARR_DELAY > (SELECT AVG(ARR_DELAY)
-                FROM flight
-             )
+'SELECT *:　　
+ FROM flight　　
+WHERE ARR_DELAY > (SELECT AVG(ARR_DELAY)　　
+                FROM flight　　
+             )'
 
 のような感じになるはずです。ご覧のとおり、1行で収めるのは難しく、直感的ではないですよね。
 
