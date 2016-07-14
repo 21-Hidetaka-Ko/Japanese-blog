@@ -97,7 +97,7 @@ ARR_DELAY_min_rank列のヘッダーをクリックしてFilterコマンドを�
 
 CARRIER列のヘッダーをクリックしてgroup_byを選びます。
 
-![](images/.png)
+![](images/group_by-cer.png)
 
 すると、自動的にgroup_by(CARRIER)が入力されます。Runボタンを押します。
 
