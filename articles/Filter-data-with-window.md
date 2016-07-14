@@ -72,13 +72,7 @@ ARR_DERAY列のヘッダーをクリックしてCalculate with Windowコマン�
 
 ![](images/Window-min_rank.png)
 
-すると、自動的にmutate(ARR_DELAY_min_rank = min_rank(ARR_DELAY))が入力されます。
-
-ここで、ぼくは、 min_rank()関数を使いましたが、同じように dense_rank()という関数も存在します。どちらの関数も、指定した列のランキングを返します。違いは、 以下の図を見るとわかりやすいです。
-
-![](images/dense_rank_min.png)
-
-そして、Runボタンを押します。
+すると、自動的にmutate(ARR_DELAY_min_rank = min_rank(ARR_DELAY))が入力されます。そして、Runボタンを押します。
 
 ![](images/Window-min_rank2.png)
 
@@ -93,12 +87,11 @@ ARR_DELAY_min_rank列のヘッダーをクリックしてFilterコマンドを�
 ![](images/arr_delay_min_rank.png)
 
 
-
- mutate(ARR_DELAY_min_rank = min_rank(-ARR_DELAY))
-
 あれ、でもARR_DELAYを注意して見てみると、ワースト10ではなくトップ10を出してしまっていますね。値が低ければ低いほど、フライトが早く到着したということを意味するからです。だから、条件を逆転させる必要があります。そういうときは、-コマンドが使えます。
 
-![](images/arr_delay_min_rank.png)
+![](images/-rank_arr-delay1.png)
+
+![](images/-rank_arr-delay.png)
 
 これで、2016年1月の到着遅延時間がワースト10のデータを得ることができました。今回は、トータルのワースト10のデータを出しましたが、会社ごとのワースト10を見てみたくありませんか？そういうときは、filterの前に、group_by()関数を加えると見ることができます。
 
@@ -108,14 +101,17 @@ CARRIER列のヘッダーをクリックしてgroup_byを選びます。
 
 すると、自動的にgroup_by(CARRIER)が入力されます。Runボタンを押します。
 
-![](images/.png)
+![](images/group_by-c.png)
 
-今度はチャートをboxplot
+結果をわかりやすくするために、チャート画面に行って、ビジュアライズしてみましょう。グラフタイプを、Boxplotに、X軸をCARRIER、Y軸をARR_DERAYに指定します。
 
-![](images/.png)
-
+![](images/box_plot_carre.png)
 
 これで、会社ごとの到着遅延時間ワースト10が一目瞭然になりましたね。
+
+ちなみに、ここで、ぼくは、 min_rank()関数を使いましたが、同じように dense_rank()という関数も存在します。どちらの関数も、指定した列のランキングを返します。違いは、 以下の図を見るとわかりやすいです。
+
+![](images/dense_rank_min.png)
 
 今回のシリーズで使ったような関数のことをWindow関数と呼びます。
 以上が、dplyrでの基本的なWindow関数に関する操作です。dplyrでは、次はdate関数について書きたいと思います。お楽しみに！
