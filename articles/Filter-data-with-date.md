@@ -1,4 +1,4 @@
-#まだSQLで消耗してるの？ データ分析ツールExploratoryを使って、dplyrを使いこなす第3弾　date関数編
+#まだSQLで消耗してるの？ データ分析ツールExploratoryを使って、dplyrを使いこなす第4弾　date関数編
 
 ##はじめに
 
