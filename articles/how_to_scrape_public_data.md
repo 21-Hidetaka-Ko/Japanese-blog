@@ -283,6 +283,13 @@ Date関数について明るくない方は、[こちら](http://qiita.com/21-Hi
 
 最初は、途方も無く思えたお役所の汚いデータも、Exploratoryを使って、簡単にうまく整形し、ビジュアライズまで対話的に実現することができましたね。
 
+Exploratoryでは、こうやって分析していったデータを使ったステップ、チャート、R scriptといっしょにシェアすることができます。データの再現性がとても高いです。この機能を使えば、共同で誰かと分析していくとき役に立つこと間違いないでしょう。
+
+![](images/share-data-public.png)
+![](images/share-with-data-public.png)
+
+![](images/open-data-share.png)
+
 Exploratoryには、Writing R scriptというところから、Rのプログラムを書いていけるので、柔軟性が高いです。
 なので、質問やご要望などがあれば、Exploratoryの日本ユーザー向けの[Facebookグループ](https://www.facebook.com/groups/1087437647994959/members/
 )を作っているので、遠慮無くこのグループから投稿してください。今回のように対応致します。
