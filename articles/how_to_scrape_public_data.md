@@ -49,7 +49,7 @@ Exploratoryだと、データ分析だけでなく、Import by Writing R script�
 
 Exploratoryでは、Import by Writing R scriptというところから、自分でRのプログラムを書いていくことができます。この機能を使うと、先ほどの、titleごとに分かれてしまい思うようにスクレイピングできなかったデータも、titleごとにテーブルをわけないでデータを分けない状態で、スクレイピングしていくことができます。
 
-![](images/excel-difficult.png)
+![](images/import_by_writing_script.png)
 
 今回、ここに書いたコードは以下です。このスクレイピングのために書いた詳しい解説は、また別の記事に書きたいと思います。
 
@@ -107,11 +107,70 @@ do.call(rbind, tables)
 ##データを整形する
 
 
-####不要なデータを取り除く
+###不要なデータを取り除く
 
-####gatherとspreadを駆使して、列と行を入れ替える
+####問合せ先（所管府省・部局名等）というデータを取り除く
 
-####日付のデータタイプをcharacterからDateに変更する
+
+![](images/filter_pulbic.png)
+
+まず、問合せ先（所管府省・部局名等）というデータがいくつかありますね。このデータは使わないとのことなので、フィルタリング関数を使って、取り除きましょう。もし、フィルタリング関数について明るくない方は、[こちら](http://qiita.com/21-Hidetaka-Ko/items/117caea621562f05ffe1
+)の方で、dplyrの文法であるフィルタリングについて詳しく解説しているので、よかったらご覧ください。
+
+問合せ先（所管府省・部局名等）は、X1列にあるので、X1列のヘッダーをクリックしてFilterコマンドを選び、!=を選びます。
+
+![](images/filter_uuuuuuu.png)
+
+
+すると、自動的にfilter(X1 != )が入力されると同時に、フィルタリングしたい行がレコメンドされます。
+
+![](images/fillter-eeeeeee.png)
+
+そして、その中から"問合せ先（所管府省・部局名等）"を選び、Runボタンを押します。
+
+![](images/filter-result.png)
+
+問合せ先（所管府省・部局名等）というデータという行を取り除くことができましたね。
+
+
+####文頭の\t\t\t\t\t\t\t\tのような余計な文字を取り除く
+
+caption列を見てみると、文頭に余計な文字が混じってしまっているのを確認できますね。
+
+![](images/caption-clean.png)
+
+これから、これを取り除いていきましょう。そのために、caption列のヘッダーをクリックしてWork with Text functionを選び、Clean Textを選びます。
+
+![](images/clean_text-ttttttttt.png)
+
+すると、自動的にmutate(caption = str_clean(caption))が入力されます。そして、Runボタンを押します。
+
+![](images/cleand-caption.png)
+
+これで。\t\t\t\t\t\t\t\tのような余計な文字を取り除くことができましたね。
+
+####重複している値を取り除き、ユニークな値にする
+
+distinct(label, caption, date, date_label)
+
+
+
+###gatherとspreadを駆使して、列と行を入れ替える
+
+
+
+
+###日付のデータタイプをcharacterからDateに変更する
+
+mutate(`意見・情報受付締切日` = ymd(`意見・情報受付締切日`))
+
+###提出意見数から数字だけを取り出す
+
+mutate(提出意見数 = extract_numeric(提出意見数))
+
+
+
+
 
 ##簡単にビジュアライズする
 
