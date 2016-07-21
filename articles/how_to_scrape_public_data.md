@@ -279,13 +279,20 @@ Date関数について明るくない方は、[こちら](http://qiita.com/21-Hi
 )の方で、dplyrの文法であるDate関数について詳しく解説しているので、よかったらご覧ください。
 
 
+##最後に
+
+最初は、途方も無く思えたお役所の汚いデータも、Exploratoryを使って、簡単にうまく整形し、ビジュアライズまで対話的に実現することができましたね。
+
+Exploratoryには、Writing R scriptというところから、Rのプログラムを書いていけるので、柔軟性が高いです。
+なので、質問やご要望などがあれば、Exploratoryの日本ユーザー向けの[Facebookグループ](https://www.facebook.com/groups/1087437647994959/members/
+)を作っているので、遠慮無くこのグループから投稿してください。今回のように対応致します。
+
+
 ##興味を持っていただいた方、実際に触ってみたい方へ
 
 Exploratoryは[こちら](https://exploratory.io/
 )からβ版の登録ができます。こちらがinviteを完了すると、ダウンロードできるようになります。
 
-Exploratoryの日本ユーザー向けの[Facebookグループ](https://www.facebook.com/groups/1087437647994959/members/
-)を作ったのでよろしかったらどうぞ
 
 ExploratoryのTwitterアカウントは、[こちら](https://twitter.com/ExploratoryData
 )です。
