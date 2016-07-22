@@ -45,7 +45,7 @@ Exploratoryを使っているのですが、スクレイプしたいデータの
 Exploratoryだと、データ分析だけでなく、Import by Writing R scriptという機能を使えば、こういった複雑で汚いウェブ・ページからデータを思い通りにスクレイピングしてくることができたり、さらにはその後のデータの加工もデータ分析しながら簡単に出来るといことなので、早速やってみました。スクレイピングして、整形した最後にはデータを簡単にビジュアライズしてみたいと思います。
 
 
-##〜でスクレイピングする
+##自分の欲しいフォーマットでデータをスクレイピングする
 
 Exploratoryでは、Import by Writing R scriptというところから、自分でRのプログラムを書いていくことができます。この機能を使うと、先ほどの、titleごとに分かれてしまい思うようにスクレイピングできなかったデータも、titleごとにテーブルをわけないで、スクレイピングしていくことができます。
 
@@ -159,19 +159,19 @@ X2とX4列を見てみると、日付を表す行が別々になっています�
 
 なので、これを同じ列に揃える必要があります。そういうときは、gather、spread関数が便利です。これらの関数を簡単に説明すると、
 
-- gather：複数の列や行をキーとvalueのペアに入れる。
-- spread：複数の列のキーとvalueのペアを広げる。
+- gather：複数の列を、１つの列にする。
+- spread：１つの列をカラム名、１つの列をセルの値にする。
 
 説明だけだと、ピンとこないかもしれませんね。データを整形しながら、具体的に説明していくので、見ていってください。
 
-まず、gather(column_name1, date, X2, X4)と入力します。これは、column_name1がキーを表し, dateがvalueを表すことを意味します。これに引数のX2とX4を入力することで、X2とX4の列をキーであるcolumn_name1に、X2とX4の行をvalueであるdateのペアに入れることができます。
+まず、gather(column_name1, date, X2, X4)と入力します。これは、X2とX4の列をcolumn_name1という１つの列に、X2とX4の列をdateという1つの列にすることを意味します。。
 
 ![](images/gather_explain2.png)
 
 ![](images/gather_explain3.png)
 
 
-次に、同じように、gather(column_name2, date_label, X1, X3)と入力します。これは、column_name2がキーを表し, date_labelがvalueを表すことを意味します。これに引数のX1とX3を入力することで、X1とX3の列をキーであるcolumn_name2に、X2とX4の行をvalueであるdate_labelのペアに入れることができます。
+次に、同じように、gather(column_name2, date_label, X1, X3)と入力します。
 
 ![](images/gather_explain4.png)
 
