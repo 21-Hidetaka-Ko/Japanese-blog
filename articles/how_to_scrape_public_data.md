@@ -53,17 +53,17 @@ Exploratoryでは、Import by Writing R scriptというところから、自分�
 
 今回、ここに書いたコードは以下です。このスクレイピングのために書いた詳しい解説は、また別の記事に書きたいと思います。
 
- '# Custom R function as Data.
-sample_2_pages.func <- function(){
-loadNamespace("httr")
-loadNamespace("rvest")
-loadNamespace("dplyr")
+># Custom R function as Data.
+>sample_2_pages.func <- function(){
+>loadNamespace("httr")
+>loadNamespace("rvest")
+>loadNamespace("dplyr")
 
-res_list <- lapply(seq(4), function(i){
+>res_list <- lapply(seq(4), function(i){
   httr::GET("http://search.e-gov.go.jp/servlet/Public", query=list(CLASSNAME="PCMMSTLIST", Mode=2, Page=i-1))
 })
 
-tables <- lapply(res_list, function(res){
+>tables <- lapply(res_list, function(res){
   main <- rvest::html_node(httr::content(res, encoding = "Shift_JIS"), "#main")
   children <- rvest::html_children(main)
   result_list <- list()
