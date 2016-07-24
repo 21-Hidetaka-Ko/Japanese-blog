@@ -85,18 +85,16 @@ do.call(rbind, tables)
 
 }'
 
+データがうまくスクレイピングされていることが確認できたので、Saveボタンを押します。
 
 ![](images/sample_2_pages.png)
 
+サマリー画面でデータを確認することができます。
+
 ![](images/summary_sample_web.png)
 
-![](images/table_sample_web.png)
 
-![](images/table2_sample_web.png)
-
-![](images/labe-and-caption.png)
-
-すると、このように以下の問題点を解決した状態で、データをスクレイピングしてくることができました。
+これで、以下の問題点を解決した状態で、データをスクレイピングしてくることができました。
 
 - テーブルがタイトルごとにわかれてしまっている
 - 結果の公示日を表す7月21日が行ではなく、列になっている
@@ -115,7 +113,7 @@ filter(X1!="問合せ先（所管府省・部局名等）")
 
 ![](images/filter_pulbic.png)
 
-まず、問合せ先（所管府省・部局名等）というデータがいくつかありますね。このデータは使わないとのことなので、フィルタリング関数を使って、取り除きましょう。もし、フィルタリング関数について明るくない方は、[こちら](http://qiita.com/21-Hidetaka-Ko/items/117caea621562f05ffe1
+まず、問合せ先（所管府省・部局名等）というデータがいくつかありますね。このデータは使わないとのことなので、フィルタリング関数を使って、取り除きましょう。もし、フィルタリング関数について詳しくない方は、[こちら](http://qiita.com/21-Hidetaka-Ko/items/117caea621562f05ffe1
 )の方で、dplyrの文法であるフィルタリングについて詳しく解説しているので、よかったらご覧ください。
 
 問合せ先（所管府省・部局名等）は、X1列にあるので、X1列のヘッダーをクリックしてFilterコマンドを選び、!=を選びます。
@@ -164,12 +162,9 @@ X2とX4列を見てみると、日付を表す行が別々になっています�
 
 説明だけだと、ピンとこないかもしれませんね。データを整形しながら、具体的に説明していくので、見ていってください。
 
-まず、gather(column_name1, date, X2, X4)と入力します。これは、X2とX4の列をcolumn_name1という１つの列に、X2とX4の列をdateという1つの列にすることを意味します。。
+まず、gather(column_name1, date, X2, X4)と入力します。これは、X2とX4の列の値をcolumn_name1という１つの列に、X2とX4の列の値をdateという1つの列にすることを意味します。。
 
 ![](images/gather_explain2.png)
-
-![](images/gather_explain3.png)
-
 
 次に、同じように、gather(column_name2, date_label, X1, X3)と入力します。
 
@@ -179,12 +174,6 @@ X2とX4列を見てみると、日付を表す行が別々になっています�
 これで、バラバラに列や行が分かれていた「結果の公示日」などの日付のタイトルと日付を同じ列と行にまとめることができました。
 
 あれ、でも同じ日付のタイトルや案件番号やデータの概要なのに違う日付のデータがありますね。
-
-![](images/gather-explain6.png)
-
-![](images/gather-explain7.png)
-
-![](images/gather-explain8.png)
 
 ![](images/gather-explain9.png)
 
@@ -274,7 +263,7 @@ label列のヘッダーをクリックしてdistinctコマンドを選びます�
 ![](images/chart-all-day.png)
 
 
-Date関数について明るくない方は、[こちら](http://qiita.com/21-Hidetaka-Ko/items/1645d89683e312f4d65c
+Date関数について詳しくない方は、[こちら](http://qiita.com/21-Hidetaka-Ko/items/1645d89683e312f4d65c
 )の方で、dplyrの文法であるDate関数について詳しく解説しているので、よかったらご覧ください。
 
 
