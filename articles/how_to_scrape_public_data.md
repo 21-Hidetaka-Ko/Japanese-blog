@@ -64,26 +64,26 @@ Exploratoryでは、Import by Writing R scriptというところから、自分�
 })
 
 >tables <- lapply(res_list, function(res){
-  main <- rvest::html_node(httr::content(res, encoding = "Shift_JIS"), "#main")
-  children <- rvest::html_children(main)
-  result_list <- list()
-  current_tag <- ""
-  for(child in children){
-    tag <- rvest::html_tag(child)
-    if(tag == "h2"){
-      current_tag <- rvest::html_text(child)
-    } else if (tag=="table"){
-      caption <- rvest::html_text(rvest::html_node(child, "caption"))
-      table <- rvest::html_table(child, fill = TRUE)
-      result_list[[length(result_list)+1]] <- dplyr::mutate(table, label=current_tag, caption=caption)
-    }
-  }
-  do.call(rbind, result_list)
-})
+  >main <- rvest::html_node(httr::content(res, encoding = "Shift_JIS"), "#main")
+  >children <- rvest::html_children(main)
+  >result_list <- list()
+  >current_tag <- ""
+  >for(child in children){
+    >tag <- rvest::html_tag(child)
+    >if(tag == "h2"){
+      >current_tag <- rvest::html_text(child)
+    >} else if (tag=="table"){
+      >caption <- rvest::html_text(rvest::html_node(child, "caption"))
+      >table <- rvest::html_table(child, fill = TRUE)
+      >result_list[[length(result_list)+1]] <- dplyr::mutate(table, label=current_tag, caption=caption)
+    >}
+  >}
+  >do.call(rbind, result_list)
+>})
 
-do.call(rbind, tables)
+>do.call(rbind, tables)
 
-}'
+>}'
 
 データがうまくスクレイピングされていることが確認できたので、Saveボタンを押します。
 
