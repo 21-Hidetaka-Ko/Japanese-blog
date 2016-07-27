@@ -45,35 +45,35 @@ left_joinでは、引数に結合したいデータフレーム名とマッチ�
 
 Joinをすると、Stack Overflowのたくさんの列を使うことができるようになるので、このようにデータをいろんな角度から見ていくことができます。
 
-###人気言語ごとの質問増加率
+###[人気言語ごとの質問増加率](https://exploratory.io/viz/Hidetaka-Ko/cf57c1f10020?cb=1469569460583)
 
 ![](images/Compare-the-growth-of-particular-popular-language-in-StackOverflow-over-time.png)
 
 人気言語ごとの質問増加率を計算しました。意外にも、Rが急激に増えている。これは、Rのフロントエンド、Exploratoryの成功の予感、笑
 
-###人気言語ごとの質問がClosedになるまでの平均時間
+###[人気言語ごとの質問がClosedになるまでの平均時間](https://exploratory.io/viz/Hidetaka-Ko/87f043c73ce4?cb=1469486722117)
 
 ![](images/The_average_speed_at_which_questions_are_closed.png)
 
 人気言語ごとの質問がClosedになるまでの平均時間を計算しました。Rubyが一番時間かかってるのに対し、Rが一番速いですね。
 コミュニティを大事にしてるからか、教えたがりが多いからか、答えがはっきりしてるからとか。
 
-###人気言語ごとのCorrelations
+###[人気言語ごとのCorrelations](https://exploratory.io/viz/Hidetaka-Ko/281e584ef8b8?cb=1469411927713)
 
 ![](images/Correlations_among_tags_on_questions_similarity.png)
 
 人気言語ごとのCorrelations（類似関係）計算して出しました。方法としては、Tag, owner user ID （回答者のアカウント）でsummarizeして、Tagを、どのユーザーが何回、回答したかで特徴量化しています。この言語に応える人は、この言語にも応えるよねっていうcorrelationになっているはずです。
 ビジュアライズして見てみると、PHPとJSが反応してたり、ScalaとJavaが反応してたり、JSがどれとも高くなっています。
 
-###人気言語ごとのStackOverflow内の平均得点数
+###[人気言語ごとのStackOverflow内の平均得点数](https://exploratory.io/viz/Hidetaka-Ko/773657a84b36?cb=1469327130539)
 
 ![](images/Which_popular_languages_tend_to_get_higher_or_lower_average_scores_in_StackOverflow.png)
 
-###人気言語ごとのStackOverflow内の合計得点数
+###[人気言語ごとのStackOverflow内の合計得点数](https://exploratory.io/viz/Hidetaka-Ko/dd92b9ea4a32?cb=1469326666187)
 
 ![](images/Which_popular_languages_tend_to_get_higher_or_lower_total_scores_in_StackOverflow-ave.png)
 
-###平日と休日の人気言語ごとの質問回答数の比較
+###[平日と休日の人気言語ごとの質問回答数の比較](https://exploratory.io/viz/Hidetaka-Ko/ac88ad801e7d?cb=1469240145437)
 
 ![](images/Which_popular_languages_tend_to_be_answered_in_StackOverflow_on.png)
 
