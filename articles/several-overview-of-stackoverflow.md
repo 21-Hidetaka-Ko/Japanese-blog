@@ -16,7 +16,7 @@ Qiita読者のみなさん！　プログラミング質疑応答サイト、Sta
 
 ##Joinコマンドを使って、データを結合する
 
-メールのStack OverflowのリンクをクリックするとStack Overflowのcsvデータが2つあるのがわかります。２つともダウンロードします。
+メールのStack Overflowの[リンク](https://github.com/dgrtwo/StackLite)をクリックするとStack Overflowのcsvデータが2つあるのがわかります。２つともダウンロードします。
 
 ![](images/stackoverflow-github.png)
 
@@ -45,11 +45,13 @@ left_joinでは、引数に結合したいデータフレーム名とマッチ�
 
 Joinをすると、Stack Overflowのたくさんの列を使うことができるようになるので、このようにデータをいろんな角度から見ていくことができます。
 
+興味がありましたら、それぞれのタイトルをクリックするとチャートがシェアされているページに飛びます。それぞれのページでは、データがどのように加工されたり計算されたかの詳細を、Dataタブ、もしくは、R Scriptタブの中で見ることができます。もしExploratory Desktopをすでにお持ちでしたら、Download ボタンを押して、チャートとデータをダウンロードしてインポートすることも簡単にできます。
+
 ###[人気言語ごとの質問増加率](https://exploratory.io/viz/Hidetaka-Ko/cf57c1f10020?cb=1469569460583)
 
 ![](images/Compare-the-growth-of-particular-popular-language-in-StackOverflow-over-time.png)
 
-人気言語ごとの質問増加率を計算しました。意外にも、Rが急激に増えている。これは、Rのフロントエンド、Exploratoryの成功の予感、笑
+今日の時点までの2009年からの全ての質問を言語毎に集計した結果をそれぞれ100だとすると、どのようにそれぞれの質問の数が毎年増えていったかをヴィジュアライズしたのがこちらになります。Rが2014あたりから一気に加速していってるのがわかります。逆にPerl, Objective-Cは同じ時期から以前ほどの勢いがなくなってきたのがわかります。
 
 ###[人気言語ごとの質問がClosedになるまでの平均時間](https://exploratory.io/viz/Hidetaka-Ko/87f043c73ce4?cb=1469486722117)
 
