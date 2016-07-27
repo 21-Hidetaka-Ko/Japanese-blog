@@ -79,7 +79,7 @@ Joinをすると、Stack Overflowのたくさんの列を使うことができ�
 
 みなさん、休日は、プログラミングしたくないみたいですね笑
 
-###人気言語ごとの累計質問合計数
+###[人気言語ごとの累計質問合計数](https://exploratory.io/viz/Hidetaka-Ko/356147f61d07?cb=1469132250245)
 
 ![](images/Which_popular_computer_programing_language_accumulating_Questions_the_most_in_StackOverflow.png)
 
