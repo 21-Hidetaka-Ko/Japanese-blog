@@ -16,6 +16,34 @@ Qiita読者のみなさん！　プログラミング質疑応答サイト、Sta
 
 ##Joinコマンドを使って、データを結合する
 
+メールのStack OverflowのリンクをクリックするとStack Overflowのcsvデータが2つあるのがわかります。２つともダウンロードします。
+
+![](images/stackoverflow-github.png)
+
+ダウンロードしたデータをインポートします。
+
+![](images/import-stackoverflow.png)
+
+questions-tagのcsvデータ。Tag列にプログラミング言語のデータがはいっていたりしますね。
+
+![](images/before-join.png)
+
+questionsのcsvデータ。CreationDate列に質問が書かれた日付であったり、Score列に質問や解答に対する得点であったり、解答の合計数を表すデータがあったりしますね。
+
+![](images/before-join-stack.png)
+
+でも、この2つのデータフレームがバラバラになっていると、分析のやり方が限られてきます。でも、もしこの2つのデータフレームが一緒になっていれば、Tag列とCreationDate列を組み合わせて、人気言語ごとの累計質問合計数を出してみたりすることができますよね。つまり、この2つのデータフレームが結合されていると分析のバリエーショを増やしていくことができるのです。そういうときは、left_joinというコマンドを使うと便利です。
+
+
+left_joinでは、引数に結合したいデータフレーム名とマッチしたい列名を入力すると、マッチした列以外の列を元のデータフレームに結合させることができるんです。```left_join(question_tags, by=c("Id" = "Id"))```と入力してみましょう。そして、Runボタンを押します。
+
+![](images/tag-join.png)
+
+これで、question_tagsデータフレームのId列以外の部分であるTag列をquestions列にジョイン（結合）させることができましたね。
+
+
+
+Joinをすると、Stack Overflowのたくさんの列を使うことができるようになるので、このようにデータをいろんな角度から見ていくことができます。
 
 ###人気言語ごとの質問増加率
 
@@ -45,7 +73,6 @@ Qiita読者のみなさん！　プログラミング質疑応答サイト、Sta
 
 ![](images/Which_popular_languages_tend_to_get_higher_or_lower_total_scores_in_StackOverflow-ave.png)
 
-
 ###平日と休日の人気言語ごとの質問回答数の比較
 
 ![](images/Which_popular_languages_tend_to_be_answered_in_StackOverflow_on.png)
@@ -58,6 +85,7 @@ Qiita読者のみなさん！　プログラミング質疑応答サイト、Sta
 
 昔から、PHPがやっぱり強いですね。
 
+これらは、あくまで一例で、まだまだたくさんの分析ができるので、よかったら試してみてください。
 
 ##興味を持っていただいた方、実際に触ってみたい方へ
 
