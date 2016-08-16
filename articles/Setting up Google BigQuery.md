@@ -18,15 +18,15 @@
 
 いったんプロジェクトを作ると、左側のメニューボタンを押して下さい。
 
-![](images/how_to_create_project_google3.png)
+![](images/how_to_create_project_google1.png)
 
 メニューからBigQueryを選び、Google BigQueryのUIを開きましょう。
 
-![](images/how_to_create_project_google4.png)
+![](images/how_to_create_project_google3.png)
 
 Click a downward arrow icon next to the project name, and click ‘Create a new dataset.’
 
-![](images/how_to_create_project_google5.png)
+![](images/how_to_create_project_google4.png)
 
 データセットIDをタイプして、OKボタンをクリックしてください。
 
