@@ -8,9 +8,9 @@
 
 ![](images/how_to_create_project_google.png)
 
-ヘッダーのドロップダウンメニューからCreate a projectを選んで下さい。
+ヘッダーのドロップダウンメニューからプロジェクトを作成を選んで下さい。
 
-プロジェクト名をクリックしてください。
+プロジェクト名を入力してください。
 
 ![](images/how_to_create_project_google2.png)
 
@@ -24,7 +24,7 @@
 
 ![](images/how_to_create_project_google3.png)
 
-Click a downward arrow icon next to the project name, and click ‘Create a new dataset.’
+矢印のアイコンの隣にあるボタンを押して、データセットを作成してください。
 
 ![](images/how_to_create_project_google4.png)
 
