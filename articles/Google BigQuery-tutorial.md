@@ -1,62 +1,65 @@
-#なぜデータ分析においては、SQLではなくRを使うべきか？ Google BigQueryのGitHubのデータを使ってRの
-パッケージをクラスタリングする
+#なぜデータ分析においては、SQLではなくRを使うべきか？ Google BigQueryのGitHubのデータを使ってRのパッケージをクラスタリングする
 
-A few weeks ago, Google announced that it has made a full snapshot of the contents of more than 2.8 million open source Github repositories publicly available. It contains 2 billion different file paths and the content of the latest revision for 163 million source files. The total data is 3TB+. Wow, that sounds crazy, I thought.
+２，３週間前に、Googleは、280万のオープンソースGitHubリポジトリを公開しました。リンクは[こちら](https://cloud.google.com/bigquery/public-data/github)からどうぞ。これは、2億個の異なったファイルパスが入っていたり、163万ソースファイルも含まれています。合計にして3TB+以上です。これを使って、すでにいくつかのデータが分析されています。例えば、[Francesc](https://twitter.com/francesc)は、最も人気なGo言語のパッケージはなにかを見つけるために、Go言語のコードデータを分析しました。
 
-There are a few folks already started analyzing the data. For example, Francesc has analyzed Go language codes data to find the most popular Go package names.
-So I thought maybe we at Exploratory team should also try analyzing the data. But if we do, of course we are more interested in knowing more about our most favorite language of the world — R. The recent release of Exploratory Desktop has added Google BigQuery data import with ‘bigrquery’ package out of the box, so we should be able to quickly start this.
+Exploratoryは、Google BigQueryのデータインポート機能を実装しました。だから、今回は、Exploratoryを使って、GitHubオープンソースリポジトリのデータを使い、R言語について分析してみることにしました。
 
-###Strategy for Data Analysis
 
-Because Exploratory is really about R and dplyr, our strategy is to not have Google BigQuery to do everything. Rather, we use it to do what it is good at, which is to query and extract data from the database. And we use dplyr to take care of the data wrangling, and use R to do advanced analysis with advanced algorithm. With this strategy, we should be able to do beyond what could be done with just SQL query, in a quick and more efficient way.
+###データ分析の戦略
+
+R、dplyr、SQLのそれぞれが、データ分析していく上で、なにが得意かをもう一度考える必要があります。Exploratoryは、Rとdplyrを使っています。なので、私は、データベースから、データを引き出す際に、SQLを書き、dplyrを使って、データ分析をしていき、発展的なアルゴリズムを使って複雑な分析をしたいときにRを使うのがベストな戦略だと考えます。この戦略なら、SQLを書くだけでは考えられなかったより高度なことや効果的な方法でデータを分析していくことができます。
 
 ![](images/bigquery1.png)
 
-By the way, dplyr is the most rapidly growing and widely adopted R package that provides a super fast data wrangling capability with a set of grammar based functions.
+ところで、dplyrについて詳しくない方は、こちらの方で、dplyrの文法であるFilter関数、Date関数、について詳しく解説しているので、よかったらご覧ください。
+
+- [なぜデータ分析においては、SQLではなくRを使うべきか？　 データ分析ツールExploratoryを使って、dplyrを使いこなす第1弾 Filter関数編](http://qiita.com/21-Hidetaka-Ko/items/117caea621562f05ffe1)
+
+- [なぜデータ分析においては、SQLではなくRを使うべきか？　データ分析ツールExploratoryを使って、dplyrを使いこなす第2弾　データ集計編](http://qiita.com/21-Hidetaka-Ko/items/bc7766e730a60ebf4561)
+
+- [なぜデータ分析においては、SQLではなくRを使うべきか？　 データ分析ツールExploratoryを使って、dplyrを使いこなす第3弾　Window関数編](http://qiita.com/21-Hidetaka-Ko/items/fb9fe00ce982f240829a)
+
+- [なぜデータ分析においては、SQLではなくRを使うべきか？　 データ分析ツールExploratoryを使って、dplyrを使いこなす第4弾　date関数編](http://qiita.com/21-Hidetaka-Ko/items/1645d89683e312f4d65c)
 
 
-###Goal
 
-The question we had was, “Can we get to know the similarities of R packages by extracting all the package names from all the R script files?” Our assumption was, if the two packages were used together in many of the same files they should be considered as similar, or at least we could say they tended to be used in similar tasks.
+###ゴール
 
-The result turned out to be very interesting and not far from our intuition. If you are interested in seeing the result now, here is an interactive chart that shows you the multiple clusters of top 100 most popular R packages. You can use mouse to drag any area you want to zoom in and double click to zoom out.
+知りたいのは、すべてのパッケージ名を引き出して、Rパッケージの類似性を明らかにすることです。もし、2つのパッケージが同じファイルの中で一緒に使われているなら類似性があると言えるでしょう。少なくとも、同じようなタスクに対して使われているはずです。
 
-https://exploratory.io/viz/kanaugust/9ae918f23b3f?cb=1470006301029
+結果は、興味深く、ある程度直観的なものでした。もし今、結果を知りたいなら、[こちら](https://exploratory.io/viz/kanaugust/9ae918f23b3f?cb=1470006301029)からインテラクティブなチャートを見ることができます。人気トップ100のRパッケージの階層があるのが確認できます。ドラッグすることで、拡大したり
+することもできます。
 
-
-Now, I’m going to walk you through how we did to find the similarities among the R packages.
-
-
-##Google BigQuery Setup
-
-Before starting to work with Google BigQuery, you need to create a Project and a Data Set first. I’ve written a quick instruction for this if you are not familiar with Google BigQuery.
-
-Google BigQueryについて詳しくない方は、[こちら](
-)の方で、Google BigQueryの設定について詳しく解説しているので、よかったらご覧ください。
+これから、どうやってこのようなRパッケージの類似性を明らかにすることができたかを詳しく解説していきたいと思います。
 
 
-Also, be careful for querying against this Github data. One of the data I’m going to use below has about 1.5 TB. Google BigQuery would charge bills by amount of the data it processed, not by the result of the query. If you want to play around by running various queries I’d recommend you use the following sampled data Google BigQuery team created first.
+##Google BigQueryのセットアップ
+
+Google BigQueryを使って取り組み始めるまえに、まず、プロジェクトとデータセットを作る必要があります。Google BigQueryの設定について詳しくない方は、[こちら]()の方で詳しく解説しているので、よかったらご覧ください。
+
+また、GitHubのデータに対してクエリを書く際に、注意しないといけないことがあります。それは、下でぼくが使っているデータは、1.5 TBもあります。Google BigQueryは、クエリの結果ではなく、加工したデータ量に対して課金をします。もし、様々なクエリを走らせてみたいなら、Google BigQueryチームが作った以下のサンプルデータを使ってみることをオススメします。
 
 github_repos.sample_files
 github_repos.sample_contents
 
-These are much smaller (less than 23GB), compared to the original data I’m going to demonstrate below, hence you won’t get charged for a while until it hits the monthly free terabyte.
+これらのデータは、これからデモをする元のデータに比べてずっと小さいです。23GB以下です。だから、それが、限度を超えるまで、課金されないでしょう。
 
-##Extract Data for R Files
+##Rのファイルからデータを引き出す
 
-In order to access to Google BigQuery from Exploratory Desktop, you can open Data Import dialog by selecting ‘Google BigQuery’ under ‘Import Remote Data’ menu. This will open a web browser UI asking to authorize Exploratory to access data on your behalf. Once the authorization is done, go back to the Data Import dialog UI.
+ExploratoryからGoogle BigQueryにアクセスするには、Import Remote DataメニューからGoogle BigQueryを選びData Importダイアログを開かないといけません。WebブラウザがExploratoryにアクセスを許可していいか訪ねてきますが、いったん許可するとデータインポートダイアログメニューに戻って下さい。
 
-We are interested in the following two data tables.
+以下の2つのデータテーブルを見てみましょう。
 
-github_repos.files
-github_repos.contents
+- github_repos.files
+- github_repos.contents
 
-These are under a public project ‘bigquery-public-data’ therefore you don’t see these tables in the left hand side tree.
+このデータは、bigquery-public-dataプロジェクト下にあります。なので、左側のツリーにこれらのテーブルはありません。
 
-‘github_repos.files’ contains information about the files, so you can find the file path, file id, and repository name that each file belong to.
-‘github_repos.contents’ contains the contents of all the files. And the data size of these tables are huge, especially github_repos.contents is 1.57TB, and again, you need to be cautious here. Google BigQuery charges based on the data it processed, not the result. This means, if you query against 1.57TB of data then it will quickly run out of your monthly free quota. So you want to create a ‘Table’ under your Data Set in Google BigQuery and store snapshot of the data so that you won’t need to query against the same souce data again and again. And that is what I’m going to do here.
+‘github_repos.files’ はファイルについての情報を含んでいます。だから、ここでは、ファイルのパスやID、レポジトリ名を見つけることができます。
 
-First, I run the query below.
+‘github_repos.contents’はすべてのファイルの中身を含んでいます。これらのテーブルのサイズは巨大で、特に、github_repos.contentsは1.57TBです。もう一度言っておきますが、注意する必要があります。Google BigQueryは、データの結果ではなくプロセスに対して課金します。これは、もし1.57TBものデータに対して、クエリをかけると、1ヶ月の利用限度容量を超えることを意味します。だから、Google BigQueryのデータ・セットの下にテーブルを作り、何度も何度も同じデータに対してクエリをかける必要がないように、データのスナップショットを保存する必要があります。
+
+では、クエリを走らせてみましょう。
 
 ```
 SELECT *
@@ -64,131 +67,139 @@ FROM [bigquery-public-data:github_repos.files]
 WHERE lower(RIGHT(path, 2)) = '.r'
 ```
 
-This query is looking at all the file names and filter only the files whose names end with ‘.r’ or ‘.R’
+このクエリは、.rか.Rという名のついたファイル名だけにフィルターをかけています。
 
-After hitting ‘Run’ button or Cmd+Enter, you will see the result in Preview table. Also, you can find how much of the data was processed. In this case, it is 291.56GB. But the result is only 49.53MB after filtering only R related files.
+RunボタンかCmd+Enterを押すと、プレビューテーブルで結果を見ることができます。また、データ量も確認できます。この例では、291.56GBのようですね。でも、Rに関連するファイルだけでフィルターをかけてみると49.53MBだけになりましたね。
 
 ![](images/bigquery2.png)
 
-I can hit ‘Save As Table’ button to save this result as a Table in Google BigQuery.
+Save As Tableボタンを押すと、Google BigQueryのテーブルで結果を保存することもできます。
 
 ![](images/bigquery3.png)
 
-I can click ‘Refresh’ icon to get the newly created table showing up at the left hand side if the new data set doesn’t show up automatically.
+もし、新しいデータが自動的に表示されていなかったら、左側のリフレッシュアイコンをクリックすると、新しく作られたデータを手に入れることができます。
 
 ![](images/bigquery4.png)
 
-The next step is to get all the file contents for these R files. I can run the following SQL.
+次のステップは、Rフィルタのすべての中身を取得することです。だから、次のクエリを走らせましょう。
 
 ```
 select *
 from [bigquery-public-data:github_repos.contents]
-where id IN (select id from [bigquery-github-1383:Github.r_files_snapshot]
+where id IN (select id from [bigquery-github-1383:GitHub.r_files_snapshot])
 ```
 
-Note that I’m using the table ‘r_files_snapshot’ I just created above in ‘where’ clause to filter only the R script files.
+ただし、ここでは、Rスクリプトファイルに限定するために、where clauseの上で作ったr_files_snapshotテーブルを使っています。
 
 ![](images/bigquery5.png)
 
-This time, it queried against 1.57TB! That’s huge! The performance was pretty fast for this amount of data. But, I don’t want to get charged for this amount of the data every time I run the query. So I save this as a Table again.
+今回は、1.57TBに対してクエリをかけています。とても大きいですね。でも、この量のデータでさえ、パフォーマンスはとても速いです。しかし、クエリをかける度に、データ量に対して課金をかけたくないので、テーブルとしてこれをまた保存します。
 
 ![](images/bigquery6.png)
 
-And I need to update the SQL to make sure it won’t query against the source data again.
+そして、ソースデータに対してもう一度クエリをかけないためにSQLをアップデートする必要があります。
 
 ```
 select *
-from [bigquery-github-1383:Github.r_files_contents]
+from [bigquery-github-1383:GitHub.r_files_contents]
 ```
 
-To make it a bit easier to construct the query you can click on the table names in the left hand side tree to copy and paste the full path of the table including the project name and the data set name.
+ただし、1383の部分は、自分のプロジェクトネームの番号と同じにする必要があります。
+
+左側のツリーのテーブル名をクリックすると、プロジェクト名とデータセット名を含むテーブル名のパスをコピーアンドペーストすることもできます。
 
 ![](images/bigquery7.png)
 
-After hitting Run button you can see the processed data size is now 761.8MB, which is the same as the returned data size.
+Runボタンを押すと、加工したデータサイズが761.8MBであることがわかりますね。
 
 ![](images/bigquery8.png)
 
-At this point, the data size is not that big so I can quickly import it into R by clicking on Import button. Once the import is done, we have the data showing up under Summary View.
+このとき、データサイズはそれほど大きくないので、Importボタンを押して簡単にRにインポートすることができます。いったんインポートすると、サマリーViewでデータを確認することができます。
 
 ![](images/bigquery9.png)
 
-By moving the mouse over ‘content’ column I can see a quick view of the file content.
+content列にマウスオーバーするとファイルの中身の概要を確認することができます。
 
 ![](images/bigquery10.png)
 
-##Data Wrangling with dplyr
+##dplyrを使った、Google BigQueryのデータ分析
 
-Let’s start wrangling with the data with dplyr.
+さあ、dplyrを使って、データ分析をはじめていきましょう。
 
-###Remove NA
+###NA値を取り除く
 
-I can see there are some NA values for ‘content’ column.
+content列にNA値が含まれているのが確認できますね。
+
 
 ![](images/bigquery11.png)
 
-I can remove this by selecting ‘Drop NA’ menu from the column header dropdown.
+列のヘッダーのドロップダウンメニューからDrop NAを選ぶと、dplyrのコマンドを自動生成して、これを取り除くことができます。
 
 ![](images/bigquery12.png)
 
-This will build a dplyr — A grammar of Data Wrangling — command with R function like below.
 
 ```
 filter(!is.na(content))
 ```
 
-‘is.na’ function evaluates if a given value is NA or not, and ‘!’ (exclamation mark) reverses the effect of the function after. So this command is going to keep only the rows that are not NA for ‘content’ column.
-
 ![](images/bigquery13.png)
 
 ###Extract R package loading functions
 
-In R world, you can use several different functions like the ones listed below to load R packages in the working environment.
+
+Rの世界では、作業環境でRのパッケージを読み込むために以下に羅列したようないくつかの異なった関数を使うことができます。
 
 - library
 - require
 - loadNamespace
 - requireNamespace
 
-So, I want to parse all the files contents and extract only the text including these functions.
-First, I can select ‘Extract Text’ from ‘content’ column header.
+
+だから、すべてのファイルの中身をパースして、これらの関数を含むテキストだけ引き出したいと思います。まず、最初にcontent列のヘッダーからExtract Textを選びます。
 
 ![](images/bigquery14.png)
 
-This will generate a command like below.
+すると、以下のコマンドを自動生成します。
 
 ```
 mutate(content_new = str_extract(content, ""))
 ```
 
-‘mutate’ command create a new column with the result of the expression you write inside. In this case, ‘content_new’ is the newly created column name. I can override the column name to be ‘lib_content’ and type something like below for the pattern matching text inside the double quotes.
+mutateコマンドは、新しい列を作ることができます。
+
+この場合は、content_newは新しく作られた列の名前を表します。また、列名をlib_contentに上書きしたり、ダブルクオートの中に以下のような正規表現を書いていくこともできます。
+
 
 ```
 mutate(lib_content = str_extract_all(content, "(library\\([^\\(]+\\)|loadNamespace\\([^\\(]+\\)|require\\([^\\(]+\\)|requireNamespace\\([^\\(]+\\))"))
 ```
 
-If you are puzzeld by this regular expression text, no worry, you are not alone. I’m not big fun of the regular expression either. Let’s take a step by step.
+もし、あなたがこのような正規表現に対して頭を悩ませているのなら、心配はいりません。わたしも同様に、正規表現について詳しいわけではありません。ひとつずつ説明していきましょう。
 
-First, those double back slashes are there to escape the reserved characters. In this case, the opening and closing brackets, ‘(‘ and ‘)’ , need to be escaped. And the vertical line means ‘OR’ condition. So without the escaping and if we just focus on the 1st entry in the multiple OR conditions, it would look something like this.
+
+まず、ダブルクオートのスラッシュは、指定した文字列を取り除くことを意味します。この場合は、開き括弧と閉じ括弧が取り除かれます。|は、論理演算のOR条件を意味します。
 
 ```
 library([^(]+)
 ```
 
-‘^’ (caret) symbol means ‘Not’, hence ‘[^(]’ means any character that is not the opening bracket ‘(‘. And ‘+’ symbol means one or more.
 When all combined, I’m trying to find ‘library()’ text and any multiple characters other than the opening bracket ‘(‘ inside the ‘library()’ function.
-So the following text would be matched and extracted.
+
+すべてをむすびつける
+だから、次のテキストがマッチして、引き出されるでしょう。
+
 
 - library(ggplot2)
 - library(rpart.plot)
 - library(QZ, quiet = TRUE)
 
-After you run the command above, you will see a list of the ‘package loading functions’ for each file.
+上のコマンドを走らせると、それぞれのファイルのパッケージを読み込むための関数のリストを見ることができます。
 
 ![](images/bigquery15.png)
 
 
-Note that the data type for this new column ‘lib_content’ is ‘list’, which means we can bring each entry in the list to its own row easily by using ‘unnest’ command. I can construct the command by selecting ‘Unnest’ from the ‘lib_content’ column dropdown menu like below.
+ただし、lib_content列のデータタイプはlistです。これは、unnestコマンドを使うと、入れ子構造になっているリストにある値をブレイクして、それぞれの行に入れることができます。lib_content列のドロップダウンメニューからUnnestを選びましょう。
+
 
 ![](images/bigquery16.png)
 
@@ -196,60 +207,61 @@ Note that the data type for this new column ‘lib_content’ is ‘list’, whi
 unnest(lib_content, .drop=FALSE)
 ```
 
-After running the command I can see each function is presented in its own row.
+すると、上のコマンドを自動生成します。
 
 ![](images/bigquery17.png)
 
-Now, I want to get the package names inside of those loading functions. For example, if we have a function like below,
+
+これから、関数を読み込むためのパッケージの名前を知りたいんですよね？　例えば、下記のような関数があると、dplyrだけを抜き出したいですよね？。
 
 ```
 library(dplyr)
 ```
 
-we want to extract only ‘dplyr’.
-
-There are many ways to do this, but here, I’m using ‘str_split’ function from ‘stringr’ package and using ‘(‘ (opening bracket), ‘,’ (comma), and ‘(‘ (closing bracket) to separate the text first. Again, the vertical bar symbol means OR condition.
+これをするには、たくさんの方法がありますが、ここでは、まず、str_split関数を使って、開き括弧とカンマと、閉じ括弧を取り除きたいと思います。
 
 ```
 mutate(split_text=str_split(lib_content, pattern="(\\(|,|\\))"))
 ```
 
-After running the command above, I can use ‘list_extract’ function from ‘exploratory’ package and extract the 2nd entry in the list.
+上のコマンドを走らせた後に、exploratoryのRパッケージからlist_extract関数を使って、リストの2番目を引き出すことができます。
 
 ```
 mutate(lib_name=list_extract(split_text, 2))
 ```
 
-Here is the result.
+このような感じになります。
 
 ![](images/bigquery18.png)
 
-‘split_text’ column is the result of the ‘str_split’ operation above, and ‘lib_name’ column is the result of the ‘list_extract’ operation.
+split_text列は、str_splitコマンドの結果です。lib_name列は、list_extractコマンドの結果です。
 
-As you can see, some package names contain single or double quotes, so I can remove them with the command below.
+見てみると、いくつかのパッケージは、シングルかダブルクオートを含んでいます。だから、以下のようなコマンドを使って、それらを取り除くことができます。
 
 ```
 mutate(lib_name=str_replace_all(lib_name, '"', ''), lib_name=str_replace_all(lib_name, "'", ''))
 ```
 
-Have I told you that you can use a newly created column in a same ‘mutate’ command right away? In the above example, I stripped out the double quote and overrode the existing ‘lib_name’ column first, then I stripped out the single quote and overrode the ‘lib_name’ column again.
+上の例では、ダブルクオートを取り除いて、既存のlib_name列を上書きし、シングルクオートを取り除いて、lib_name列を上書きします。
 
-##List up Top 100 packages
+##トップ100パッケージだけをリストアップする
 
-Now, when we go to Summary View we can quickly see ‘ggplot2’, ‘dplyr’, and ‘tidyr’, ‘shiny’, ‘reshape’ are the top 5 most referenced R packages.
+サマリー画面に行くと、ggplot2、dplyr、tidyr、shiny、reshapeが、Rのトップ5パッケージということがわかりますね。
 
 ![](images/bigquery19.png)
 
-We also can see 5,860 unique values for ‘lib_name’ column, this means there are 5,860 R packages in this data! Yes, R has so many data science packages. There are more than 9,000 packages officially certified at CRAN, and there are probably even more packages that exist only at Github and other places.
-Anyway, instead of clustering 5,860 packages, I’m more interested in knowing about the top 100 most popular packages. To do this, first I can create a branch where I will filter the top 100 packages.
+lib_name列には、5,860ユニークバリューがあります。これは、データの中に5,860パッケージが含まれているということです。Rには、とてもたくさんのデータサイエンスパッケージがあるんです。公式には、9,000以上のパッケージがCRANにあり、もっとたくさんのパッケージがGitHubや他の場所にあります。いずれにせよ、5,860のパッケージをクラスタリングする前に、最も人気なトップ100パッケージについてもっと分析してみましょう。これをしていくためには、トップ100パッケージだけにフィルタリングしたブランチを作る必要があります。
+
+ところで、ブランチ機能について詳しくない方は、こちらの方で、Exploratoryのブランチ機能について詳しく解説しているので、よかったらご覧ください。プログラミング経験がある人にとっては、この‘Branch’というのは、Gitのコンセプトと似たようなものだと考えてもらったほうがわかりやすいかもしれません。
+- [データ分析ツールExploratoryでは、分析のフローをGitのようにブランチ化できる](http://qiita.com/21-Hidetaka-Ko/items/2ac1d560d78ea933ddbf)
 
 ![](images/bigquery20.png)
 
-Note that the branch is essentially a data frame. In the newly created branch I can run a set of commands listed below to:
+ブランチは、あくまで１つのデータフレームです。だから、後でジョインすることができるんです。新しく作られたブランチで、次のコマンドを走らせてみましょう。
 
-- remove the empty data
-- count the number of the entries per each R package
-- filter only the top 100 packages based on the number of the entries
+- 空の値を除去する
+- Rパッケージの項目数をカウントする
+- 項目数に基いて、トップ100パッケージだけフィルタリングする
 
 ```
 filter(!is_empty(lib_name))
@@ -259,61 +271,62 @@ top_n(100, n)
 ![](images/bigquery21.png)
 
 
-Note that ‘count’ command automatically creates a column called ’n’ for counting the entries. (More detail for ‘count’ command is here.)
+ただし、countコマンドは、自動的に項目の数をカウントするためのn列を作ります。
 
-I can visualize this data quickly and see the most popular packages.
+簡単にデータをビジュアライズして、最も人気なパッケージを見てみましょう。
 
 ![](images/bigquery22.png)
 
-Now we have a list of the top 100 packages, which I can use to filter the main data in the next step. Again, the branch is essentially a data frame so I can use this ‘package_list’ as a data frame in the next step.
+今は、トップ100パッケージがリストアップされています。そして、次のステップでは、これをメインデータフレームでフィルタリングするために使います。何度も言いますが、ブランチは、基本的には、データフレームなので、package_listをジョインすることができるんです。
 
 
-##Filter only Top 100 most used packages
+##最も使われているトップ100パッケージだけフィルタリングする
 
-I can go back to ‘Main’ branch where we started originally and we can use ‘semi_join’ command to filter the data by using the data from ‘package_list’. ‘semi_join’ is one of the dplyr’s ‘join’ family commands, and it filters the current data by keeping only the rows from the current data frame that have matching entries in the target data frame. Since the current data frame and the target data frame of ‘package_list’ share the same ‘lib_name’ column, we can set the ‘lib_name’ column to ‘by’ argument to join like below.
+元のデータがあるMainブランチに戻って、semi_joinコマンドを使って、package_listのデータを使っていきましょう。semi_joinとは、dplyrのjoinコマンドの一種です。ターゲットのデータフレームとマッチした列抜き出して、ジョインすることができます。元のデータフレームとpackage_listのデータフレームは、lib_name列がマッチしているので、下記のように、lib_name列をbyの引数にセットすると、ジョインすることができます。
 
 ```
 semi_join(package_list, by="lib_name")
 ```
 
-After running the command, you can see only 100 unique values for ‘lib_name’ column in Summary view.
+コマンドを走らせて、サマリー画面を見てみると、lib_name列が100ユニークバリューだけになっていることが確認できます。
 
 ![](images/bigquery23.png)
 
-Now with this data we can start clustering the packages based on the information of how the packages are used together in same files. But before doing so, first I want to make the file id and the package name (lib_name) pairs to be unique. I can do this quickly by running ‘count’ command to aggregate.
+
+このデータがあれば、今から、「どうやってパッケージが同じファイルで一緒に使われているのか」という情報に基いて、パッケージをクラスタリングしていくことができます。しかし、それをしていく前にまず、ファイルのIDとパッケージ名をユニークにする必要があります。countコマンドを使うと、簡単にaggregateすることができます。
 
 ![](images/bigquery24.png)
 
-Now we can calculate the distances among the packages. But as you notice, the data is now in Group mode.
+
+今から、パッケージ間の距離を計算していきます。しかし、気づいてるかもしれませんが、今は、データがグルーピングされているままになっています。
 
 ![](images/bigquery25.png)
 
-So I need to disable it by using ‘ungroup’ function before getting into the distance calculation in the next step, otherwise the distance calculation will be done for each group, which we don’t want.
+だから、次のステップで、距離を測る計算をする前に、ungroupコマンドを使って、グルーピングを解除する必要があります。そうでなければ、距離を測る計算が、それぞれのグループごとになってしまいます。
 
 ![](images/bigquery26.png)
 
-##Calculate the distances among R packages
+##Rパッケージ間の距離を計算する
 
-Calculating the distances among the R packages based on how often they appear together in same files is actually simple. I can use ‘do_dist.kv’ function from ‘exploratory’ package, which takes Subject, Key, and Value columns as its arguments. In this case, ‘lib_name’ column the package name is Subject, ‘id’ column for the file id is Key, and ’n’ column for the count is Value.
+Rパッケージがどのくらいの頻度でいっしょに使われているかに基いてRパッケージ間の距離を計算することは、とてもシンプルです。exploratoryのRパッケージからdo_dist.kv関数を使って距離を計算していきましょう。引数としてKeyとValue列を設定してください。この場合は、lib_name列のパッケージ名が、主語になって、id列がKeyになり、n列がValueになります。
 
 ```
 do_dist.kv(lib_name,id,n)
 ```
 
-After running the command, I get every combination of the R package pairs scored with the distance values.
+コマンドを走らせてみると、Rパッケージのすべての組み合わせの距離を計算することができます。
 
 ![](images/bigquery27.png)
 
-Now, when I try to visualize this data with Heatmap chart I get something like this.
+ヒートマップチャートでデータをビジュアライズしてみると、次のような感じになります。
 
 ![](images/bigquery28.png)
 
-The values are distances so the higher the numbers are, the more distant they are from one another. This chart shows that some packages are super far from every other packages, which is kind of weird.
-If I go back to the previous step before calculating the distances, I can see some packages like ‘ggplot2’, ‘dplyr’, etc, are appearing a lot. With this type of skewed data, algorithms like ‘euclidean’ distance, which is the default for ‘do_dist.kv’ function, tend to produce the result like above.
+数が高くなればなるほど、距離も遠くなるということです。このチャートは、いくつかのパッケージが他のパッケージからとても離れた位置にあることを示しています。少し変ですね。距離を計算する前のステップに戻ってみると、ggplot2やdplyrなどのパッケージがたくさんありますよね。このような歪んだデータだと、do_dist.kv関数のデフォルトに設定されているユークリッド距離のようなアルゴリズムは、次のような結果になります。
 
 ![](images/bigquery29.png)
 
-So, instead of ‘euclidean’, I can use ‘binary’ as the method, which would scale the count of the packages and make the appearance of the packages per file itself is more important than how many times they appear.
+ユークリッド距離で計算する代わりに、binaryメソッドを使ってみましょう。binaryメソッドは、パッケージの数を正規化して、「パッケージが何回現れたか」よりも「どのファイルといっしょにどのパッケージ名が使われているか」を重視します。
 
 ![](images/bigquery30.png)
 
@@ -321,12 +334,12 @@ So, instead of ‘euclidean’, I can use ‘binary’ as the method, which woul
 do_dist.kv(lib_name,id,n, method=”binary”)
 ```
 
-After running the command, Heatmap chart is now showing something more balanced.
+コマンドを走らせると、ヒートマップチャートは、もっとバランスのとれた感じになります。
 
 ![](images/bigquery31.png)
 
-Based on this, we can apply Multi Dimensional Scaling algorithm to scale the distance values into two dimensional space. Think of this as, converting the distance values among cities (San Francisco, Los Angels, etc.) into longitude and latitude values so that you can locate the cities on a map, which is a two dimensional space, for example.
-I can use ‘do_cmdscale’ command from ‘exploratory’ package like below.
+
+これに基いて、多次元尺度アルゴリズムを２次元に適用させてみましょう。exploratoryパッケージのdo_cmdscaleコマンドを使うとそれをすることができます。
 
 ```
 do_cmdscale(pair.name.1,pair.name.2,dist.value)
@@ -334,44 +347,39 @@ do_cmdscale(pair.name.1,pair.name.2,dist.value)
 
 ![](images/bigquery32.png)
 
-I can visualize this data with Scatterplot chart. We can see the overall similarity of the packages better here.
+Scatterplotチャートでデータをビジュアライズしてみましょう。すると、パッケージの類似性を見ることができます。
 
 ![](images/bigquery33.png)
 
-I can also cluster this data automatically, instead of visually trying to cluster with our eyes, by using ‘K-means’ algorithm like below.
+肉眼でそれぞれのクラスターにわけて考えることもできますが、以下のように、K-meansアルゴリズムを使うと、自動的にデータをクラスタリングすることもできます。
 
 ```
 build_kmeans.cols(V1,V2, centers=6, augment=TRUE)
 ```
 
-Note that I’m setting 6 as the number of the clusters to build and setting TRUE for ‘augment’ so that it will produce the result with the cluster information right away.
-Once the command is run, I can assign the cluster ID to Color.
+クラスターの数を6に、そして、引数に、TRUEを設定しました。いったんコマンドが走ると、クラスターIDを色にアサインすることができます。
 
 ![](images/bigquery34.png)
 
-I can zoom into only the cluster 3 and 5 by selecting them in the legend at right hand side. Here, we can see ‘tidyverse’ packages like dplyr, tidyr, stringr, lubridate, reshape, readr, ggplot2, etc, together.
+クラスター３や５に、拡大することもできます。ここでは、dplyr, tidyr, stringr, lubridate, reshape, readr, ggplot2のようなtidyverseパッケージは、一緒に使われていることが確認できます。
 
 ![](images/bigquery35.png)
 
-If we focus on the cluster 2 we can see many Machine Learning related packages.
+もし、クラスター2にフォーカスすると、機械学習に関するRパッケージがまとまっているのを確認できます。
 
 ![](images/bigquery36.png)
 
-If we focus on the cluster 4, we can see some packages that helps acquiring data from outside and importing into R, such as jsonlite, RCurl, httr, RPostgreSQL, RMySQL, xlsx, etc, together.
+もし、クラスター4にフォーカスすると、jsonlite, RCurl, httr, RPostgreSQL, RMySQL, xlsxのような外部からデータを取得して、Rにインポートするためのパッケージがまとまっています。
 
 ![](images/bigquery37.png)
 
 
-##BigQuery+R = Data Science for Big Data
+##謝辞
 
-As you remember, our strategy was to use Google BigQuery for getting the subset of the data we were interested in, use dplyr for wrangling with the data iteratively and quickly, and use R for employing advanced algorithms to do advanced analysis. And that worked pretty well this time. Thanks to Google BigQuery’s fast query performance against Big Data, we can quickly test out a few queries and filter to the data size that can be fit comfortably into a memory on our decent PCs. Thanks to dplyr’s fast data wrangling capability, we can quickly understand the data and prepare the data for feeding into the statistical and machine learning algorithms. And thanks to R’s strong statistical packages we can quickly employ various types of algorithms to find interesting insights from the data that could not have been discovered otherwise.
-
-Lastly, thanks to Hide Kojima, Yosuke Yasuda, and Hideaki Hayashi for experimenting many analysis on this data and coming up with interesting insights!
-
-If you are interested in trying this out, download the latest Exploratory Desktop from our web page.
+この興味深いデータ分析に手伝ってくれた、[@yasu_919](https://twitter.com/yasu_919),[@hidekoji](https://twitter.com/hidekoji),[@karasu](https://twitter.com/karasu)に感謝をしたいと思います。
 
 
-##Reproduce it in R
+##R環境で再現する
 
 ```
 # Update to your libPaths.
@@ -403,7 +411,7 @@ exploratory::executeGoogleBigQuery('bigquery-github-1383','select *\nfrom [bigqu
   build_kmeans.cols(V1,V2, centers=9, augment=TRUE)
 ```
 
-The exploratory package is not on CRAN, but on Github, so you want to install it with the devtools package from Github like below.
+また、exploratoryパッケージは、CRANではなくGitHub上にあります。下記のように、devtoolsパッケージと一緒にインストールすることもできます。
 
 ```
 install.packages("devtools")
@@ -411,7 +419,7 @@ devtools::install_github("exploratory-io/exploratory_func")
 library(exploratory)
 ```
 
-If you have installed Exploratory Desktop already, then the above script is setting the library path to the Exploratory’s package installation location so that you don’t need to install the dependent packages including ‘exploratory’ separately. It will just work.
+もし、以前にExploratoryデスクトップアプリケーションをダウンロードしたことがあったら、上に書いたスクリプトは、exploratoryを含む独立したパッケージを別にインストールする必要がないように、Exploratoryのパッケージのインストール位置に設定されます。
 
 ##興味を持っていただいた方、実際に触ってみたい方へ
 
