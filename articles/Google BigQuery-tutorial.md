@@ -11,7 +11,7 @@ Exploratoryは、Google BigQueryのデータインポート機能を実装しま
 
 ![](images/bigquery1.png)
 
-ところで、dplyrについて詳しくない方は、こちらの方で、dplyrの文法であるFilter関数、Date関数、について詳しく解説しているので、よかったらご覧ください。
+ところで、dplyrについて詳しくない方は、こちらの方で、dplyrの文法について詳しく解説しているので、よかったらご覧ください。
 
 - [なぜデータ分析においては、SQLではなくRを使うべきか？　 データ分析ツールExploratoryを使って、dplyrを使いこなす第1弾 Filter関数編](http://qiita.com/21-Hidetaka-Ko/items/117caea621562f05ffe1)
 
@@ -88,8 +88,6 @@ select *
 from [bigquery-public-data:github_repos.contents]
 where id IN (select id from [bigquery-github-1383:GitHub.r_files_snapshot])
 ```
-
-ただし、ここでは、Rスクリプトファイルに限定するために、where clauseの上で作ったr_files_snapshotテーブルを使っています。
 
 ![](images/bigquery5.png)
 

@@ -34,7 +34,7 @@
 
 これで設定は終了です。Google BigQueryのデータ分析については、こちら↓で書いているのでよろしかったらどうぞ。
 
-[なぜデータ分析においては、SQLではなくRを使うべきか？ Google公式のGoogle BigQueryのGitHubデータを使って、Rのパッケージを爆速でクラスタリングする](https://github.com/21-Hidetaka-Ko/Japanese-blog/blob/master/articles/Google%20BigQuery-tutorial.md)
+[なぜデータ分析においては、SQLではなくRを使うべきか？ Google公式のGoogle BigQueryのGitHubデータを使って、Rのパッケージを爆速でクラスタリングする](https://github.com/21-Hidetaka-Ko/Japanese-blog/blob/master/articles/Google%20BigQuery-tutorial.mdgi)
 
 
 ##興味を持っていただいた方、実際に触ってみたい方へ
