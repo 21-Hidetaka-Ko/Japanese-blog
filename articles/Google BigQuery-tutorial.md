@@ -1,4 +1,4 @@
-#なぜデータ分析においては、SQLではなくRを使うべきか？ Google公式のGoogle BigQueryのGitHubデータを使って、Rのパッケージを爆速でクラスタリングする
+#なぜデータ分析においては、SQLではなくRを使うべきか？ Google公式のGoogle BigQueryのGitHubデータを使って、Rのパッケージをクラスタリングする
 
 ２，３週間前に、Googleは、280万のオープンソースGitHubリポジトリを公開しました。リンクは[こちら](https://cloud.google.com/bigquery/public-data/github)からどうぞ。これは、2億個の異なったファイルパスが入っていたり、163万ソースファイルも含まれています。合計にして3TB+以上です。これを使って、すでにいくつかのデータが分析されています。例えば、[Francesc](https://twitter.com/francesc)は、最も人気なGo言語のパッケージはなにかを見つけるために、Go言語のコードデータを分析しました。
 
