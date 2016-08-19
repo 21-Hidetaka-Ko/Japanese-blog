@@ -27,6 +27,11 @@ Pivotテーブルは、VizタブのVizタイプの下のところにあります
 
 ![](images/column_to_row.png)
 
+ちなみに、ExcelでPivotテーブルを作ろうとするとこんな感じです。どちらがより直感的かは、一目瞭然ですね。
+
+![](images/pivot-excel.png)
+
+
 ###列をValueにアサインする
 
 ARR_DELAYのような列をValueにアサインし、aggregation関数を適切な関数に変更することもできます。
