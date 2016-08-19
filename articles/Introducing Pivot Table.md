@@ -1,4 +1,4 @@
-#Introducing Pivot Table
+#データ分析においては、なぜExcelではなくExploratoryを使うべきか？　データのサマライズが簡単にできる超便利なPivotテーブルの爆速で説明する
 
 Pivotテーブルをご存知ですか？ Pivot Tableは、チャート形式ではなく、テーブル形式、データのサマライズが簡単にできます。Pivotテーブルのために、Excelを使う人も多いですよね。そういうわけで、Exploratoryは、Pivotテーブルを実装しました。
 
@@ -10,8 +10,6 @@ Pivotテーブルは、簡単にデータをサマライズできるだけでな
 - 4.Pivotテーブルを共有する
 
 ###データを準備する
-
-To demonstrate, I’m going to use Flight Delay data. I’ve shared it in EDF (Exploratory Data Format) here so that you can quickly import with ‘Import Exploratory Data’ option. If you are interested in the original data you can download it from here as well.
 
 今回は、フライトの遅れのデータを使いたいと思います。Import Exploratory Dataから簡単にデータをインポートできるように、[こちら](https://exploratory.io/viz/kanaugust/eccdbf5bb7d1?cb=1471380653622)に、EDF（Exploratoryのデータフォーマット）があります。それぞれのページでは、データがどのように加工されたり計算されたかの詳細を、Dataタブ、もしくは、R Scriptタブの中で見ることができます。
 
@@ -73,7 +71,7 @@ Reverse Palette Orderを使って、色の向きを逆にすることもでき�
 
 ##3. 日付のデータを使ったPivotテーブル
 
-Date / Timeデータ・タイプといっしょに列をアサインしたとき、もう少し面白いことができます。BarチャートやLineチャートなどと同じように、ここでも、Date / Time のaggregationのレベルを設定することができます。
+Date / Timeデータ・タイプをColumn(列）にアサインしたとき、もう少し面白いことができます。BarチャートやLineチャートなどと同じように、ここでも、Date / Time のaggregationのレベルを設定することができます。
 
 Dateデータ・タイプのFL_DATEをアサインしたときに、デフォルトでは、aggregationのレベルは、Yearに設定されています。
 
