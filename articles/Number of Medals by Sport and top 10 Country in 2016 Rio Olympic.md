@@ -47,10 +47,15 @@ Runボタンを押します。
 
 ![](images/bind_row-medal2.png)
 
-列数と行数が増えていますね。これで、散らばっていたデータをUSのデータフレームにまとめることができました。
+列数と行数が増えていますね。これで、散らばっていたデータをUSのデータフレームにまとめることができました。次に、country_name列の行の値がNA値のときは、値にUSが入るようにしましょう。
 
+`mutate(country_name = na_if(country_name,""), country_name=coalesce(country_name,"US"))`
+
+![](images/bind_row-medal2.png)
 
 ##行の名前を変更する
+
+
 
 ##gatherを駆使して、それぞれのメダルの獲得数を計算する
 
