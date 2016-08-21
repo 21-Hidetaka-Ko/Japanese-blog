@@ -41,6 +41,15 @@ Webからデータをとってきたいので、Scrape Web Pageを選びます�
 
 `bind_rows("China"=China,"Germany"=Germany, "Russia"=Russia, "Japan"=Japan, "France"=France, "Italy"=Italy, "Netherlands"=Netherlands, "Australia"=Australia, "United_Kingdom"=UK, .id="country_name")`
 
+![](images/bind_row_medal.png)
+
+Runボタンを押します。
+
+![](images/bind_row-medal2.png)
+
+列数と行数が増えていますね。これで、散らばっていたデータをUSのデータフレームにまとめることができました。
+
+
 ##行の名前を変更する
 
 ##gatherを駆使して、それぞれのメダルの獲得数を計算する
