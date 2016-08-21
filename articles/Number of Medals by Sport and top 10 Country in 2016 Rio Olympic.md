@@ -37,7 +37,9 @@ Webからデータをとってきたいので、Scrape Web Pageを選びます�
 
 ##bind_rows関数を使って、トップ10の国のデータをひとつのデータフレームにまとめる
 
+いまのままだと、トップ１０の国のデータが別々のデータフレームに散らばっていますね。 なので、bind_rows関数を使ってUSのデータフレームにすべてのデータをまとめていきましょう。
 
+`bind_rows("China"=China,"Germany"=Germany, "Russia"=Russia, "Japan"=Japan, "France"=France, "Italy"=Italy, "Netherlands"=Netherlands, "Australia"=Australia, "United_Kingdom"=UK, .id="country_name")`
 
 ##行の名前を変更する
 
