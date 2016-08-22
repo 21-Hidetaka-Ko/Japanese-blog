@@ -73,18 +73,53 @@ Runボタンを押します。
 
 ##gatherを駆使して、それぞれのメダルの獲得数を計算する
 
-今は、金メダル、銀メダル、銅メダルの獲得数がちがう列にばらばらになっていますね。目的である、2016年リオ五輪で、トップ10の国が各スポーツごとに獲得したメダル数をビジュアライズするには、メダルの色を表すColorとそれぞれのメダルの獲得数を表すtotal_per_colorという2つの列に金メダル、銀メダル、銅メダルの獲得数をまとめる必要があります。そういう場合は、gatherコマンドが便利です。gatherコマンドは、複数の列を、１つの列にすることができます。説明だけだと、ピンとこないかもしれませんね。データを整形しながら、具体的に説明していくので、見ていってください。
+今は、金メダル、銀メダル、銅メダルの獲得数がちがう列にばらばらになっていますね。目的である、2016年リオ五輪で、トップ10の国が各スポーツごとに獲得したメダル数をビジュアライズするには、メダルの色を表すColorとそれぞれのメダルの獲得数を表すtotal_per_colorという2つの列に金メダル、銀メダル、銅メダルの獲得数をまとめる必要があります。そういう場合は、gatherコマンドが便利です。
+
+gatherコマンドは、複数の列を、１つの列にすることができます。説明だけだと、ピンとこないかもしれませんね。データを整形しながら、具体的に説明していくので、見ていってください。
 
 `gather(color, total_per_color, Gold, Silver, Bronze, na.rm=TRUE)`
 
 [](images/gather-medal.png)
 
+##recode関数を使って、メダルポイントをつける
+
+これで、メダルごとの獲得数がわかったので、トップ10の国が各スポーツごとに獲得したメダル数を計算することができます。ただし、今のままだと金メダルも、銀メダルも、銅メダルの獲得数も同じ扱いになってしまっています。より意味のある、正確なデータを知りたいのなら、メダルの価値を、金メダル＞銀メダル＞銅メダルとする必要があります。そういうときは、recode関数が便利です。recode関数を使うと、新しい列を作り、その中に値を当てはめることができます。ここでは、[NewYorkタイムズ](http://beijing2008.blogs.nytimes.com/2008/08/23/the-medal-rankings-which-country-leads-the-olympics/?_r=0)で提案されているように、金メダルに4、銀メダルに2、銅メダルに1を当てはめたいと思います。それを意味する列名をweightにします。
+
+`mutate(weight = recode(color, "Gold"=4,"Silver"=2,"Bronze"=1))`
+
+[](images/recode-medal.png)
+
+次に、メダルのweightにメダルごとの獲得数を掛けあわせて、メダルごとの合計得点数を意味するscore列を作りましょう。
+
+`mutate(score = total_per_color*weight)`
+
+[](images/weight-medal.png)
+
 ##2016年リオ五輪で、トップ10の国が各スポーツごとに獲得したメダル数を計算する
 
-##recode関数を使って、メダルポイントをつける
+まず、国とスポーツの関係を見ていきたいわけなので、sports列とcountry_name列をグルーピングしましょう。
+
+`group_by(sports, country_name)`
+
+[](images/group_by_sports.png)
+
+次に、summarizeコマンドとsum関数を使って、score列の合計数を計算しましょう。
+
+`summarize(counts = sum(score))`
+
+[](images/summerize-medal.png)
+
 
 ##countrycode関数を使って、一瞬で国から大陸名を計算する
 
+また、countrycode関数を使うと、簡単に、国名から大陸名を計算することもできます。
+
+`mutate(Continent = countrycode(country_name,origin="country.name",destination="continent"))`
+
+[](images/continent-medal.png)
+
+
+##Scatterを使って、ビジュアライズする
 
 ##興味を持っていただいた方、実際に触ってみたい方へ
 
