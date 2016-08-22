@@ -55,7 +55,21 @@ Runボタンを押します。
 
 ##行の名前を変更する
 
+列の名前が、X1、X2、X3、X4、X5になっていてわかりにくいので、それぞれが、スポーツ名、金メダル、銀メダル、銅メダル数、合計数を表わしていることがわかりやすいように、Renameコマンドを使って名前を変更していきましょう。
 
+まず、最初にX1列のヘッダーからRenameを選びます。
+
+![](images/rename-mdeal.png)
+
+すると、以下のコマンドを自動生成します。
+
+`rename(new_column = X1)`
+
+これに下記のように、書き加えていきましょう。
+
+`rename(sports = X1, Gold = X2, Silver = X3, Bronze = X4, Total = X5 )`
+
+![](images/rename-medal-sports.png)
 
 ##gatherを駆使して、それぞれのメダルの獲得数を計算する
 
