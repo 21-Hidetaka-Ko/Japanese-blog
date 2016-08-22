@@ -43,7 +43,7 @@ Webからデータをとってきたいので、Scrape Web Pageを選びます�
 
 Runボタンを押します。
 
-![](images/bindrowmedalmedal.png)
+![](images/medal-pnp.png)
 
 列数と行数が増えていますね。これで、散らばっていたデータをUSのデータフレームにまとめることができました。次に、country_name列の行の値がNA値のときは、値にUSが入るようにしましょう。
 
