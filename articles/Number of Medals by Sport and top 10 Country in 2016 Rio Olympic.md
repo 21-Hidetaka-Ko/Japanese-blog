@@ -95,7 +95,7 @@ gatherコマンドは、複数の列を、１つの列にすることができ�
 
 ![](images/weight-medal.png)
 
-##2016年リオ五輪で、トップ10の国が各スポーツごとに獲得したメダル数を計算する
+##トップ10の国が各スポーツごとに獲得したメダル数を計算する
 
 まず、国とスポーツの関係を見ていきたいわけなので、sports列とcountry_name列をグルーピングしましょう。
 
@@ -116,14 +116,32 @@ gatherコマンドは、複数の列を、１つの列にすることができ�
 
 `mutate(Continent = countrycode(country_name,origin="country.name",destination="continent"))`
 
-[](images/continent-medal.png)
-
-continent-medal.png
-
 ![](images/continent-medal.png)
 
 
 ##Scatterを使って、ビジュアライズする
+
+データを直観的に理解するために、Vizタブを押して、ビジュアライズしてみましょう。チャートタイプは、Scatterを選び、X軸にsports,Y軸に、country_name,Size軸に、counts、Color軸にContinentを当てはめましょう。
+
+![](images/continent-scatter.png)
+
+これで、2016年リオ五輪で、トップ10の国が各スポーツごとに獲得したメダル数をビジュアライズすることができました。
+
+
+##データとビジュアライズを誰でも再現可能な状態で、シェアする
+
+このビジュアライズやそれまでのステップを誰かと共有したくありませんか？　そういう場合は、Shareボタンを押してみましょう。
+
+![](images/share-scatter.png)
+
+タイトルなどを入力していきます。そして、矢印の場所をクリックしてShareボタンを押すと、データがどのように加工されたり計算されたかの詳細もシェアすることができます。
+
+![](images/share-medal.png)
+
+興味がありましたら、[こちら](https://exploratory.io/viz/Hidetaka-Ko/861f65f5d38e?cb=1471653914194)をクリックするとチャートがシェアされているページに飛びます。それぞれのページでは、データがどのように加工されたり計算されたかの詳細を、Dataタブ、もしくは、R Scriptタブの中で見ることができます。もしExploratory Desktopをすでにお持ちでしたら、Download ボタンを押して、チャートとデータをダウンロードしてインポートすることも簡単にできます。
+
+![](images/share-step-data.png)
+
 
 ##興味を持っていただいた方、実際に触ってみたい方へ
 
