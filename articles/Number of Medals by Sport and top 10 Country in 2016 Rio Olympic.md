@@ -79,7 +79,7 @@ gatherコマンドは、複数の列を、１つの列にすることができ�
 
 `gather(color, total_per_color, Gold, Silver, Bronze, na.rm=TRUE)`
 
-[](images/gather-medal.png)
+![](images/gather-medal.png)
 
 ##recode関数を使って、メダルポイントをつける
 
@@ -87,13 +87,13 @@ gatherコマンドは、複数の列を、１つの列にすることができ�
 
 `mutate(weight = recode(color, "Gold"=4,"Silver"=2,"Bronze"=1))`
 
-[](images/recode-medal.png)
+![](images/recode-medal.png)
 
 次に、メダルのweightにメダルごとの獲得数を掛けあわせて、メダルごとの合計得点数を意味するscore列を作りましょう。
 
 `mutate(score = total_per_color*weight)`
 
-[](images/weight-medal.png)
+![](images/weight-medal.png)
 
 ##2016年リオ五輪で、トップ10の国が各スポーツごとに獲得したメダル数を計算する
 
@@ -101,13 +101,13 @@ gatherコマンドは、複数の列を、１つの列にすることができ�
 
 `group_by(sports, country_name)`
 
-[](images/group_by_sports.png)
+![](images/group_by_sports.png)
 
 次に、summarizeコマンドとsum関数を使って、score列の合計数を計算しましょう。
 
 `summarize(counts = sum(score))`
 
-[](images/summerize-medal.png)
+![](images/summerize-medal.png)
 
 
 ##countrycode関数を使って、一瞬で国から大陸名を計算する
@@ -117,6 +117,10 @@ gatherコマンドは、複数の列を、１つの列にすることができ�
 `mutate(Continent = countrycode(country_name,origin="country.name",destination="continent"))`
 
 [](images/continent-medal.png)
+
+continent-medal.png
+
+![](images/continent-medal.png)
 
 
 ##Scatterを使って、ビジュアライズする
