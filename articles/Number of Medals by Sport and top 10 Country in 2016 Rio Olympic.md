@@ -18,6 +18,8 @@ Webからデータをとってきたいので、Scrape Web Pageを選びます�
 
 さっきのページのリンクを貼ります。
 
+`https://exploratory.io/viz/Hidetaka-Ko/861f65f5d38e?cb=1471653914194`
+
 ![](images/scrape-us.png)
 
 そして、Get Dataボタンを押します。すると、リンクを貼るだけでデータをスクレイピングしてこれました。
@@ -39,13 +41,19 @@ Webからデータをとってきたいので、Scrape Web Pageを選びます�
 
 いまのままだと、トップ１０の国のデータが別々のデータフレームに散らばっていますね。 なので、bind_rows関数を使ってUSのデータフレームにすべてのデータをまとめていきましょう。
 
+`bind_rows(Australia,China,France, Germany, Italy, Japan, Netherlands, Russia, UK)`
+
+![](images/bindo-begin.png)
+
+カラム数や行数を見るとわかるように、ばらばらになっていたデータフレームを１つのデータフレームにまとめることができました。しかし、今のままだと、どの値がどの国を表しているのかがわかりませんね。なので、引数にcountry_nameを加えていきましょう。
+
 `bind_rows("China"=China,"Germany"=Germany, "Russia"=Russia, "Japan"=Japan, "France"=France, "Italy"=Italy, "Netherlands"=Netherlands, "Australia"=Australia, "United_Kingdom"=UK, .id="country_name")`
 
 Runボタンを押します。
 
 ![](images/medal-pnp.png)
 
-列数と行数が増えていますね。これで、散らばっていたデータをUSのデータフレームにまとめることができました。次に、country_name列の行の値がNA値のときは、値にUSが入るようにしましょう。
+次に、country_name列の行の値がNA値のときは、値にUSが入るようにしましょう。
 
 `mutate(country_name = na_if(country_name,""), country_name=coalesce(country_name,"US"))`
 
@@ -71,17 +79,19 @@ Runボタンを押します。
 
 ##gatherを駆使して、それぞれのメダルの獲得数を計算する
 
-今は、金メダル、銀メダル、銅メダルの獲得数がちがう列にばらばらになっていますね。目的である、2016年リオ五輪で、トップ10の国が各スポーツごとに獲得したメダル数をビジュアライズするには、メダルの色を表すColorとそれぞれのメダルの獲得数を表すtotal_per_colorという2つの列に金メダル、銀メダル、銅メダルの獲得数をまとめる必要があります。そういう場合は、gatherコマンドが便利です。
+今は、金メダル、銀メダル、銅メダルの獲得数がちがう列にばらばらになっていますね。目的である、2016年リオ五輪で、トップ10の国が各スポーツごとに獲得したメダル数をビジュアライズするには、金メダル、銀メダル、銅メダルの獲得数をまとめる必要があります。そういう場合は、gatherコマンドが便利です。
 
-gatherコマンドは、複数の列を、１つの列にすることができます。説明だけだと、ピンとこないかもしれませんね。データを整形しながら、具体的に説明していくので、見ていってください。
+gatherコマンドは、複数の列を、１つの列にすることができます。説明だけだと、ピンとこないかもしれませんね。データを整形しながら、具体的に説明していくので、見ていってください。第一引数と第二引数に新しく作りたい列名を入力し、第三引数で、新しい列に入れる値の列を選びます。
 
 `gather(color, total_per_color, Gold, Silver, Bronze, na.rm=TRUE)`
+
+この場合だと、メダルの色を表すColorとそれぞれのメダルの獲得数を表すtotal_per_colorという2つの列にGold, Silver, Bronzeのメダルの色の値を入れています。
 
 ![](images/gather-medal.png)
 
 ##recode関数を使って、メダルポイントをつける
 
-これで、メダルごとの獲得数がわかったので、トップ10の国が各スポーツごとに獲得したメダル数を計算することができます。ただし、今のままだと金メダルも、銀メダルも、銅メダルの獲得数も同じ扱いになってしまっています。より意味のある、正確なデータを知りたいのなら、メダルの価値を、金メダル＞銀メダル＞銅メダルとする必要があります。そういうときは、recode関数が便利です。recode関数を使うと、新しい列を作り、その中に値を当てはめることができます。ここでは、[NewYorkタイムズ](http://beijing2008.blogs.nytimes.com/2008/08/23/the-medal-rankings-which-country-leads-the-olympics/?_r=0)で提案されているように、金メダルに4、銀メダルに2、銅メダルに1を当てはめたいと思います。それを意味する列名をweightにします。
+これで、メダルごとの獲得数がわかったので、トップ10の国が各スポーツごとに獲得したメダル数を計算することができます。ただし、今のままだと金メダルも、銀メダルも、銅メダルの獲得数も同じ扱いになってしまっています。より意味のある、正確なデータを知りたいのなら、メダルの価値を、金メダル＞銀メダル＞銅メダルとする必要があります。そういうときは、recode関数が便利です。recode関数を使うと、指定の値を、任意の値に置き換えることができます。ここでは、[NewYorkタイムズ](http://beijing2008.blogs.nytimes.com/2008/08/23/the-medal-rankings-which-country-leads-the-olympics/?_r=0)で提案されているように、金メダルに4、銀メダルに2、銅メダルに1を当てはめたいと思います。それを意味する列名をweightにします。
 
 `mutate(weight = recode(color, "Gold"=4,"Silver"=2,"Bronze"=1))`
 
@@ -110,7 +120,7 @@ gatherコマンドは、複数の列を、１つの列にすることができ�
 
 ##countrycode関数を使って、一瞬で国から大陸名を計算する
 
-また、countrycode関数を使うと、簡単に、国名から大陸名を計算することもできます。
+また、countrycode関数を使うと、簡単に、国名からアジア、ヨーロッパ等といった大陸名を抽出することもできます。
 
 `mutate(Continent = countrycode(country_name,origin="country.name",destination="continent"))`
 
