@@ -52,7 +52,7 @@ Get Dataボタンを押します。
 
 テーブルViewに行って、実際のデータとくらべてみましょう。
 
-![](images/7.png)
+![](images/cookpad7.png)
 
 こちらが実物です。
 
