@@ -22,7 +22,7 @@
 
 ![](images/2.png)
 
-デスクトップに保存します。
+ファイル名を指定して、デスクトップに保存します。
 
 ![](images/3.png)
 
@@ -38,23 +38,25 @@ Rには、PDFデータを簡単に読み込むことができるtabulizerパッ�
 
 ```
 library(tabulizer)
-path2pdf <- "/Users/HidetakaKo/Desktop/2016-cookpad.pdf"
+path2pdf <- "/Users/HidetakaKo/Desktop/cookpad-2016.pdf"
 out <- extract_tables(path2pdf)
 as.data.frame(out[[1]])
 ```
 ![](images/5.png)
 
-GetDataボタンを押します。
+Get Dataボタンを押します。
 
 ![](images/6.png)
 
-このステップだけで、PDFデータを取得することができました。テーブルViewに行って、実際のデータとくらべてみましょう。
+このステップだけで、PDFデータを取得することができました。スクリプトにあるcookpad-2016.pdfを自分が取得したいPDFデータのファイル名に変えるだけで同じように取得することができます。
+
+テーブルViewに行って、実際のデータとくらべてみましょう。
 
 ![](images/7.png)
 
 こちらが実物です。
 
-![](images/8.png)
+![](images/1.png)
 
 ##3.データを整形する
 
@@ -76,7 +78,7 @@ GetDataボタンを押します。
 
 Javaのバージョンが違うことが原因で、tabulizerパッケージをうまくインストールできないケースがあります。ぼくは、これが原因でしばらく詰まりました。
 
-どうやら、tabulizerパッケージはJava 1.6.0でないとダウンロードできないのですが、OSがElcapitanやYosemite以降だと、デフォルトでJava 1.7.0になっているようです。
+どうやら、tabulizerパッケージはJava 1.6.0でないとダウンロードできないのですが、OSがElcapitanやYosemite以降だと、デフォルトでは、Java 1.7.0かJava 1.80になっているようです。Javaがインストールされていない場合は、このパッケージを使うために、Java 1.6.0をインストールしてください。
 
 ###Java 1.7.0を削除する
 
@@ -102,11 +104,11 @@ Javaのバージョン 1.7を次のコマンドで削除します。
 
 ```
 library(tabulizer)
-path2pdf <- "/Users/HidetakaKo/Desktop/cookpad-20160810.pdf"
+path2pdf <- "/Users/HidetakaKo/Desktop/cookpad-2016.pdf"
 out <- extract_tables(path2pdf)
 as.data.frame(out[[1]])
 ```
-![](images/library-tabulizer.png)
+![](images/6.png)
 
 これで、インストールが成功します。
 
