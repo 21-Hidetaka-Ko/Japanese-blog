@@ -211,6 +211,18 @@ gatherコマンドは、複数の列を、１つの列にすることができ�
 
 ##データを再現可能な状態でシェアする
 
+Shareボタンを押すと、データを再現可能な状態でシェアすることができます。
+
+![](images/share-cookpad.png)
+
+タイトルやデータソースなどを入力していきます。チェックボタンに印をつけてシェアボタンを押します。
+
+![](images/share-cookpad-analy.png)
+
+View Shared Chartをクリックします。
+
+![](images/public-cookpad.png)
+
 
 
 ##Rで再現するには
