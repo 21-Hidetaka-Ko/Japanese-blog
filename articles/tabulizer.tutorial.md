@@ -14,7 +14,7 @@
 
 ##1.Cookpadの有価証券のPDF表データを保存する
 
-まず、Cookpadの有価証券のPDF表データをデスクトップに保存しましょう。PDFデータは、Cookpadのホームページに行くと取得することができます。
+まず、Cookpadの有価証券のPDF表データをデスクトップに保存しましょう。PDFデータは、Cookpadの[ホームページ](https://info.cookpad.com/ir/securities_report)に行くと取得することができます。
 
 ![](images/1.png)
 
