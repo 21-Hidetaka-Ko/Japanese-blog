@@ -26,15 +26,27 @@
 
 ![](images/3.png)
 
-##2.PDF表データをインポートする
+##2.tabulizerパッケージを使って、PDF表データをインポートする
 
-次に、Exploratoryだと、データ分析だけでなく、Import by Writing R scriptという機能を使えば、複雑で汚いウェブ・ページからデータを思い通りにスクレイピングしてくることができたり、Rのパッケージを読み込むことができたり、さらにはその後のデータの加工もデータ分析しながら簡単に出来るということなので、早速やってみました。
+まず、PDFデータをインポートするには、Rのtabulizerパッケージというのをインストールする必要があります。Rstudioからtabulizerパッケージをインストールしましょう。Rstudioを持っていない方は、[こちら]()からRstudioをダウンロードしてください。
+
+```
+install.packages("devtools")
+library(githubinstall)
+githubinstall(c("tabulizerjars", "tabulizer"))
+```
+
+![](images/install.packages.png)
+
+これでインストール完了です。
+
+次に、Exploratoryだと、Import by Writing R scriptという機能を使えば、複雑で汚いウェブ・ページからデータを思い通りにスクレイピングしてくることができたり、RstudioでインストールしたRのパッケージを読み込むことができたり、さらにはその後のデータの加工もデータ分析しながら簡単に出来るということなので、早速やってみました。
 
 Import by Writing R scriptをクリックします。
 
 ![](images/4.png)
 
-Rには、PDFデータを簡単に読み込むことができるtabulizerパッケージというものが存在します。tabulizerパッケージを使って、CookpadのPDFデータを取得するスクリプトを書いていきます。
+ここで、先ほどインストールしたtabulizerパッケージを使って、CookpadのPDFデータを取得するスクリプトを書いていきます。
 
 ```
 library(tabulizer)
@@ -58,10 +70,26 @@ Get Dataボタンを押します。
 
 ![](images/1.png)
 
-##3.データを整形する
+##3.2015年の第二四半期の有価証券のデータをジョインする
 
+騒動があった2016年以降のデータだけを見てもおもしろくないので、事件以前と事件後でCookpadに業績に影響があったのかを分析するために、2015年の第二四半期の有価証券のデータも取得して、ジョインをして比べたいと思います。
 
-##4.2015年の第二四半期の有価証券のデータをジョインする
+まず、また同じようにCookpadのページに行って、2015年のデータを保存して、PDFデータを取得するスクリプトを書きます。
+
+```
+library(tabulizer)
+path2pdf <- "/Users/HidetakaKo/Desktop/cookpad-2015.pdf"
+out <- extract_tables(path2pdf)
+as.data.frame(out[[1]])
+```
+
+![](images/script-2015.png)
+
+次に、データをジョインします。
+
+<!-- ![](images/join-2015.png) -->
+
+##4.データを整形する
 
 
 
@@ -98,19 +126,7 @@ Javaのバージョン 1.7を次のコマンドで削除します。
 
 ![](images/rm-java.png)
 
-###tabulizerパッケージをインストールする
-
-次のコマンドで、Exploratoryのcustom Rscriptからtabulizerパッケージをインストールします。
-
-```
-library(tabulizer)
-path2pdf <- "/Users/HidetakaKo/Desktop/cookpad-2016.pdf"
-out <- extract_tables(path2pdf)
-as.data.frame(out[[1]])
-```
-![](images/6.png)
-
-これで、インストールが成功します。
+ぼくの場合は、Javaのバージョンが1.6.0と1.7.0の両方がインストールされていて、1.7.0がデフォルトになっていたので、1.7.0を削除するだけでよかったですが、もし、1.6.0がぼくのようにインストールされていなかった場合は、[こちら]()からJava 1.6.0をインストールしてください。
 
 
 ##謝辞
