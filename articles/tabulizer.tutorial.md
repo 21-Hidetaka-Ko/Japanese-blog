@@ -32,6 +32,7 @@
 
 ```
 install.packages("devtools")
+install.packages("githubinstall")
 library(githubinstall)
 githubinstall(c("tabulizerjars", "tabulizer"))
 ```
