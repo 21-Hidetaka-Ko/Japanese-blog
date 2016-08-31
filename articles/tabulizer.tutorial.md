@@ -1,4 +1,4 @@
-#「2016年版このRパッケージがすごい」暫定第一位、tabulizerパッケージを使って、日本で話題のCookpadのPDFの有価証券から超簡単にデータを取得してビジュアライズまでしてみた
+#「2016年版このRパッケージがすごい」暫定第一位、tabulizerパッケージを使って、日本で話題のCookpadの有価証券PDFから超簡単にデータを取得してビジュアライズまでしてみた
 
 ![](images/cookpad-dangerous.png)
 
@@ -38,7 +38,7 @@ githubinstall(c("tabulizerjars", "tabulizer"))
 
 ![](images/install.packages.png)
 
-これでインストール完了です。select
+2を選んでください。これでインストール完了です。
 
 次に、Exploratoryだと、Import by Writing R scriptという機能を使えば、複雑で汚いウェブ・ページからデータを思い通りにスクレイピングしてくることができたり、RstudioでインストールしたRのパッケージを読み込むことができたり、さらにはその後のデータの加工もデータ分析しながら簡単に出来るということなので、早速やってみました。
 
@@ -72,7 +72,7 @@ Get Dataボタンを押します。
 
 ##3.2015年の第二四半期の有価証券のデータをジョインする
 
-騒動があった2016年以降のデータだけを見てもおもしろくないので、事件以前と事件後でCookpadに業績に影響があったのかを分析するために、2015年の第二四半期の有価証券のデータも取得して、ジョインをして比べたいと思います。
+騒動があった2016年以降のデータだけを見てもおもしろくないので、事件以前と事件後でCookpadに業績に影響があったのかを分析するために、2015年以前の第二四半期の有価証券のデータも取得して、ジョインをして比べたいと思います。
 
 まず、また同じようにCookpadのページに行って、2015年のデータを保存して、PDFデータを取得するスクリプトを書きます。
 
@@ -85,23 +85,61 @@ as.data.frame(out[[1]])
 
 ![](images/script-2015.png)
 
-次に、データをジョインします。
+次に、データをジョインします。Joinボタンを押すと次の画面が現れます。
 
 ![](images/join-2015.png)
+
+それぞれに値を入力してRunボタンを押してください。
+
+![](images/2014-join.png)
+
+これで、2015年第二四半期のデータをジョインすることができました。
 
 ##4.データを整形する
 
 ###不要な列を取り除く
 
+見ての通り、いくつか不要な列があるので、Selectコマンドを使って、取り除きましょう。矢印のSelectボタンを押します。
+
+![](images/select-cookpad.png)
+
+列を取り除きたいので、Excludeを選び、取り除きたい列を順に選びます。
+
 `select(-V2.x, -V2.y, -V4.y)`
+
+Runボタンを押します。
+
+![](images/drop-cookpad.png)
+
+これで、不要な列を取り除くことができました。
 
 ###列の名前を変える
 
+今のままだと列の名前が、V1やV2となっていて、何を表しているデータなのかいまいちわかりにくいので、Renameコマンドを使って列の名前を変えます。第二四半期の日付の最後が2015年6月30なので、`"20150630" = V3.x`と書きます。他も同様です。
+
 `rename("企業概要" =V1, "20150630" = V3.x, "20160630" = V4.x, "20141031" =V3.y)`
+
+Runボタンを押します。
+
+![](images/rename-cookpad.png)
+
+これで、列の名前を変えることができました。
 
 ###空の行を取り除く
 
+次に、企業概要が空になっている行が意味のないデータになっているので取り除きましょう。
+
+![](images/empty-cookpad.png)
+
+Filterコマンドを選んで、is not emptyを選びます。
+
+![](images/empty-filter.png)
+
 `filter(!is_empty(V1))`
+
+Runボタンを押します。
+
+![](images/empty-filter-cook.png)
 
 ###△を-に置換する
 
@@ -124,13 +162,57 @@ as.data.frame(out[[1]])
 `filter(企業概要 == "売上収益 " | 企業概要 == "営業利益 ")`
 
 
-
 ##5.有価証券のデータをビジュアライズする
 
 
+![](images/.png)
+
+ビジュアライズを見てみると、売上収益も営業利益も騒動に関係なく右肩上がりに伸びていますね。
 クックパッドは、既にブランドが確立されているだけではなく、ネットワーク外部性が非常に強いサービスであるため、担当する社員が変わったくらいでは（短期的には）びくともしないレベルの会社ということがここからわかるかもしれませんね。
 
 ##データを再現可能な状態でシェアする
+
+
+
+##Rで再現するには
+
+```
+# Custom R function as Data.
+`cookpad-2016.func` <- function(){
+  library(tabulizer)
+  path2pdf <- "/Users/HidetakaKo/Desktop/cookpad-2016.pdf"
+  out <- extract_tables(path2pdf)
+  as.data.frame(out[[1]])
+}
+
+# Set libPaths.
+.libPaths("/Users/HidetakaKo/.exploratory/R/3.3")
+
+# Load required packages.
+library(rvest)
+library(lubridate)
+library(tidyr)
+library(urltools)
+library(stringr)
+library(broom)
+library(RcppRoll)
+library(tibble)
+library(dplyr)
+library(exploratory)
+
+# Data Analysis Steps
+`cookpad-2016.func`() %>%
+  exploratory::clean_data_frame() %>%
+  left_join(`cookpad-2015`, by = c("V1" = "V1")) %>%
+  select(-V2.x, -V2.y, -V4.y) %>%
+  filter(!is_empty(V1)) %>%
+  rename("企業概要" =V1, "20150630" = V3.x, "20160630" = V4.x, "20141031" =V3.y) %>%
+  mutate(`20160630`= str_replace(`20160630`, "△","-"),`20150630`= str_replace(`20150630`, "△","-"),`20141031`= str_replace(`20141031`, "△","-")) %>%
+  gather(year, yen, `20141031`, `20150630`, `20160630`) %>%
+  mutate(year = ymd(year)) %>%
+  mutate(yen = extract_numeric(yen)) %>%
+  filter(企業概要 == "売上収益 " |  企業概要  == "営業利益 ")
+```
 
 
 
