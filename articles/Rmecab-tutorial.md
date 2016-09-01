@@ -50,11 +50,13 @@ R -e "install.packages(\"RMeCab\", repos = \"http://rmecab.jp/R\")"
 WindowsでMecabをインストールしたい方は、[こちら](http://handsrecs2nd.seesaa.net/article/140090025.html)をどうぞ。
 
 
-##RMeCabにある機能を、Exploratoryで使いやすくするように、関数を定義します
+##RMeCabにある機能を、Exploratoryで使いやすくするように、関数を定義する
 
 RMeCabにある機能は、あくまでRの上で使うことを想定されているので、それをExploratoryの仕組みの中で使いやすくするように、カスタマイズされた新しい関数を定義し、コマンドラインから使えるようにします。
 
-まず、下記のコードを書いたこのファイルを[こちら](https://gist.githubusercontent.com/double-y/1861e9517a73167586471ec088ac0951/raw/01d5d92a6020a535d6e13f8e252ae447c42f1eed/mecab_tokenize)からダウンロードしてください
+まず、下記のコードを書いたこのファイルを[こちら](https://gist.githubusercontent.com/double-y/1861e9517a73167586471ec088ac0951/raw/01d5d92a6020a535d6e13f8e252ae447c42f1eed/mecab_tokenize)からダウンロードしてください。
+
+<a href="link/to/your/download/file" download="filename">
 
 ```
 mecab_tokenize <- function(tbl, text_col, .drop=TRUE){
