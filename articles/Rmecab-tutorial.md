@@ -35,7 +35,9 @@ brew install mecab-ipadic
 
 ![](images/brew-install-mecab.png)
 
-##RMeCabをRstudioからインストールする
+WindowsでMecabをインストールしたい方は、[こちら](http://handsrecs2nd.seesaa.net/article/140090025.html)をどうぞ。
+
+##RMeCabをインストールする
 
 RMeCabをパッケージをインストールしましょう。ターミナルから次のコマンドを打ち込んで下さい。
 
@@ -47,7 +49,7 @@ R -e "install.packages(\"RMeCab\", repos = \"http://rmecab.jp/R\")"
 
 ![](images/install.packagesRMeCab.png)
 
-WindowsでMecabをインストールしたい方は、[こちら](http://handsrecs2nd.seesaa.net/article/140090025.html)をどうぞ。
+WindowsでRMecabをインストールしたい方は、[こちら](http://rmecab.jp/wiki/index.php?RMeCab)をどうぞ。
 
 
 ##RMeCabにある機能を、Exploratoryで使いやすくするように、関数を定義する
@@ -97,7 +99,6 @@ mecab_tokenize <- function(tbl, text_col, .drop=TRUE){
 
 ![](images/mecab-exp.png)
 
-WindowsでRMecabをインストールしたい方は、[こちら](http://rmecab.jp/wiki/index.php?RMeCab)をどうぞ。
 
 ##Wordpressの投稿データをCSVエクスポートする
 
