@@ -83,19 +83,27 @@ mecab_tokenize <- function(tbl, text_col, .drop=TRUE){
 ```
 ![](images/mecab_tokenize.png)
 
+
 次に、矢印の部分を押して、R packages/Scriptsを選んで下さい。
+
 
 ![](images/add-rscript-packages.png)
 
+
 矢印のAddボタンを選んで下さい。
+
 
 ![](images/add-rscript.png)
 
+
 さっき関数を定義したファイルを選んで下さい。
+
 
 ![](images/mecab-desktop.png)
 
+
 しっかり保存されていますね。
+
 
 ![](images/mecab-exp.png)
 
