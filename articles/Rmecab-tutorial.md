@@ -101,13 +101,18 @@ mecab_tokenize <- function(tbl, text_col, .drop=TRUE){
 
 ![](images/mecab-exp.png)
 
-これで、テキスト分析をしていくための土台が整いました。
 
 ##Wordpressの投稿データをCSVエクスポートする
 
 管理者画面から、投稿データをCSVエクスポートします。
 
-![](images/install.packages.png)
+![](images/csv-export.png)
+
+このCSVをExploratoryにインポートします。
+
+![](images/csv-export-exploratory.png)
+
+これで、テキスト分析をしていくための土台が整いました。
 
 WordpressでCSVエクスポートができない方は、[こちら](https://wordpress.org/plugins/wp-csv-exporter/)からWP CSV Exporterというプラグインをダウンロードしてください。
 
