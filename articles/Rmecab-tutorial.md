@@ -16,7 +16,7 @@
 
 環境
 
-- MacOX 10.8.5(Mountain Lion)
+- MacOX 10.11.6(ElCapitan)
 - Homebrewがインストールされていること。Homebrewを持ってない方は、[こちら](http://brew.sh/index_ja.html)からHomebrewをダウンロードしてください。
 
 MacでMecabを使うためには、Mecab本体と辞書の２つをインストールする必要があります。
