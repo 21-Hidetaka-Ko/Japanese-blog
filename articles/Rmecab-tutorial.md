@@ -17,7 +17,7 @@
 環境
 
 - MacOX 10.8.5(Mountain Lion)
-- Homebrewがインストールされていること。
+- Homebrewがインストールされていること。Homebrewを持ってない方は、[こちら](http://brew.sh/index_ja.html)からHomebrewをダウンロードしてください。
 
 MacでMecabを使うためには、Mecab本体と辞書の２つをインストールする必要があります。
 
@@ -37,30 +37,24 @@ brew install mecab-ipadic
 
 ##RMeCabをRstudioからインストールする
 
-RstudioからRMeCabをパッケージをインストールしましょう。Rstudioを持っていない方は、[こちら](https://www.rstudio.com/)からRstudioをダウンロードしてください。
+RMeCabをパッケージをインストールしましょう。ターミナルから次のコマンドを打ち込んで下さい。
 
 ```
-install.packages("RMeCab", repos = "http://rmecab.jp/R")
-```
-
-実行できるか、以下を試してみましょう。
-
-```
-library(RMeCab)
-res <- RMeCabC("すもももももももものうち")
-unlist (res)
+R -e "install.packages(\"RMeCab\", repos = \"http://rmecab.jp/R\")"
 ```
 
 次のように表示されれば、インストールは成功しています。
 
 ![](images/install.packagesRMeCab.png)
 
+WindowsでMecabをインストールしたい方は、[こちら](http://handsrecs2nd.seesaa.net/article/140090025.html)をどうぞ。
+
 
 ##RMeCabにある機能を、Exploratoryで使いやすくするように、関数を定義します
 
 RMeCabにある機能は、あくまでRの上で使うことを想定されているので、それをExploratoryの仕組みの中で使いやすくするように、カスタマイズされた新しい関数を定義し、コマンドラインから使えるようにします。
 
-まず、下記のコードを書いたファイルを作成して保存してください。
+まず、下記のコードを書いたこのファイルをこちらからダウンロードしてください
 
 ```
 mecab_tokenize <- function(tbl, text_col, .drop=TRUE){
@@ -101,6 +95,7 @@ mecab_tokenize <- function(tbl, text_col, .drop=TRUE){
 
 ![](images/mecab-exp.png)
 
+WindowsでRMecabをインストールしたい方は、[こちら](http://rmecab.jp/wiki/index.php?RMeCab)をどうぞ。
 
 ##Wordpressの投稿データをCSVエクスポートする
 
