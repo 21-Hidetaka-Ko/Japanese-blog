@@ -140,15 +140,11 @@ WordpressでCSVエクスポートができない方は、[こちら](https://wor
 
 ![](images/stopwords-rmecablist.png)
 
-Get Dataボタンを押してください。次に、日本語の不要な単語リストがまとまったデータフレームを.token列にanti_joinしてマッチした単語を取り除きます。
+一度こちらのデータをJapaneseという名のデータ・フレームにしてインポートしましたら、次に、anti_joinという関数を使って、このJapaneseデータ・フレームに入っていないデータだけを残すというオペレーションを行います。
 
-`anti_join(Japanese, by=c( ".token" ="あそこ"))`
+`anti_join(Japanese, by=c( ".token" ="X1"))`
 
 ![](images/japaneselist.png)
-
-Runボタンを押します。
-
-![](images/sucesswords.png)
 
 不要な単語が取り除かれたのが確認できました。
 
