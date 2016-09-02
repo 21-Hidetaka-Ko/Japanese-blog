@@ -173,13 +173,13 @@ WordpressでCSVエクスポートができない方は、[こちら](https://wor
 
 `group_by(.token)`
 
-![](images/.png)
+![](images/group_bymecab.png)
 
 次に、.token列をsummarizeしてそれぞれの単語の個数を数えましょう。
 
 `summarize(.token_n = n())`
 
-![](images/summarize-rmecab.png)
+![](images/summarize_mecab.png)
 
 次に、top_n関数を使ってランキングを計算します。
 
