@@ -8,13 +8,9 @@
 
 今日は、そのMeCabのインストール、さらにそれをExploratoryの中で使うためのセットアップ、そして軽く日本語データに対するテキスト分析の方を順を追って説明していきたいと思います。
 
-だから、今日は、Exploraotryを使って、そんな日本語のテキスト分析の方法について、簡単に見ていきたいと思います。
+##Mecabと辞書をインストール
 
-
-##Mecab本体と辞書の２つをターミナルからインストールする
-
-日本語のテキスト解析をするときに、最も特有な手法の一つが、単語分割の方法です。
-そのためにRMeCabという便利なツールがあるので、インストールしましょう。
+以下にMacでのインストールを説明しますが、Windowsの方は、[こちら](http://rmecab.jp/wiki/index.php?RMeCab)を参照してください。
 
 環境
 
@@ -37,11 +33,14 @@ brew install mecab-ipadic
 
 ![](images/brew-install-mecab.png)
 
-WindowsでMecabをインストールしたい方は、[こちら](http://handsrecs2nd.seesaa.net/article/140090025.html)をどうぞ。
+
 
 ##RMeCabをインストールする
 
-RMeCabをパッケージをインストールしましょう。ターミナルから次のコマンドを打ち込んで下さい。
+次に、RからMeCabが使えるようRMeCabをインストールしましょう。こちらもMacでの例を説明しますが、Windowsの方は[こちら](http://handsrecs2nd.seesaa.net/article/140090025.html)を参照してください。
+
+
+ターミナルから次のコマンドを打ち込んで下さい。
 
 ```
 R -e "install.packages(\"RMeCab\", repos = \"http://rmecab.jp/R\")"
@@ -51,16 +50,11 @@ R -e "install.packages(\"RMeCab\", repos = \"http://rmecab.jp/R\")"
 
 ![](images/install.packagesRMeCab.png)
 
-WindowsでRMecabをインストールしたい方は、[こちら](http://rmecab.jp/wiki/index.php?RMeCab)をどうぞ。
-
 
 ##RMeCabにある機能を、Exploratoryで使いやすくするように、関数を定義する
 
-RMeCabにある機能は、あくまでRの上で使うことを想定されているので、それをExploratoryの仕組みの中で使いやすくするように、カスタマイズされた新しい関数を定義し、コマンドラインから使えるようにします。
+RMeCabのトークナイズの関数をExploratoryの仕組みの中で使いやすくするように、こちらに関数を定義しましたので、下記のコードを[こちら](https://gist.githubusercontent.com/double-y/1861e9517a73167586471ec088ac0951/raw/01d5d92a6020a535d6e13f8e252ae447c42f1eed/mecab_tokenize)からダウンロードしてください。
 
-まず、下記のコードを書いたこのファイルを[こちら](https://gist.githubusercontent.com/double-y/1861e9517a73167586471ec088ac0951/raw/01d5d92a6020a535d6e13f8e252ae447c42f1eed/mecab_tokenize)からダウンロードしてください。
-
-<a href="link/to/your/download/file" download="filename">
 
 ```
 mecab_tokenize <- function(tbl, text_col, .drop=TRUE){
@@ -126,11 +120,11 @@ WordpressでCSVエクスポートができない方は、[こちら](https://wor
 
 ##テキスト分析をする
 
-###トークン化する
+###トークナイズする
 
 ![](images/token-rmeacb.png)
 
-センテンスになっているので、さきほど定義した関数を使って、トークン化しましょう。
+センテンスになっているので、さきほど定義した関数を使って、トークナイズしましょう。
 
 `mecab_tokenize(text_col=post_title)`
 
