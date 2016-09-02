@@ -136,7 +136,7 @@ WordpressでCSVエクスポートができない方は、[こちら](https://wor
 
 ![](images/stopwords-rmecab.png)
 
-意味のあるテキスト分析をするためには、これらの単語を取り除く必要があります。そのために、[こちら](http://svn.sourceforge.jp/svnroot/slothlib/CSharp/Version1/SlothLib/NLP/Filter/StopWord/word/Japanese.txt)に日本語の不要な単語リストがまとまったファイルがあります。ダウンロードして拡張子をcsvに変えてExploratoryにインポートしてください。
+意味のあるテキスト分析をするためには、これらの単語を取り除く必要があります。そのために、[こちら](http://svn.sourceforge.jp/svnroot/slothlib/CSharp/Version1/SlothLib/NLP/Filter/StopWord/word/Japanese.txt)に日本語の不要な単語リストがまとまったファイルがあります。ダウンロードして拡張子をcsvに変えてExploratoryにインポートしてください。その際は、「あそこ」がカラム名にならないように、First Row as HeaderをNoに変えてください。
 
 ![](images/stopwords-rmecablist.png)
 
