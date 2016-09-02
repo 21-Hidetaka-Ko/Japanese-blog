@@ -122,7 +122,57 @@ mecab_tokenize <- function(tbl, text_col, .drop=TRUE){
 
 WordpressでCSVエクスポートができない方は、[こちら](https://wordpress.org/plugins/wp-csv-exporter/)からWP CSV Exporterというプラグインをダウンロードしてください。
 
-##データを整形する
+##テキスト分析をする
+
+###トークン化する
+
+![](images/token-rmeacb.png)
+
+センテンスになっているので、さきほど定義した関数を使って、トークン化しましょう。
+
+`mecab_tokenize(text_col=post_title)`
+
+![](images/mecab_tokenize.png)
+
+これで、センテンスだったpost_title列が品詞ごとの単語に分かれましたね。
+
+###stopwordを取り除く
+
+次に、今のままだと、矢印のように、日本語には、意味のない不要な単語が多く含まれています。これらの単語をstopwordsと呼んでいます。
+
+![](images/stopwords-rmecab.png)
+
+意味のあるテキスト分析をするためには、これらの単語を取り除く必要があります。そのために、[こちら](http://svn.sourceforge.jp/svnroot/slothlib/CSharp/Version1/SlothLib/NLP/Filter/StopWord/word/Japanese.txt)に日本語の不要な単語リストがまとまったファイルがあります。ダウンロードして拡張子をcsvに変えてExploratoryにインポートしてください。
+
+![](images/stopwords-rmecablist.png)
+
+Get Dataボタンを押してください。次に、日本語の不要な単語リストがまとまったデータフレームを.token列にanti_joinしてマッチした単語を取り除きます。
+
+`anti_join(Japanese, by=c( ".token" ="あそこ"))`
+
+![](images/japaneselist.png)
+
+Runボタンを押します。
+
+![](images/sucesswords.png)
+
+不要な単語が取り除かれたのが確認できました。
+
+###さらに不要なデータを取り除く
+
+次に、データを見ていくと記号や助詞もがいくつか入っていることに気が付きます。これも意味がないのでフィルタリングしてデータを取り除いていきましょう。
+
+![](images/mark-stop.png)
+
+`filter(.pos != "記号")`
+
+![](images/delte-sign.png)
+
+これで記号を取り除くことができました。
+
+###トップ２０を計算する
+
+次に、
 
 ##ビジュアライズする
 
