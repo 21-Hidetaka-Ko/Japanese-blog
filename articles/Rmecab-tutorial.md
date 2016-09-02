@@ -77,8 +77,6 @@ mecab_tokenize <- function(tbl, text_col, .drop=TRUE){
 }
 
 ```
-![](images/mecab_tokenize.png)
-
 
 次に、矢印の部分を押して、R packages/Scriptsを選んで下さい。
 
@@ -124,13 +122,13 @@ WordpressでCSVエクスポートができない方は、[こちら](https://wor
 
 ![](images/token-rmeacb.png)
 
-センテンスになっているので、さきほど定義した関数を使って、トークナイズしましょう。
+上記のタイトルの文章を先ほど定義した関数を使って、トークンナイズしましょう。
 
 `mecab_tokenize(text_col=post_title)`
 
 ![](images/mecab_tokenize.png)
 
-これで、センテンスだったpost_title列が品詞ごとの単語に分かれましたね。
+これで、先ほどまで文章だったpost_title列が単語毎に分かれましたね。
 
 ###stopwordを取り除く
 
