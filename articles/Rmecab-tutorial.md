@@ -166,12 +166,6 @@ WordpressでCSVエクスポートができない方は、[こちら](https://wor
 
 ![](images/filter-all-rmecav.png)
 
-ずいぶんと減ってきましたね。あとは、字数が少なすぎるテキストも意味がないので、str_length関数を使って3文字以下の取り除きましょう。
-
-`filter(str_length(.token)>3)`
-
-![](images/str-length-s.png)
-
 これで、不要な単語はほとんど取り除くことができました。
 
 ###トップ２０を計算する
