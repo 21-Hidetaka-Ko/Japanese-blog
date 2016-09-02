@@ -158,6 +158,12 @@ WordpressでCSVエクスポートができない方は、[こちら](https://wor
 
 ![](images/delte-sign.png)
 
+次に、字数が1文字以下のテキストデータも意味がないので取り除きましょう。
+
+`filter(str_length(.token)>1)`
+
+![](images/dstr_length.png)
+
 これで不要な単語はほとんど取り除くことができました。
 
 
