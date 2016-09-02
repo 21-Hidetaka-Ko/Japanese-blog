@@ -167,7 +167,7 @@ WordpressでCSVエクスポートができない方は、[こちら](https://wor
 
 `group_by(.token)`
 
-![](images/str-length-s.png)
+![](images/.png)
 
 次に、.token列をsummarizeしてそれぞれの単語の個数を数えましょう。
 
