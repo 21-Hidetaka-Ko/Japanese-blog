@@ -188,7 +188,29 @@ Runボタンを押します。
 
 ###トップ２０を計算する
 
-次に、
+次に、最もよく頻出している意味のある単語トップ２０を計算して出したいと思います。それぞれの単語の個数を数えるために、まず、.token列をグルーピングします。
+
+`group_by(.token)`
+
+![](images/str-length-s.png)
+
+次に、.token列をsummarizeしてそれぞれの単語の個数を数えましょう。
+
+`summarize(.token_n = n())`
+
+![](images/summarize-rmecab.png)
+
+次に、top_n関数を使ってランキングを計算します。
+
+.token_n列のヘッダーをクリックして、Top Nを選んで下さい。
+
+![](images/topn-rmecab.png)
+
+すると、コマンドが自動生成されます。Runボタンを押してください。
+
+![](images/topn-rmecab2.png)
+
+これで、最もよく頻出している意味のある単語トップ２０を計算することができました。
 
 ##ビジュアライズする
 
