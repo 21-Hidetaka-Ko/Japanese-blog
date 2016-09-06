@@ -70,7 +70,7 @@ summarize(count = n())
 
 SQL
 
-`
+```
 with crime_by_doy as
 (
 select
@@ -95,7 +95,7 @@ from
 group by
    1
 )
-`
+```
 
 `
 , generated_series as
