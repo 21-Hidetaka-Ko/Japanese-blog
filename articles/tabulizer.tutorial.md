@@ -203,12 +203,13 @@ gatherコマンドは、複数の列を、１つの列にすることができ�
 
 ![](images/cookpad-window.png)
 
-ここでは、前年度と比べてどうだったかを計算したいので、%Diffrence Fromを選んでビジュアライズしましょう。
+ここでは、前年度と比べてどうだったかを計算したいので、%Diffrence Fromを選んで、FirstからPreviousに変えましょう。
 
 ![](images/cookpad-diffrent.png)
 
-ビジュアライズを見てみると、売上収益も営業利益も騒動に関係なく右肩上がりに伸びていますね。
-クックパッドは、既にブランドが確立されているだけではなく、ネットワーク外部性が非常に強いサービスであるため、担当する社員が変わったくらいでは（短期的には）びくともしないレベルの会社ということがここからわかるかもしれませんね。
+ビジュアライズを見てみると、2014年に比べたら2015年は、25%伸びていて、2015年から比べて、騒動があった2016年は45%営業利益が伸びています。そういう意味では、騒動はCookpadの収益に影響を与えなかったといえます。クックパッドは、既にブランドが確立されているだけではなく、ネットワーク外部性が非常に強いサービスであるため、担当する社員が変わったくらいでは（短期的には）びくともしないレベルの会社ということがここからわかるかもしれませんね。
+
+ただし、気をつけないといけないのは、このときに、Jul 2015が比べている前年度は、2014の10月31日なので6ヶ月間、Jul 2016が比べている前年度は、2015年の6月31日なので、12ヶ月間あるということです。これは、cookpadは2014年の11月に上場したので、定期決算の時期が変わったからです。なので、分析結果としては、そこに若干の問題があるかもしれません。ただ、2016年の2月〜3月にCookpadで騒動があったけれど、それがネガティブなインパクトとしてCookpadの会計に表れているとはいえないですよね。
 
 ##データを再現可能な状態でシェアする
 
@@ -224,7 +225,7 @@ View Shared Chartをクリックします。
 
 ![](images/public-cookpad.png)
 
-興味がありましたら、[こちら](https://exploratory.io/viz/Hidetaka-Ko/f927ddb1130f?cb=1472619851700)をクリックするとチャートがシェアされているページに飛びます。それぞれのページでは、データがどのように加工されたり計算されたかの詳細を、Dataタブ、もしくは、R Scriptタブの中で見ることができます。もしExploratory Desktopをすでにお持ちでしたら、Download ボタンを押して、チャートとデータをダウンロードしてインポートすることも簡単にできます。
+興味がありましたら、[こちら](https://exploratory.io/viz/Hidetaka-Ko/73b1146e37d3?cb=1473139869205)をクリックするとチャートがシェアされているページに飛びます。それぞれのページでは、データがどのように加工されたり計算されたかの詳細を、Dataタブ、もしくは、R Scriptタブの中で見ることができます。もしExploratory Desktopをすでにお持ちでしたら、Download ボタンを押して、チャートとデータをダウンロードしてインポートすることも簡単にできます。
 
 ![](images/step-cookpad.png)
 
@@ -302,7 +303,7 @@ Javaのバージョン 1.7を次のコマンドで削除します。
 
 PDFデータを簡単にインポートできるこのtabulizerというパッケージは、日本のR言語によるデータ分析の業界では有名な@u_riboさんのツイートを通して知ることができました。このパッケージを知った時は、Rの威力を思い知って、とても感動したものでした。ありがとうございました。Exploratoryがあれば、そんなRの威力をだれでも、簡単に、加速させていくことができるのを感じることができます。あなたも試してはいかがでしょうか？
 
-<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">「2016年版このRパッケージがすごい」暫定第一位かもしれない良いやつです！ &gt; tabulizerパッケージによるPDF表データからのデータ取得 <a href="https://t.co/NL5LxNnY4d">https://t.co/NL5LxNnY4d</a> <a href="https://t.co/EKfGQVRwqv">pic.twitter.com/EKfGQVRwqv</a></p>&mdash; Shinya Uryu (@u_ribo) <a href="https://twitter.com/u_ribo/status/768227002398617600">2016年8月23日</a></blockquote>
+<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">「2016年版このRパッケージがすごい」暫定第一位かもしれない良いやつです！ &gt; パッケージによるPDF表データからのデータ取得 <a href="https://t.co/NL5LxNnY4d">https://t.co/NL5LxNnY4d</a> <a href="https://t.co/EKfGQVRwqv">pic.twitter.com/EKfGQVRwqv</a></p>&mdash; Shinya Uryu (@u_ribo) <a href="https://twitter.com/u_ribo/status/768227002398617600">2016年8月23日</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
