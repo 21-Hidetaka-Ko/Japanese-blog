@@ -54,7 +54,6 @@ summarize(numreports = n())
 ```
 select
   extract(dayofweek from date)
-  , extract(hour from date)
   , count(1)
 from
   sf_crime_2003_2015
@@ -75,7 +74,8 @@ union select 5, 'Friday'
 union select 6, 'Saturday'
 ```
 
-<!-- ##どの時間帯が犯罪が多いか
+##どの時間帯が犯罪が多いか（保留）
+
 
 R
 
@@ -99,37 +99,59 @@ group by
   1
   , 2
 order by
-  3
-``` -->
+  3,
+```
 
 ##最も犯罪件数が多い月日はいつか？
 
-R
+犯罪件数が多い月日を抽出するために、Date列から、月と日を別々に抽出して、つなぎあわせる必要があります。
+
+まず、Date列から、month関数を使って、月を抽出します。
 
 `
 mutate(Date_month = month(Date))
 `
 
+![](images/Date_month.png)
+
+次に、Date列から、day関数を使って、月を抽出します。
+
 `
 mutate(Date_day = day(Date))
 `
 
+![](images/Date_day.png)
+
+そして、str_c関数を使って、2つをつなぎあわせて、月日を抽出します。
+
 `
 mutate(DOY = str_c(Date_month, Date_day, sep="-"))
 `
+![](images/wday-grouping.png)
+
+
+犯罪件数が多い月日を計算するために、月日を表すDOY列をグルーピングします。
 
 `
 group_by(DOY)
 `
+![](images/wday-grouping.png)
+
+最後に、n関数を使って、件数を計算します。
 
 `
 summarize(count = n())
 `
+![](images/wday-grouping.png)
+
+逆に、犯罪件数が少ない月日はどうなっているのか見てみます。
+
+![](images/wday-grouping.png)
+
+犯罪件数が、少ない日は、年末が多いみたいですね。
 
 
-
-これを、SQLで書こうとするとこうなります。とても長くて複雑ですね。なぜ、こんなに複雑になっているかというとうるう年を計算してうるう年の年とでない年で、月日の設定を分岐させているからなんです。Dateカラムのデータタイプが、characterになっているので、RでやったようにDateカラムから月日を抽出することができないのです。たとえ、データタイプがcharacterになっていても、Rならmdy関数一発で、データタイプをDateタイプに変えて月日を抽出していくことができますが、SQLだとそうもいかないのです。だから、Rはデータ分析に向いているんです。
-
+これを、SQLで書こうとするとこうなります。
 
 ```
 with crime_by_doy as
@@ -191,6 +213,7 @@ from
 order by 3 desc
 
 ```
+とても長くて複雑ですね。なぜ、こんなに複雑になっているかというと、まず「うるう年がいつか」を計算しています。そして、うるう年の年とうるう年でない年で、月日の設定を条件分岐させているからなんです。なぜ、こんなことをするかというと、Dateカラムのデータタイプが、characterになっているので、RでやったようにDate列から月日を抽出することができないのです。たとえ、データタイプがcharacterになっていても、Rならmdy関数一発で、データタイプをDateタイプに変えて月日を抽出していくことができます。しかし、SQLだとそうもいかないのです。だから、Rはデータ分析に向いているんです。
 
 
 こちらの方で、Rの中でもデータ分析に特化しているdplyrの文法について詳しく解説しているので、よかったらご覧ください。
