@@ -27,8 +27,25 @@ mutate(Date_wday = wday(Date, label = TRUE))
 
 ![](images/wday-sf.png)
 
+「どの曜日が犯罪件数が多いのか」を計算するために、Date_wdayをグルーピングします。
 
-SQLで書こうとするとこうなります。どちらが直感的でシンプルかは一目瞭然ですよね。
+`
+group_by(Date_wday)
+`
+![](images/wday-grouping.png)
+
+そして、n関数を使って、犯罪件数を計算します。
+
+`
+summarize(numreports = n())
+`
+![](images/wday-n.png)
+
+
+どうやら金曜日が一番多いみたいですね。
+
+
+これを、SQLで書こうとするとこうなります。どちらが直感的でシンプルかは一目瞭然ですよね。
 
 
 ```
