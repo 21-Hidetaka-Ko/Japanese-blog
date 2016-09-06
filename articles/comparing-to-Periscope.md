@@ -39,6 +39,9 @@ group_by(Date_wday)
 `
 summarize(numreports = n())
 `
+
+
+
 ![](images/wday-n.png)
 
 
@@ -72,7 +75,7 @@ union select 5, 'Friday'
 union select 6, 'Saturday'
 ```
 
-##どの時間帯が犯罪が多いか
+<!-- ##どの時間帯が犯罪が多いか
 
 R
 
@@ -97,8 +100,9 @@ group by
   , 2
 order by
   3
-```
+``` -->
 
+##最も犯罪件数が多い月日はいつか？
 
 R
 
@@ -122,7 +126,10 @@ group_by(DOY)
 summarize(count = n())
 `
 
-SQL
+
+
+これを、SQLで書こうとするとこうなります。とても長くて複雑ですね。なぜ、こんなに複雑になっているかというとうるう年を計算してうるう年の年とでない年で、月日の設定を分岐させているからなんです。Dateカラムのデータタイプが、characterになっているので、RでやったようにDateカラムから月日を抽出することができないのです。たとえ、データタイプがcharacterになっていても、Rならmdy関数一発で、データタイプをDateタイプに変えて月日を抽出していくことができますが、SQLだとそうもいかないのです。だから、Rはデータ分析に向いているんです。
+
 
 ```
 with crime_by_doy as
@@ -186,15 +193,16 @@ order by 3 desc
 ```
 
 
-##SQL is not designed to do data analysis
+こちらの方で、Rの中でもデータ分析に特化しているdplyrの文法について詳しく解説しているので、よかったらご覧ください。
 
-This is just a tip of the iceberg. There are many other examples on why SQL is not for analyzing data. It is not SQL’s fault per se, because SQL has never claimed to be designed for analyzing the data. It was rather designed for querying and managing the data including inserting, updating, and deleting rows of data. I used to work at Oracle who had brought SQL to this world in a commercial way in the first place, and we tried so many things to make SQL look like the language that could be used even for analyzing the data. But at the end of the day, the ways to make it work within SQL always turned out to be so convoluted that many people outside of the core geeks including myself couldn’t understand anymore and even people like us had hard time to optimize the queries to perform in a reasonable time. Again, the relational database is not designed for analyzing the data, and SQL is not designed for analyzing the data either.
+- [なぜデータ分析においては、SQLではなくRを使うべきか？　 データ分析ツールExploratoryを使って、dplyrを使いこなす第1弾 Filter関数編](http://qiita.com/21-Hidetaka-Ko/items/117caea621562f05ffe1)
 
+- [なぜデータ分析においては、SQLではなくRを使うべきか？　データ分析ツールExploratoryを使って、dplyrを使いこなす第2弾　データ集計編](http://qiita.com/21-Hidetaka-Ko/items/bc7766e730a60ebf4561)
 
-##R is designed for data analysis
+- [なぜデータ分析においては、SQLではなくRを使うべきか？　 データ分析ツールExploratoryを使って、dplyrを使いこなす第3弾　Window関数編](http://qiita.com/21-Hidetaka-Ko/items/fb9fe00ce982f240829a)
 
-Instead of keep talking about why SQL sucks for analyzing data, let me quickly demonstrate how great R and dplyr package are for analyzing data, not just for statisticians, but for ordinal people including SQL users, Excel users, and BI tools users in a super effective way.
-Before starting, if you are not familiar with ‘dplyr’ yet, it provides a set of the data wrangling grammar based commands (or functions) and they can be flexibly used together.
+- [なぜデータ分析においては、SQLではなくRを使うべきか？　 データ分析ツールExploratoryを使って、dplyrを使いこなす第4弾　date関数編](http://qiita.com/21-Hidetaka-Ko/items/1645d89683e312f4d65c)
+
 
 
 
