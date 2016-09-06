@@ -22,17 +22,17 @@ SQL
 
 
 ```
-  select  <br>
-    extract(dayofweek from date)
-    , extract(hour from date)
-    , count(1)
-  from
-    sf_crime_2003_2015
-  group by
-    1
-    , 2
-  order by
-    3
+select
+  extract(dayofweek from date)
+  , extract(hour from date)
+  , count(1)
+from
+  sf_crime_2003_2015
+group by
+  1
+  , 2
+order by
+  3
 ```
 
 `
