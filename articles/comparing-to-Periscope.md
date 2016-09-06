@@ -97,7 +97,7 @@ group by
 )
 ```
 
-`
+```
 , generated_series as
  (
    select
@@ -129,7 +129,7 @@ from
     crime_by_doy.doy = doy_mapping.doy
 order by 3 desc
 
-`
+```
 
 
 ##SQL is not designed to do data analysis
