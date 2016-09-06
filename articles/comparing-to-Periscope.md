@@ -19,25 +19,14 @@ mutate(Date = mdy(Date))
 
 ![](images/mdy-sf2.png)
 
+次に、wday関数を使って、Dateから曜日を抽出したいと思います。
+
 `
 mutate(Date_wday = wday(Date, label = TRUE))
 `
 
-![](images/mdy-sf.png)
+![](images/wday-sf.png)
 
-
-
-`
-mutate(split_time = str_split(Time, ":"))
-`
-
-![](images/mdy-sf.png)
-
-`
-mutate(Hour = as.numeric(list_extract(split_time, 1)))
-`
-
-![](images/mdy-sf.png)
 
 SQLで書こうとするとこうなります。どちらが直感的でシンプルかは一目瞭然ですよね。
 
