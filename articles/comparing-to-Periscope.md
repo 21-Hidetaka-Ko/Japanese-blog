@@ -22,17 +22,17 @@ SQL
 
 
 `
-select
-  extract(dayofweek from date)
-  , extract(hour from date)
-  , count(1)
-from
-  sf_crime_2003_2015
-group by
-  1
-  , 2
-order by
-  3
+select<br>
+  extract(dayofweek from date)<br>
+  , extract(hour from date)<br>
+  , count(1)<br>
+from<br>
+  sf_crime_2003_2015<br>
+group by<br>
+  1<br>
+  , 2<br>
+order by<br>
+  3<br>
 `
 
 `
@@ -43,8 +43,9 @@ union select 3, 'Wednesday'
 union select 4, 'Thursday'
 union select 5, 'Friday'
 union select 6, 'Saturday'
-
 `
+
+
 R
 
 `
