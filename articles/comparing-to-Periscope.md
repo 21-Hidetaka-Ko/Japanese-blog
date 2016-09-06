@@ -189,14 +189,14 @@ summarize(count = n())
 
 そして、2015年だけにデータをフィルタリングして、ビジュアライズしてみます。
 
-![](images/.png)
+![](images/chart-sf-sql.png)
 
 Pivotテーブルでもビジュアライズしてみましょう。。
 
-![](images/.png)
+![](images/pivot-sql.png)
 
 
-Periscope Data社はSQLを使って、このように分析しています。Periscope Data社がDOYを使い続けているのは、チャートのために、日付をソートする必要があるからなんです。しかし、Exploratoryのチャートでは、タイムシリーズをケアできているので、DOYをわざわざ使い続ける必要はありません。
+Periscope Data社はSQLを使って、このように分析して、ビジュアライズしています。Periscope Data社がDOYを使い続けているのは、チャートのために、日付をソートする必要があるからなんです。しかし、Exploratoryのチャートでは、タイムシリーズをケアできているので、DOYをわざわざ使い続ける必要はありません。
 
 ```
 with crime_by_doy as
