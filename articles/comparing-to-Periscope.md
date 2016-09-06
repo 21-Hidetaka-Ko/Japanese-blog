@@ -21,8 +21,7 @@ mutate(Hour = as.numeric(list_extract(split_time, 1)))
 SQL
 
 
-`
-select<br>
+`select<br>
   extract(dayofweek from date)<br>
   , extract(hour from date)<br>
   , count(1)<br>
@@ -32,8 +31,7 @@ group by<br>
   1<br>
   , 2<br>
 order by<br>
-  3<br>
-`
+  3<br>`
 
 `
 select 0, 'Sunday'
