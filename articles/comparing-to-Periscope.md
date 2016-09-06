@@ -21,18 +21,18 @@ mutate(Hour = as.numeric(list_extract(split_time, 1)))
 SQL
 
 
-`select  <br>
-  extract(dayofweek from date)
-  , extract(hour from date)
-  , count(1)
-from
-  sf_crime_2003_2015
-group by
-  1
-  , 2
-order by
-  3  `
-
+`
+  select  <br>
+    extract(dayofweek from date)
+    , extract(hour from date)
+    , count(1)
+  from
+    sf_crime_2003_2015
+  group by
+    1
+    , 2
+  order by
+    3
 `
 select 0, 'Sunday'
 union select 1, 'Monday'
