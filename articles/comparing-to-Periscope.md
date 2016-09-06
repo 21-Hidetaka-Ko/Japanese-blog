@@ -1,5 +1,12 @@
 #なぜデータ分析においては、SQLではなくRを使うべきか？ サンフランシスコの犯罪の〜を分析してみてた
 
+この記事は、Rは知らないけど、SQLとか他のプログラミング言語はある程度やったことあるみたいな人向けです。
+SQLでデータ分析をしていて、煩わしいと感じたことはありませんか？　これは、SQLは、データを保存するために作られているので、ある意味当たり前のことなんです。しかし、データ分析において、Rをオススメしたい理由は、実はRは、データデータの加工、分析のために作られているからなんです。Rでなら、SQLを書くだけでは考えられなかったより高度なことや効果的な方法で素早くデータを分析していくことができるのです。
+
+というわけで、今回は、ぼくの留学先であるサンフランシスコの街の2003年から2015年までの犯罪データを使って、いかにRがSQLに比べてデータ分析に向いているかを説明していきたいと思います。データは[こちら](https://data.sfgov.org/Public-Safety/SFPD-Incidents-from-1-January-2003/tmnf-yvry)からダウンロードすることができます。
+
+##どの曜日が犯罪が多いか
+
 R
 
 `
@@ -43,6 +50,33 @@ union select 3, 'Wednesday'
 union select 4, 'Thursday'
 union select 5, 'Friday'
 union select 6, 'Saturday'
+```
+
+##どの時間帯が犯罪が多いか
+
+R
+
+`
+mutate(split_time = str_split(Time, ":"))
+`
+
+`
+mutate(Hour = as.numeric(list_extract(split_time, 1)))
+`
+
+SQL
+
+```
+select
+  extract(hour from date)
+  , count(1)
+from
+  sf_crime_2003_2015
+group by
+  1
+  , 2
+order by
+  3
 ```
 
 
