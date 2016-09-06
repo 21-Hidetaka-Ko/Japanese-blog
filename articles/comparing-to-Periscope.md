@@ -29,7 +29,7 @@ mutate(split_time = str_split(Time, ":"))
 mutate(Hour = as.numeric(list_extract(split_time, 1)))
 `
 
-SQL
+SQLで書こうとするとこうなります。どちらが直感的でシンプルかは一目瞭然ですよね。
 
 
 ```
