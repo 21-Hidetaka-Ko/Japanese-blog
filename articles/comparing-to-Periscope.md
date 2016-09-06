@@ -35,7 +35,7 @@ order by
   3
 ```
 
-`
+```
 select 0, 'Sunday'
 union select 1, 'Monday'
 union select 2, 'Tuesday'
@@ -43,7 +43,7 @@ union select 3, 'Wednesday'
 union select 4, 'Thursday'
 union select 5, 'Friday'
 union select 6, 'Saturday'
-`
+```
 
 
 R
