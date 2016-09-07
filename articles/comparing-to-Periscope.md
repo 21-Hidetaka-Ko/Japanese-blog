@@ -189,31 +189,23 @@ order by 3 desc
 `
 filter(year(Date) == 2015)
 `
+
 ![](images/Date_filter.png)
 
-yday関数を使うと、Date列から一発で月日を抽出することができます。
+
+この次に、Periscope Data社はDOYを計算して出して、使い続けています。なぜなら、チャートのために、日付をソートする必要があるからなんです。しかし、Exploratoryのチャートでは、タイムシリーズをケアできているので、DOYをわざわざ使い続ける必要はありません。
+
+DOYを出さずに、このままビジュアライズしちゃいましょう。
 
 
-`
-mutate(DOY = yday(Date))
-`
-
-![](images/Date_yday.png)
+![](images/Date_viz.png)
 
 
-犯罪件数が多い月日を計算するために、月日を表すDOY列をグルーピングします。
+なんと、Periscope Data社のブログであれだけ、複雑で長いクエリを書いていたことと同じことが、RとExploratoryを使って、こんなにシンプルにすることができました。
 
-`
-group_by(DOY)
-`
-![](images/doy-grouping.png)
 
-最後に、n関数を使って、件数を計算します。
 
-`
-summarize(count = n())
-`
-
+じゃあ、テーブルにして計算もしてみましょう。
 
 ![](images/doy-rank.png)
 
@@ -235,7 +227,7 @@ Pivotテーブルでもビジュアライズしてみましょう。。
 ![](images/pivot-sql.png)
 
 
-Periscope Data社はSQLを使って、このように分析して、ビジュアライズしています。Periscope Data社がDOYを使い続けているのは、チャートのために、日付をソートする必要があるからなんです。しかし、Exploratoryのチャートでは、タイムシリーズをケアできているので、DOYをわざわざ使い続ける必要はありません。
+
 
 
 こちらの方で、Rの中でもデータ分析に特化しているdplyrの文法について詳しく解説しているので、よかったらご覧ください。
