@@ -56,9 +56,7 @@ Exploratoryだと、ボタン１つでインポートすることができます
 
 デフォルトでは、characterになっているのに、SQLのextract関数を使って、曜日や時間を引き出せているということは、だれかが、データをインポートする段階で、めんどくさいことをしてDate列のデータタイプをDateに変えてるんですよね。でも残念ながら、その部分は彼らは書いていません。SQLだと実はそこがものすごく大変なんです。大変だからこそブログで書かなかったんでしょうね笑。
 
-一方、Rの場合は、
-
-mdy_hm関数を使うと、たった1行で、データ・タイプをcharacterからDateに変えることができます。
+一方、Rの場合は、mdy_hm関数を使うと、たった1行で、データ・タイプをcharacterからDateに変えることができます。
 
 `
 mutate(Date = mdy_hm(str_c(Date, Time, sep=" "))
@@ -66,7 +64,11 @@ mutate(Date = mdy_hm(str_c(Date, Time, sep=" "))
 
 ![](images/mdy-sf2.png)
 
-次に、wday関数を使って、Dateから曜日を抽出したいと思います。
+
+##どの曜日に犯罪が多いか
+
+
+wday関数を使って、Dateから曜日を抽出しすることができます。
 
 `
 mutate(Date_wday = wday(Date, label = TRUE))
@@ -74,20 +76,12 @@ mutate(Date_wday = wday(Date, label = TRUE))
 
 ![](images/wday-sf.png)
 
-「どの曜日が犯罪件数が多いのか」を計算するために、Date_wdayをグルーピングします。
+
+次に、count関数を使うと、曜日ごとの犯罪件数を計算することができます。
 
 `
-group_by(Date_wday)
+count(Date_wday)
 `
-![](images/wday-grouping.png)
-
-そして、n関数を使って、犯罪件数を計算します。
-
-`
-summarize(numreports = n())
-`
-
-
 
 ![](images/wday-n.png)
 
@@ -95,42 +89,29 @@ summarize(numreports = n())
 どうやら金曜日が一番多いみたいですね。
 
 
-Periscope Data社はSQLを使って、このように分析しています。どちらが直感的でシンプルかは一目瞭然ですよね。
-
-
-
 
 ##どの時間帯に犯罪が多いか
 
-これから、どの時間帯に犯罪が多いかを見ていきたいと思います。
-
-![](images/hour-time.png)
+Periscope Data社のブログのように、どの時間帯に犯罪が多いかを見ていきたいと思います。
 
 hour関数を使って、hourデータを抽出します。
 
 `
-hour = hour(date_time))
+mutate(hour = hour(Date))
 `
 
 ![](images/hour-sql.png)
 
-どの時間帯に犯罪が多いかを計算するために、Hourをグルーピングします。
 
-`
-group_by(hour)
-`
-
-![](images/group-hour.png)
-
-
-`
-summarize(numreports = n())
-`
+これも、count関数一発で、時間帯ごとの犯罪件数を計算することができます。
 
 ![](images/hour-time-sf.png)
 
 
 午後の5時から6時にかけてが一番多いみたいですね。
+
+
+一番最初に見せたPeriscope Data社のSQLと比較すると、どちらがシンプルで直感的なのかは一目瞭然ですよね。
 
 
 ##最も犯罪件数が多い月日はいつか？
