@@ -1,7 +1,7 @@
 #普通のSQLよりも150倍速いと謳ってるPeriscope Dataのさらに150倍の速さでサクッとRで分析してみた。
 
 この記事は、Rは知らないけど、SQLとか他のプログラミング言語はある程度やったことあるみたいな人向けです。
-SQLでデータ分析をしていて、煩わしいと感じたことはありませんか？　これは、SQLは、データを保存するために作られているので、ある意味当たり前のことなんです。しかし、データ分析において、Rをオススメしたい理由は、実はRは、データデータの加工、分析のために作られているからなんです。Rでなら、SQLを書くだけでは考えられなかったより高度なことや効果的な方法で素早くデータを分析していくことができるのです。
+SQLでデータ分析をしていて、煩わしいと感じたことはありませんか？　これは、SQLは、リレーショナルなデータベースから、クエリしてデータを抽出するために作られているので、ある意味当たり前のことなんです。しかし、データ分析において、Rをオススメしたい理由は、実はRは、データデータの加工、分析のために作られているからなんです。Rでなら、SQLを書くだけでは考えられなかったより高度なことや効果的な方法で素早くデータを分析していくことができるのです。
 
 普通のSQLよりも150倍速いと謳ってるPeriscope Dataという会社のブログをご存知でしょうか？
 
@@ -15,16 +15,53 @@ Periscope Data社が、ブログで、ぼくの留学先であるサンフラン
 
 だから、これから、PeriscopeData社のSQLを使った分析と、ぼくのRを使った分析を比較して、いかにRがSQLに比べてデータ分析に向いているかを説明していきたいと思います。データは[こちら](https://data.sfgov.org/Public-Safety/SFPD-Incidents-from-1-January-2003/tmnf-yvry)からダウンロードすることができます。
 
-##どの曜日が犯罪が多いか
+##データを準備するのが、SQLに比べてどれだけ簡単か
 
-まず、どの曜日が犯罪が多いかを分析していきたいと思います。
 
-mdy関数を使って、データ・タイプをcharacterからDateに変えたいと思います。
 
-![](images/mdy-sf.png)
+Periscope Data社は、どの曜日とどの時間帯に犯罪が多いのかを見るために、SQLを使って、このように分析しています。
+
+```
+select
+  extract(dayofweek from date)
+  , extract(hour from date)
+  , count(1)
+from
+  sf_crime_2003_2015
+group by
+  1
+  , 2
+order by
+  3
+```
+
+```
+select 0, 'Sunday'
+union select 1, 'Monday'
+union select 2, 'Tuesday'
+union select 3, 'Wednesday'
+union select 4, 'Thursday'
+union select 5, 'Friday'
+union select 6, 'Saturday'
+```
+
+Exploratoryだと、ボタン１つでインポートすることができます。
+
+![](images/import-sf.png)
+
+サマリー画面を見てもらえるとわかるように、Date列のデータタイプはデフォルトだとcharacterになっています。
+
+![](images/summary-sf.png)
+
+
+デフォルトでは、characterになっているのに、SQLのextract関数を使って、曜日や時間を引き出せているということは、だれかが、データをインポートする段階で、めんどくさいことをしてDate列のデータタイプをDateに変えてるんですよね。でも残念ながら、その部分は彼らは書いていません。SQLだと実はそこがものすごく大変なんです。大変だからこそブログで書かなかったんでしょうね笑。
+
+一方、Rの場合は、
+
+mdy_hm関数を使うと、たった1行で、データ・タイプをcharacterからDateに変えることができます。
 
 `
-mutate(Date = mdy(Date))
+mutate(Date = mdy_hm(str_c(Date, Time, sep=" "))
 `
 
 ![](images/mdy-sf2.png)
@@ -61,28 +98,7 @@ summarize(numreports = n())
 Periscope Data社はSQLを使って、このように分析しています。どちらが直感的でシンプルかは一目瞭然ですよね。
 
 
-```
-select
-  extract(dayofweek from date)
-  , count(1)
-from
-  sf_crime_2003_2015
-group by
-  1
-  , 2
-order by
-  3
-```
 
-```
-select 0, 'Sunday'
-union select 1, 'Monday'
-union select 2, 'Tuesday'
-union select 3, 'Wednesday'
-union select 4, 'Thursday'
-union select 5, 'Friday'
-union select 6, 'Saturday'
-```
 
 ##どの時間帯に犯罪が多いか
 
@@ -93,7 +109,7 @@ union select 6, 'Saturday'
 hour関数を使って、hourデータを抽出します。
 
 `
-mutate(date_time = mdy_hm(str_c(Date, Time, sep=" ")), hour = hour(date_time))
+hour = hour(date_time))
 `
 
 ![](images/hour-sql.png)
@@ -116,21 +132,6 @@ summarize(numreports = n())
 
 午後の5時から6時にかけてが一番多いみたいですね。
 
-
-いっぽう、Periscope Data社はSQLを使って、このように分析しています。しかし、〜。
-
-```
-select
-  extract(hour from date)
-  , count(1)
-from
-  sf_crime_2003_2015
-group by
-  1
-  , 2
-order by
-  3,
-```
 
 ##最も犯罪件数が多い月日はいつか？
 
