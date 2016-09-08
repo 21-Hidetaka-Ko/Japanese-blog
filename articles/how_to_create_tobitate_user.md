@@ -1,5 +1,7 @@
 #トビタテジャーナル　ユーザー作成方法
 
+hidetaka.48691001@icloud.comに自分のメールアドレスを送る。
+
 ユーザをクリックして新規追加を選択
 
 ![](images/how_to_create_user.png)
@@ -38,3 +40,26 @@
 完成！
 
 ![](images/how_to_create_user5.png)
+
+#投稿テンプレート作成方法
+
+メニューのテンプレートから、新規追加を選ぶ。
+
+![](images/show-temptob.png)
+
+テンプレートを作成した後、公開ボタンを押す。
+
+![](images/template-tobitate.png)
+
+投稿画面で、「テンプレートを挿入」をクリック。
+
+![](images/.png)
+
+テンプレートの一覧から、さっき作った留学体験記を選び、テンプレートを挿入をクリック。
+
+![](images/category-tobiat.png)
+
+完成！
+
+![](images/finishe-temp.png)
+
