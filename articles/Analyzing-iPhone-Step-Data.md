@@ -1,6 +1,6 @@
 #Analyzing iPhone Step Data
 
-Iphoneのアプリを使うと、簡単に歩数のデータを見れるのをご存知ですか？　実は、今歩数を数えて分析することにハマっています。ぼくは、2016年の2月から、東京からアメリカのシリコンバレーのほうに留学でやってきました。留学前と後で歩数の変化に違いは見られたりするのでしょうか？　機械学習やデータサイエンスで有名なYhat社が、[ブログ](http://blog.yhat.com/posts/phone-steps-timeseries.html)で、歩数のデータをRとPythonを使って分析しています。だから、これから、Yhat社のRとPythonを使った分析と、ぼくのExploratoryを使った分析を比較して、いかにExploratoryを使ったデータ分析が、ブログの分析方法に比べて、いかに、直感的で簡単かを説明していきたいと思います。データはこちらからダウンロードすることができます。アプリは[こちら](https://itunes.apple.com/us/app/qs-access/id920297614?mt=8)からダウンロードできます。
+Iphoneのアプリを使うと、簡単に歩数のデータを見れるのをご存知ですか？　実は、今歩数を数えて分析することにハマっています。ぼくは、2015年の9月ごろから、京都から東京にProgate株式会社でのソフトウェアエンジニアとしてのインターンシップで、上京しました。また、2016年の2月から、東京からアメリカのシリコンバレーのほうに留学でやってきました。上京前や留学前と後で歩数の変化に違いは見られたりするのでしょうか？　機械学習やデータサイエンスで有名なYhat社が、[ブログ](http://blog.yhat.com/posts/phone-steps-timeseries.html)で、歩数のデータをRとPythonを使って分析しています。だから、これから、Yhat社のRとPythonを使った分析と、ぼくのExploratoryを使った分析を比較して、いかにExploratoryを使ったデータ分析が、ブログの分析方法に比べて、いかに、直感的で簡単かを説明していきたいと思います。データはこちらからダウンロードすることができます。アプリは[こちら](https://itunes.apple.com/us/app/qs-access/id920297614?mt=8)からダウンロードできます。
 
 ##データをエクスポートする
 
@@ -82,6 +82,7 @@ print p
 df_weekly['step_mean'] = df_daily.step_count.resample('W').mean()
 df_monthly['step_mean'] = df_daily.step_count.resample('M').mean()
 ```
+![](images/step-mean-simple0.png)
 
 これは、ビジュアライズしようとすると、1時間ごとの歩数数が計算されてしまったので、ビジュアライズをもっときれいにするために、時間ごとではなく、日付ごとのデータを計算しようしたり、合計数ではなく、月ごとの平均歩数を計算しようとしているからなんです。しかし、Exploratoryのチャートでは、タイムシリーズやAggregate関数をケアできているので、そもそもこのような冗長なコードを一切書かずに、一瞬で同じことをすることができます。
 
@@ -93,8 +94,58 @@ X軸で自由にタイムシリーズを選ぶことができます。
 
 ![](images/step-mean-simple2.png)
 
-##平日、週末
+##平日と週末で歩数を比較する
 
+そして、Yhat社は、平日と週末で歩数を比較するために、Pythonを使って、このように分析しています。
+
+
+```
+def weekendBool(day):
+    if day not in ['Saturday', 'Sunday']:
+        return False
+    else:
+        return True
+
+df_daily['weekday'] = df_daily.index.weekday
+df_daily['weekday_name'] = df_daily.index.weekday_name
+df_daily['weekend'] = df_daily.weekday_name.apply(weekendBool)
+df_daily.head()
+```
+
+```
+ggplot(aes(x='step_count', color='weekend'), data=df_daily) + \
+    stat_density() + \
+    ggtitle("Comparing Weekend vs. Weekday Daily Step Count") + \
+    xlab("Step Count")
+```
+
+Exploratoryでは、同じことをもっと簡潔にすることができます。
+
+まず、Start列のヘッダーをクリックして、ExtractからDay of Weekを選びます。
+
+![](images/wday-step.png)
+
+下のようにコマンドが自動生成されます。そして、Runボタンを押します。
+
+```
+mutate(weekday = wday(Start, label = TRUE))
+```
+
+![](images/wday-step2.png)
+
+
+次に、if_else関数を使って、平日と週末で条件を分岐させましょう。
+
+```
+mutate(Weekend = if_else(weekday %in% c("Sun","Sat"),"Weekend","Weekday"))
+```
+
+![](images/wday-mutate-if.png)
+
+##上京前と後で変化はあるか？
+
+
+##留学前と後で変化はあるか？
 
 
 
