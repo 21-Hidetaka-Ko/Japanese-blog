@@ -148,6 +148,9 @@ mutate(Weekend = if_else(weekday %in% c("Sun","Sat"),"Weekend","Weekday"))
 
 ##京都、東京、シリコンバレーで比較する
 
+```
+mutate(Place = if_else(between(Start,as.Date("2015-09-27"),as.Date("2015-10-01")),"Kyoto",if_else(between(Start,as.Date("2015-10-02"),as.Date("2016-02-07")),"Tokyo","Silicon_Valley")))
+```
 
 
 
