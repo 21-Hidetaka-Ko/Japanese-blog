@@ -33,16 +33,9 @@ Exploratoryだと、ボタン1つでインポートすることができます�
 
 ![](images/summary-step.png)
 
-次に、Yhat社は、データタイプをcharacterからDateに変えるために、Pythonを使って、このように分析しています。
+次に、Yhat社は、データタイプをcharacterからDateに変えるために、Pythonの`pandas.tseries.index.DatetimeIndex`を使っていますが、詳細については詳しく書かれていません。
 
-```
-df_hour.steps = df_hour.steps.apply(lambda x: int(float(x)))
-df_hour.head()
-type(df_hour.index)
-type(df_hour.steps[1])
-```
-
-一方、Exploratoryの場合は、dmy_hm関数を使うと、たった1行で、データ・タイプをcharacterからDateに変えることができます。
+一方、Rの場合は、dmy_hm関数を使うと、たった1行で、データ・タイプをcharacterからDateに変えることができます。
 
 まず、Start列のヘッダーをクリックして、Convert toからDay,Month,Year,Hour,Minuteを選びます。
 
@@ -63,7 +56,15 @@ mutate(Start = dmy_hm(Start))
 
 ##タイムシリーズごとの歩数を計算する
 
-さらに、Yhat社は、Pythonを使って、スパゲッティーのようなコードを書いて、このように分析しています。
+さらに、Yhat社は、Pythonを使って、このように分析しています。
+
+
+```
+df_hour.steps = df_hour.steps.apply(lambda x: int(float(x)))
+df_hour.head()
+type(df_hour.index)
+type(df_hour.steps[1])
+```
 
 ```
 df_daily = pd.DataFrame()
@@ -96,7 +97,7 @@ X軸で自由にタイムシリーズを選ぶことができます。
 
 ##平日と週末で歩数を比較する
 
-そして、Yhat社は、平日と週末で歩数を比較するために、Pythonを使って、このように分析しています。
+さらに、Pythonを使うと、このような長いコードを書きながら、平日と週末を比較するためのデータをビジュアライズしていくことになります。
 
 
 ```
