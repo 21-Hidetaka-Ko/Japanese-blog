@@ -129,6 +129,8 @@ ggplot(aes(x='step_count', color='weekend'), data=df_daily) + \
 
 Exploratoryでは、同じことをもっと簡潔にすることができます。
 
+Step列を見てみると、歩数が0のときがよくあります。意味のあるデータに絞るために、歩数が30以上のときにフィルタリングしましょう。
+
 まず、Start列のヘッダーをクリックして、ExtractからDay of Weekを選びます。
 
 ![](images/wday-step.png)
