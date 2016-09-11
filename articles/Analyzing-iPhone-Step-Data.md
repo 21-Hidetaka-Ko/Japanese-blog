@@ -41,18 +41,25 @@ Exploratoryだと、ボタン1つでインポートすることができます�
 
 ![](images/dmy-hm-step.png)
 
-下のようにコマンドが自動生成されます。そして、Runボタンを押します。
+下のようにコマンドが自動生成されます。
 
 ```
 mutate(Start = dmy_hm(Start))
 ```
 
+![](images/dmy-hy.png)
+
+さらに、Finish列のデータタイプも変えて、歩数あたりの時間も計算してみましょう。
+
+```
+mutate(Start = dmy_hm(Start), Finish = dmy_hm(Finish), duration = as.numeric(Finish - Start, units="mins"))
+```
+
 ![](images/dmy-hm-step2.png)
 
 
-データ・タイプをcharacterからDateに変えることができました。たった1行です。
+データ・タイプをcharacterからDateに変えることができ歩数あたりの時間も出すことができました。たった1行です。
 
-![](images/dmy-hm-step3.png)
 
 ##タイムシリーズごとの歩数を計算する
 
