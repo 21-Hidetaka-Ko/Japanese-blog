@@ -129,9 +129,19 @@ ggplot(aes(x='step_count', color='weekend'), data=df_daily) + \
 
 Exploratoryでは、同じことをもっと簡潔にすることができます。
 
-Step列を見てみると、歩数が0のときがよくあります。意味のあるデータに絞るために、歩数が30以上のときにフィルタリングしましょう。
+Step列を見てみると、歩数が0のときがよくあります。
 
-まず、Start列のヘッダーをクリックして、ExtractからDay of Weekを選びます。
+![](images/step-filter0.png)
+
+意味のあるデータに絞るために、歩数が30以上のときにフィルタリングしましょう。
+
+```
+filter(`Steps (count)` > 30)
+```
+![](images/step-filter.png)
+
+
+そして、Start列のヘッダーをクリックして、ExtractからDay of Weekを選びます。
 
 ![](images/wday-step.png)
 
@@ -158,10 +168,45 @@ mutate(Weekend = if_else(weekday %in% c("Sun","Sat"),"Weekend","Weekday"))
 
 ##京都、東京、シリコンバレーで比較する
 
+最後に、せっかくなので、10月までいた京都とそれから2月までいた東京と現在滞在しているシリコンバレーで歩数に変化はあったのか比較してみたいと思います。
+日付で京都と東京とシリコンバレーで条件分岐をするために、まずas.Date関数を使ってデータタイプをDate(日付)に変えます。
+
+```
+mutate(Start = as.Date(Start))
+```
+![](images/wday-as.Date.png)
+
+次に、if_else関数を使って条件分岐をします。
+
 ```
 mutate(Place = if_else(between(Start,as.Date("2015-09-27"),as.Date("2015-10-01")),"Kyoto",if_else(between(Start,as.Date("2015-10-02"),as.Date("2016-02-07")),"Tokyo","Silicon_Valley")))
 ```
+![](images/wday-as.Date2.png)
 
+これで、京都と東京とシリコンバレーを表すPlace列を作ることができました。これを使って、ビジュアライズしてみましょう。
+
+![](images/wday-as.Date3.png)
+
+東京が多くなっていますね。でも、このままだと、日数に差があるので、1分あたりの歩数平均を計算してみたいと思います。
+
+歩数を時間で割ります。
+
+```
+mutate(steps_per_min = `Steps (count)`/duration)
+```
+![](images/steps_per_min.png)
+
+そして、ビジュアライズしてみましょう。
+
+![](images/steps_per_min1.png)
+
+もっと、歩数の動きをなめらかにして、トレンドをわかりやすくするために、移動平均をだしてみましょう。移動平均はY軸のギアアイコンから設定することができます。
+
+![](images/steps_per_min2.png)
+
+これで移動平均を出すことができました。
+
+![](images/steps_per_min3.png)
 
 
 
