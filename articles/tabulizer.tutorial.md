@@ -228,8 +228,6 @@ View Shared Chartをクリックします。
 
 興味がありましたら、[こちら](https://exploratory.io/viz/Hidetaka-Ko/4226199858438475?cb=1474924096626)をクリックするとチャートがシェアされているページに飛びます。もしExploratory Desktopをすでにお持ちでしたら、Download ボタンを押して、チャートとデータをダウンロードしてインポートすることも簡単にできます。
 
-![](images/step-cookpad.png)
-
 
 ##Rで再現するには
 
