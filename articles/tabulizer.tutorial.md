@@ -170,7 +170,9 @@ gatherコマンドは、複数の列を、１つの列にすることができ�
 
 ###データタイプをdateに変更する
 
-今度は、日付のデータタイプがcharacterになっているので、ymdコマンドを使って、Dateタイプに変えましょう。
+今度は、日付のデータタイプがcharacterになっているので、ymdコマンドを使って、Dateタイプに変えましょう。year列のヘッダーをクリックして、Convert toからYear,Month,Dayを選びます。
+
+![](images/ymd-cookpad-date.png)
 
 `mutate(year = ymd(year))`
 
@@ -178,7 +180,15 @@ gatherコマンドは、複数の列を、１つの列にすることができ�
 
 ###データタイプをnumericに変更する
 
-`mutate(yen = extract_numeric(yen))`
+さらに、yen列のデータタイプをnumericに変更しましょう。まず、さきほど使ったmutateのステップの＋アイコンを押してコマンドを足します。
+
+![](images/ymd-cookpad-yen.png)
+
+すると、ダイアログが出てくるので、yen列のデータタイプをnumericに変更するためのコマンドを入力していきます。
+
+![](images/ymd-cookpad-yen2.png)
+
+`yen = extract_numeric(yen))`
 
 ![](images/extract-coopad.png)
 
