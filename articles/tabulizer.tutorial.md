@@ -176,6 +176,8 @@ gatherコマンドは、複数の列を、１つの列にすることができ�
 
 `mutate(year = ymd(year))`
 
+すると、データタイプがcharacterからDateに変わったことが確認できましたね。
+
 ![](images/ymd-cookpad.png)
 
 ###データタイプをnumericに変更する
@@ -189,6 +191,8 @@ gatherコマンドは、複数の列を、１つの列にすることができ�
 ![](images/ymd-cookpad-yen2.png)
 
 `yen = extract_numeric(yen))`
+
+すると、データタイプがcharacterからnumericに変わったことが確認できましたね。
 
 ![](images/extract-coopad.png)
 
@@ -211,6 +215,10 @@ gatherコマンドは、複数の列を、１つの列にすることができ�
 矢印の部分を押すと、チャートからWindow関数を簡単に扱うことができます。
 
 ![](images/cookpad-window.png)
+
+たくさんのWindow関数をここから選ぶことができます。
+
+![](images/cookpad-window-many.png)
 
 ここでは、前年度と比べてどうだったかを計算したいので、%Diffrence Fromを選んで、FirstからPreviousに変えましょう。
 
