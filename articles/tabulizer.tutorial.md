@@ -41,7 +41,7 @@ githubinstall(c("tabulizerjars", "tabulizer"))
 
 2を選んでください。これでインストール完了です。
 
-次に、Exploratoryだと、Import by Writing R scriptという機能を使えば、複雑で汚いウェブ・ページからデータを思い通りにスクレイピングしてくることができたり、RstudioでインストールしたRのパッケージを読み込むことができたり、さらにはその後のデータの加工もデータ分析しながら簡単に出来るということなので、早速やってみました。
+次に、Exploratoryだと、Import by Writing R scriptという機能を使えば、柔軟にRで書いたスクリプトをもとにデータ・フレームを作ることができます。ですので、今回はここに、先ほどインストールした、tabulizer のパッケージを使ってPDFからデータを取ってくるという作業を定義したいと思います。
 
 Import by Writing R scriptをクリックします。
 
@@ -55,13 +55,10 @@ path2pdf <- "/Users/HidetakaKo/Desktop/cookpad-2016.pdf"
 out <- extract_tables(path2pdf)
 as.data.frame(out[[1]])
 ```
-![](images/5.png)
 
-Get Dataボタンを押します。
+Get Dataボタンを押すとこのようにデータがPDFより取得できました。
 
 ![](images/6.png)
-
-このステップだけで、PDFデータを取得することができました。スクリプトにあるcookpad-2016.pdfを自分が取得したいPDFデータのファイル名に変えるだけで同じように取得することができます。
 
 テーブルViewに行って、実際のデータとくらべてみましょう。
 
@@ -309,9 +306,8 @@ PDFデータを簡単にインポートできるこのtabulizerというパッ�
 
 ##興味を持っていただいた方、実際に触ってみたい方へ
 
-Exploratoryは[こちら](https://exploratory.io/
-)からβ版の登録ができます。こちらがinviteを完了すると、ダウンロードできるようになります。
-
+Exploratory Desktopは[こちら](https://exploratory.io/
+)から登録した後にダウンロードしてすぐに使ってもらうことができます。もちろん、無料で始めることができます！
 
 ExploratoryのTwitterアカウントは、[こちら](https://twitter.com/ExploratoryData
 )です。
