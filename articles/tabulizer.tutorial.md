@@ -226,7 +226,7 @@ View Shared Chartをクリックします。
 
 ![](images/public-cookpad2.png)
 
-興味がありましたら、[こちら](https://exploratory.io/viz/Hidetaka-Ko/73b1146e37d3?cb=1473139869205)をクリックするとチャートがシェアされているページに飛びます。それぞれのページでは、データがどのように加工されたり計算されたかの詳細を、Dataタブ、もしくは、R Scriptタブの中で見ることができます。もしExploratory Desktopをすでにお持ちでしたら、Download ボタンを押して、チャートとデータをダウンロードしてインポートすることも簡単にできます。
+興味がありましたら、[こちら](https://exploratory.io/viz/Hidetaka-Ko/4226199858438475?cb=1474924096626)をクリックするとチャートがシェアされているページに飛びます。もしExploratory Desktopをすでにお持ちでしたら、Download ボタンを押して、チャートとデータをダウンロードしてインポートすることも簡単にできます。
 
 ![](images/step-cookpad.png)
 
