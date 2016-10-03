@@ -1,7 +1,7 @@
 #Analyzing User Conversion Funnel Data from Google Analytics with dplyr
 
 
-Emailサブスクリプションの購読や、アカウントのアクティベートなど、自分のWebサイトから何人のユーザーがどのような行動をとったのか気になったことはありませんか？Google Analyticsを使えば、行動をとる以前のページのパスをとってくることができます。これらの情報があれば、「どのページパスがユーザーに目的の行動をとらせるのに効率的か」を見極めることができるので、Webマーケティングを最適化することができます。これは、コンバージョン分析という言い方をしたりします。
+Emailサブスクリプションの購読数や、アカウントのアクティベート数など、自分のWebサイトから何人のユーザーがどのような行動をとったのか気になったことはありませんか？Google Analyticsを使えば、行動をとる以前のページのパスをとってくることができます。これらの情報があれば、「どのページパスがユーザーに目的の行動をとらせるのに効率的か」を見極めることができるので、Webマーケティングを最適化することができます。これは、コンバージョン分析という言い方をしたりします。
 
 [Google Analytics](https://www.google.com/intl/ja/analytics/)では、サイトの目的に沿って、「目標設定」をすることができます。この目標設定では、特定のURLへのアクセスや訪問の滞在時間や訪問のページビューなど様々な値をGoogle Analytics上で指定し、施策と改善を繰り返すことで、サイトの目的に近づくことができます。このGoogle Analyticsの「目標設定」を使った分析は、Google AnalyticsのUI上だけでもある程度は行うことができますが、柔軟性が足りません。しかし、Exploratory Desktopを使ってRを使いながら分析すると、より柔軟に、素早く分析していくことができます。
 
@@ -35,23 +35,35 @@ Google Analyticsで、「目標設定」をすることはとても簡単です�
 
 ##2.「目標設定」データをExploratoryにインポートする
 
+次に、Google Analyticsの「目標設定」データを簡単にインポートします。「Import Remote Data」メニューからGoogle Analyticsを選んでください。
+
+![](images/Import-Remote-Data.png)
+
+ダイアログのドロップダウンリストから以下のDimensionsとMetricsを選んでください。
+
+Dimensions
+
+- ga:goalCompletionLocation
+- ga:goalPreviousStep1
+- ga:goalPreviousStep2
+- ga:goalPreviousStep3
+- ga:dateHour
+
+Metrics
+- ga:goalStartsAll
+- ga:goalCompletionsAll
+- ga:goalValueAll
 
 
+データのプレビューを見るために、Get Dataをクリックしてください。
 
+![](images/Import-Remote-preview.png)
 
+データフレーム名を入力して、データをRにインポートするために、Saveボタンを押してください。すると、データの概要が、Summary viewに現れます。
 
+![](images/google-summary.png)
 
-
-
-
-
-
-
-
-
-
-
-
+##3.「目標設定」データを整形する
 
 
 
