@@ -115,16 +115,15 @@ coalesce関数は、SQLのcoalesce関数に似ています。coalesce関数は�
 
 ##4.コンバージョンを理解する
 
-With this data, we can quickly visualize the data under Chart view.
-Assign dateHour to X-Axis and set the aggregation level to ‘DAY’, then assign ‘goalCompletionsAll’ to Y-Axis, ‘viz_path’ to Color.
+このデータがあれば、Viz viewでデータをビジュアライズすることができます。X軸に、dataHourを指定して、レベルをDAYに設定してください。そして、Y軸に、goalCompletionsAllを、Color軸に、viz_pathを指定してください。
 
-![](images/google-url.png)
+![](images/google-conversionfunnel.png)
 
-If we are interested in knowing how many sign ups each of the blog posts is brining, this is good enough.
-But, as you can see in the chart, some of the authors have posted multiple blog posts with different URLs. Now, what if we want to understand who is bringing more sign ups rather than which blog posts? In that case, we want to strip out the author names from the URLs and aggregate the data by authors. There are many ways to do this, and using another regular expression is one of them. But if you are like me who is not a big fun of the regular expression then there is a good news.
-There is, I think, a much simpler way to break out the URL text and extract the part we want.
+もし、それぞれのブログポストが何人のサインアップをもたらしたのかだけを知りたいなら、これだけで十分です。しかし、チャートを見るとわかるように、記事を書いた人には、異なるURLを持った複数のブログのURLがあるのがわかるはずです。でも、もし、ブログポストよりむしろサインアップのほうを知りたいならURLから記事の著者の名前を引き剥がして、データをaggregateすることもできます。これをするときは、正規表現を使うのが便利です。しかし、この記事を読んでいる読者のみなさんが、私のように、正規表現がとりわけ得意でないなら、いいお知らせがあります。
 
-###Extract a text from URL
+URLのテキストデータを抽出してきて、ほしい部分だけを引き出すもっと簡単なやり方をこれから説明していきたいと思います。
+
+###URLから文字列だけを抜き出す
 
 First, we can split the URL text by ‘/’ (slash) symbol with ‘str_split’ function from ‘stringr’ package like below.
 
