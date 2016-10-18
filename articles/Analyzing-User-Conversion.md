@@ -125,76 +125,78 @@ URLのテキストデータを抽出してきて、ほしい部分だけを引�
 
 ###URLから文字列だけを抜き出す
 
-First, we can split the URL text by ‘/’ (slash) symbol with ‘str_split’ function from ‘stringr’ package like below.
-
-```
-mutate(author = str_split(viz_path, "\\/"))
-```
-The double back slashes are to escape the special character of ‘/’ (slash). This will generate a result like below.
-
-![](images/google-url.png)
-
-As you can see, each text separated by ‘/’ is now in a list as an independent item. Once we get a list data then we can use ‘list_extract’ function from ‘exploratory’ package to extract a value by specifying the position like below.
+str_split関数で、/（スラッシュ）を使うと、URLのテキストだけを抜き出すことができます。
 
 ```
 mutate(author = str_split(viz_path, "\\/"))
 ```
 
-You can see the authors of the blog posts are now extracted in a new column ‘author_extract’.
+結果は以下のようになります。
 
-![](images/google-url.png)
+![](images/back-slash-url.png)
 
-With this, we can go back to Chart view and assign this newly created column ‘author_extract’ to Color, and see whose blog posts are helping the conversion.
+見るとわかるように、‘/’で区切られたそれぞれのテキストは独立した文字としてlistになっています。いったんリストデータを取得すると、exploratoryパッケージのlist_extract関数を使って、指定した位置の値を取得することができます。
 
-![](images/google-url.png)
+```
+mutate(author = str_split(viz_path, "\\/"))
+```
+
+これで、ブログ記事の著者がauthor_extractという新しい列に抽出されているのがわかりますね。
+
+![](images/conversion.png)
+
+これで、Viz画面に行って、Color軸にauthor_extract列を指定すると、だれのブログ記事がコンバージョンが良いのかを見ることができます。
+
+![](images/conversion3.png)
 
 ##5.コンバージョン率を分析する
 
-Now, just because some pages bring a lot of page views doesn’t mean those pages are helping the conversion. Some pages might be attracting many people but if they are not taking the desired action you like then you might want to spend less time on investing those pages.
-To find the effectiveness of the conversion funnels, we can divide the number of the sign ups brought by each of the funnel by either ‘unique page views’ or ‘new users’ on those funnels. We can quickly extract these extra data from Google Analytics like below and join it to the conversion funnel data to do the calculation.
+確かに、何本かのブログ記事は、たくさんのページView数をもたらしていますが、コンバージョン率という観点で見ればそれほど良くはありません。たとえ、多くの人をブログにひきつけても、サインアップのような、こちらが望むような行動をとってくれなかったら、そのページに投資しすぎる価値はそれほどないと言えるでしょう。
+
+コンバージョン率の効率を追求するためには、we can divide the number of the sign ups brought by each of the funnel by either ‘unique page views’ or ‘new users’ on those funnels. We can quickly extract these extra data from Google Analytics like below and join it to the conversion funnel data to do the calculation.
 
 
-![](images/google-url.png)
+![](images/new_users-co.png)
 
-I’m simply selecting ‘pagePath’, ‘uniquePageViews’, and ‘newUsers’ here, but you can bring any metrics based on your needs.
-Once I get the data, then I can join this data to the Goals data we were previously working on. But before joining the data, we want to summarize the Goals data at the funnel level (sign up path) first by using ‘group_by’ and ‘summarize’ commands like below.
+
+ここでは、pagePathやuniquePageViewsやnewUsersを選んでいますが、自分のニーズに基いて他のメトリクスを使うこともできます。
+
+いったんデータをインポートすると、次は、このデータを、さきほど説明していたGoalデータにジョインすることができます。しかし、データをジョインする前に、group_byとsummarizeコマンドを使って、サインアップのパスのGoalデータをサマライズしましょう。
 
 
 ```
 group_by(viz_path)
 summarize(counts = sum(goalCompletionsAll))
 ```
-![](images/google-url.png)
+![](images/group-by-go.png)
 
-Now we can join this with the new data.
+これで、新しいデータをジョインすることができます。
 
 ```
 left_join(GA_PageViews, by=c("viz_path" = "pagePath"))
 ```
 
-![](images/google-url.png)
+![](images/left-join-google.png)
 
-Lastly, we can calculate the efficiency by dividing the ‘counts’ by ‘newUsers’ as Conversion Rate like below.
+最後に、countsをnewUsersで割って、コンバージョン率を計算しましょう。
 
 ```
-mutate(conversion_rate = counts / newUsers)
+mutate(conversion_rate = counts / nelwUsers)
 ```
 
-![](images/google-url.png)
+![](images/google-url333.png)
 
-I’m using ‘newUsers’ to divide the counts, but this could be ‘uniquePageViews’ as well.
 Now when we go back to Chart view and visualize the conversion rate you can see Lisa’s blog posts have higher conversion rate than the others.
 
-![](images/google-url.png)
+ここでは、countsを割るときに、newUsersを使いましたが、uniquePageViewsにすることもできます。Viz画面に行って、コンバージョン率をビジュアライズすると、LiSAのブログが高いコンバージョン率を誇っていることがわかります。
 
-If you just compare to a chart like below that is simply based on the unique page views, you can say that although Hidetaka and Hideaki’s blog posts are bringing a lot more visitors their conversion performances are not as great as Lisa’s.
+![](images/google234.png)
 
-![](images/google-url.png)
+もし、単にユニークページ数だけに基いてチャートを比較するなら、HidetakaさんとHideakiさんのブログ記事はたくさんのユーザ数を呼びますが、コンバージョン率は、りささんほど良くはないと言えます。
 
-This is why it is important to not only understand the user page paths or conversion funnels, but also analyze the efficiency of the funnels.
-These are somewhat simplified scenario and the data I’m using here is fictional. But by being able to quickly bring Google Analytics data into R, transform the data, and join with other data set, you can flexibly dig deep down in the data and find your own useful insights that will impact your business in a tangible way.
+![](images/google-finish.png)
 
-
+これでユーザのページパスとコンバージョンを理解するだけでなく、efficiency of the funnelsを分析することの重要性を理解していただけたかと思います。この記事のために、データを少し、いじったりしたので、このデータは作りものです。しかし、Google AnalyticsのデータをExploratoryにインポートしてきて、データを整形したり、他のデータ・セットをジョインしたりすることで、データを深く分析できて、自分のビジネスに大きく役立つような貴重なインサイトを得ることができます。
 
 ##最後に
 
