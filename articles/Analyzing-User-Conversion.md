@@ -1,4 +1,4 @@
-#Analyzing User Conversion Funnel Data from Google Analytics with dplyr
+#Exploratoryを使って、Rで、Google Analyticsのコンバージョン分析を深くまでしてみた
 
 
 Emailサブスクリプションの購読数や、アカウントのアクティベート数など、自分のWebサイトから何人のユーザーがどのような行動をとったのか気になったことはありませんか？Google Analyticsを使えば、行動をとる以前のページのパスをとってくることができます。これらの情報があれば、「どのページパスがユーザーに目的の行動をとらせるのに効率的か」を見極めることができるので、Webマーケティングを最適化することができます。これは、コンバージョン分析という言い方をしたりします。
@@ -78,7 +78,7 @@ dateHour列のデータタイプをPOSIXct (Date / Time)に変換したあとは
 
 ![](images/google-dateviz.png)
 
-###Work with URL Text Data
+###URLテキストデータを分析する
 
 テーブルViewを見ると、goalPreviousStep1列、goalPreviousStep2列、goalPreviousStep3列の3つの列にいくつかのブログページのURLがあるのがわかりますね。
 
